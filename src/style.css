@@ -375,3 +375,34 @@ body { overscroll-behavior: none; -webkit-text-size-adjust: 100%; }
 }
 .journal-liste li.muted { display: block; }
 @media (max-width: 700px) { .carte-niveaux { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; } .onglet { flex: none; } }
+
+/* ───────── Flèches proportionnelles à la taille de l'image ───────── */
+.stage { container-type: size; }
+.hotspot { min-width: clamp(32px, 11cqh, 56px); min-height: clamp(32px, 11cqh, 56px); }
+.hotspot.passage .fleche { width: clamp(30px, 10cqh, 52px); height: clamp(30px, 10cqh, 52px); font-size: clamp(16px, 5.4cqh, 28px); border-width: clamp(1.5px, .5cqh, 2px); }
+.pivot { width: clamp(28px, 8cqh, 54px); height: clamp(56px, 16cqh, 108px); font-size: clamp(20px, 6.5cqh, 40px); }
+.pivot { position: absolute; }
+
+/* ───────── Fenêtres : plein écran, moins encombrantes ───────── */
+@media (max-height: 520px) {
+  .zoom { position: fixed; inset: 0; padding: 6px; align-items: center; overflow: auto; }
+  .zoom-carte:not(.rapport), .popup-carte { display: grid; grid-template-columns: minmax(0, 46%) minmax(0, 1fr); max-height: calc(100dvh - 12px); max-width: 100%; }
+  .zoom-carte:not(.rapport) .zoom-img { max-height: none; height: 100%; width: 100%; object-fit: cover; }
+  .popup-photo { align-self: center; }
+  .zoom-texte, .popup-texte { padding: 10px 14px; overflow: auto; max-height: calc(100dvh - 12px); }
+  .zoom-texte h3, .popup-texte h3 { font-size: 15px; margin-bottom: 4px; }
+  .zoom-texte p, .popup-texte p { font-size: 13px; line-height: 1.35; margin: 0 0 8px; }
+  .zoom-texte .btn, .popup-texte .btn, .actions .btn { min-height: 34px; font-size: 12px; padding: 0 10px; }
+  .rapport { padding: 12px 16px; max-height: calc(100dvh - 12px); }
+  .rapport h3 { margin: 8px 0 4px; font-size: 11px; }
+  .rapport .radio { min-height: 32px; padding: 0 8px; font-size: 12px; }
+  .quitter { padding: 12px 16px; }
+  .quitter-choix { margin-top: 8px; gap: 6px; }
+  .quitter-choix .btn { min-height: 34px; }
+}
+@media (max-width: 700px) and (orientation: portrait) {
+  .zoom-img { max-height: 26vh; }
+  .zoom-texte p, .popup-texte p { font-size: 13px; line-height: 1.35; }
+  .zoom-texte h3, .popup-texte h3 { font-size: 15px; }
+  .zoom-texte .btn, .popup-texte .btn { min-height: 36px; font-size: 13px; }
+}
