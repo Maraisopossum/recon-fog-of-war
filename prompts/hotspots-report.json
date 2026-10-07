@@ -1,0 +1,79 @@
+{
+  "et_cage_1": [
+    {
+      "cle": "pas:et_palier",
+      "box_2d": [
+        18,
+        33,
+        1000,
+        347
+      ]
+    }
+  ],
+  "r3_cage_1": [
+    {
+      "cle": "pas:r3_palier",
+      "box_2d": [
+        18,
+        35,
+        1000,
+        347
+      ]
+    }
+  ],
+  "r3_cage_2": [
+    {
+      "cle": "pas:et_cage",
+      "box_2d": [
+        824,
+        257,
+        1000,
+        657
+      ]
+    }
+  ],
+  "r3_palier_1": [
+    {
+      "cle": "pas:r3_cage",
+      "box_2d": [
+        0,
+        0,
+        1000,
+        308
+      ]
+    }
+  ],
+  "r3_palier_2": [
+    {
+      "cle": "pas:r3_logement",
+      "box_2d": [
+        284,
+        508,
+        843,
+        654
+      ]
+    }
+  ],
+  "r3_logement_1": [
+    {
+      "cle": "pas:r3_palier",
+      "box_2d": [
+        99,
+        224,
+        1000,
+        337
+      ]
+    }
+  ],
+  "r3_logement_2": [
+    {
+      "cle": "poi:poi_logement_r3_enfume",
+      "box_2d": [
+        0,
+        240,
+        336,
+        808
+      ]
+    }
+  ]
+}

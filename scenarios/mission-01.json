@@ -1,0 +1,2332 @@
+{
+  "id": "mission-01",
+  "titre": "Alarme incendie : immeuble d'habitation",
+  "briefing": {
+    "texte": "FPT rappelé pendant un retour d'intervention. Alarme incendie dans un immeuble d'habitation de 3e famille, R+4, géré par un bailleur. Le requérant, agent des services techniques du bailleur, a entendu l'alarme générale mais n'est pas entré dans le bâtiment et ne sait pas d'où elle vient. Vous êtes chef d'agrès. Faites la reconnaissance du site.",
+    "requerant": "Agent des services techniques du bailleur"
+  },
+  "variantes_arrivee": [
+    "A"
+  ],
+  "niveaux": [
+    {
+      "id": "exterieur",
+      "nom": "Extérieur",
+      "decor": [
+        {
+          "polygone": [
+            [
+              110,
+              95
+            ],
+            [
+              290,
+              95
+            ],
+            [
+              290,
+              205
+            ],
+            [
+              110,
+              205
+            ]
+          ],
+          "libelle": "Bâtiment"
+        }
+      ],
+      "court": "Ext."
+    },
+    {
+      "id": "sous_sol",
+      "nom": "Sous-sol",
+      "decor": [],
+      "court": "Sous-sol"
+    },
+    {
+      "id": "rdc",
+      "nom": "RDC",
+      "decor": [],
+      "court": "RDC"
+    },
+    {
+      "id": "r1",
+      "nom": "R+1",
+      "decor": [],
+      "court": "R+1"
+    },
+    {
+      "id": "etage",
+      "nom": "R+2 (étage du sinistre)",
+      "decor": [],
+      "court": "R+2"
+    },
+    {
+      "id": "r3",
+      "nom": "R+3",
+      "court": "R+3",
+      "decor": []
+    }
+  ],
+  "zones": [
+    {
+      "poids": 1,
+      "id": "ext_facade_A",
+      "niveau": "exterieur",
+      "nom": "Façade A et entrée principale",
+      "polygone": [
+        [
+          110,
+          210
+        ],
+        [
+          290,
+          210
+        ],
+        [
+          290,
+          265
+        ],
+        [
+          110,
+          265
+        ]
+      ],
+      "cap": 0,
+      "vues": [
+        {
+          "id": "ext_facade_A_1",
+          "image": "ext_facade_A_1.jpg",
+          "panorama": true,
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "ext_pignon_B",
+              "zone_clic": [
+                0,
+                0.3,
+                0.06,
+                0.4
+              ]
+            },
+            {
+              "type": "passage",
+              "vers": "ext_pignon_D",
+              "zone_clic": [
+                0.94,
+                0.3,
+                0.06,
+                0.4
+              ]
+            },
+            {
+              "type": "poi",
+              "poi": "poi_voie_engins",
+              "zone_clic": [
+                0,
+                0.856,
+                1,
+                0.144
+              ]
+            },
+            {
+              "type": "passage",
+              "vers": "rdc_hall",
+              "zone_clic": [
+                0.28,
+                0.701,
+                0.109,
+                0.157
+              ]
+            },
+            {
+              "type": "vue",
+              "vue": "ext_facade_A_2",
+              "fleche": "haut",
+              "zone_clic": [
+                0.285,
+                0.79,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ext_facade_A_2",
+          "image": "ext_facade_A_2.jpg",
+          "hotspots": [
+            {
+              "type": "poi",
+              "poi": "poi_boite_cles",
+              "zone_clic": [
+                0.602,
+                0.571,
+                0.054,
+                0.093
+              ]
+            },
+            {
+              "type": "poi",
+              "poi": "poi_colonne_seche_rdc",
+              "zone_clic": [
+                0.331,
+                0.687,
+                0.1,
+                0.087
+              ]
+            },
+            {
+              "type": "passage",
+              "vers": "rdc_hall",
+              "zone_clic": [
+                0.441,
+                0.425,
+                0.155,
+                0.398
+              ]
+            },
+            {
+              "type": "vue",
+              "vue": "ext_facade_A_1",
+              "fleche": "bas",
+              "zone_clic": [
+                0.455,
+                0.83,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        }
+      ],
+      "voisines": [
+        "ext_pignon_B",
+        "ext_pignon_D",
+        "rdc_hall"
+      ]
+    },
+    {
+      "poids": 1,
+      "id": "ext_pignon_B",
+      "niveau": "exterieur",
+      "nom": "Pignon B",
+      "polygone": [
+        [
+          40,
+          95
+        ],
+        [
+          105,
+          95
+        ],
+        [
+          105,
+          205
+        ],
+        [
+          40,
+          205
+        ]
+      ],
+      "cap": 90,
+      "vues": [
+        {
+          "id": "ext_pignon_B_1",
+          "image": "ext_pignon_B_1.jpg",
+          "panorama": true,
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "ext_facade_C",
+              "zone_clic": [
+                0,
+                0.3,
+                0.06,
+                0.4
+              ]
+            },
+            {
+              "type": "passage",
+              "vers": "ext_facade_A",
+              "zone_clic": [
+                0.94,
+                0.3,
+                0.06,
+                0.4
+              ]
+            },
+            {
+              "type": "poi",
+              "poi": "poi_coupure_gaz",
+              "zone_clic": [
+                0.459,
+                0.796,
+                0.083,
+                0.144
+              ]
+            },
+            {
+              "type": "poi",
+              "poi": "poi_feu_facade_B",
+              "zone_clic": [
+                0.508,
+                0.405,
+                0.077,
+                0.15
+              ]
+            }
+          ]
+        }
+      ],
+      "voisines": [
+        "ext_facade_A",
+        "ext_facade_C"
+      ]
+    },
+    {
+      "poids": 1,
+      "id": "ext_facade_C",
+      "niveau": "exterieur",
+      "nom": "Façade C",
+      "polygone": [
+        [
+          110,
+          35
+        ],
+        [
+          290,
+          35
+        ],
+        [
+          290,
+          90
+        ],
+        [
+          110,
+          90
+        ]
+      ],
+      "cap": 180,
+      "vues": [
+        {
+          "id": "ext_facade_C_1",
+          "image": "ext_facade_C_1.jpg",
+          "panorama": true,
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "ext_pignon_D",
+              "zone_clic": [
+                0,
+                0.3,
+                0.06,
+                0.4
+              ]
+            },
+            {
+              "type": "passage",
+              "vers": "ext_pignon_B",
+              "zone_clic": [
+                0.94,
+                0.3,
+                0.06,
+                0.4
+              ]
+            },
+            {
+              "type": "poi",
+              "poi": "poi_victime",
+              "zone_clic": [
+                0.606,
+                0.493,
+                0.05,
+                0.102
+              ]
+            },
+            {
+              "type": "poi",
+              "poi": "poi_propagation_C",
+              "zone_clic": [
+                0.825,
+                0.458,
+                0.114,
+                0.138
+              ]
+            }
+          ]
+        }
+      ],
+      "voisines": [
+        "ext_pignon_B",
+        "ext_pignon_D"
+      ]
+    },
+    {
+      "poids": 1,
+      "id": "ext_pignon_D",
+      "niveau": "exterieur",
+      "nom": "Pignon D",
+      "polygone": [
+        [
+          295,
+          95
+        ],
+        [
+          360,
+          95
+        ],
+        [
+          360,
+          205
+        ],
+        [
+          295,
+          205
+        ]
+      ],
+      "cap": 270,
+      "vues": [
+        {
+          "id": "ext_pignon_D_1",
+          "image": "ext_pignon_D_1.jpg",
+          "panorama": true,
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "ext_facade_A",
+              "zone_clic": [
+                0,
+                0.3,
+                0.06,
+                0.4
+              ]
+            },
+            {
+              "type": "passage",
+              "vers": "ext_facade_C",
+              "zone_clic": [
+                0.94,
+                0.3,
+                0.06,
+                0.4
+              ]
+            },
+            {
+              "type": "poi",
+              "poi": "poi_point_eau",
+              "zone_clic": [
+                0.271,
+                0.832,
+                0.05,
+                0.115
+              ]
+            },
+            {
+              "type": "passage",
+              "vers": "ext_rampe",
+              "zone_clic": [
+                0.536,
+                0.683,
+                0.435,
+                0.275
+              ]
+            }
+          ]
+        }
+      ],
+      "voisines": [
+        "ext_facade_C",
+        "ext_facade_A",
+        "ext_rampe"
+      ]
+    },
+    {
+      "poids": 1,
+      "id": "ext_rampe",
+      "niveau": "exterieur",
+      "nom": "Rampe d'accès parking",
+      "polygone": [
+        [
+          300,
+          215
+        ],
+        [
+          365,
+          215
+        ],
+        [
+          365,
+          275
+        ],
+        [
+          300,
+          275
+        ]
+      ],
+      "cap": 315,
+      "vues": [
+        {
+          "id": "ext_rampe_1",
+          "image": "ext_rampe_1.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "ext_pignon_D",
+              "zone_clic": [
+                0.248,
+                0,
+                0.339,
+                0.542
+              ]
+            },
+            {
+              "type": "vue",
+              "vue": "ext_rampe_2",
+              "fleche": "haut",
+              "zone_clic": [
+                0.455,
+                0.55,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ext_rampe_2",
+          "image": "ext_rampe_2.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "ss_parking",
+              "zone_clic": [
+                0.17,
+                0.014,
+                0.686,
+                0.842
+              ]
+            },
+            {
+              "type": "vue",
+              "vue": "ext_rampe_1",
+              "fleche": "bas",
+              "zone_clic": [
+                0.455,
+                0.83,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        }
+      ],
+      "voisines": [
+        "ext_pignon_D",
+        "ss_parking"
+      ]
+    },
+    {
+      "poids": 1,
+      "id": "ss_parking",
+      "niveau": "sous_sol",
+      "nom": "Parking",
+      "polygone": [
+        [
+          30,
+          40
+        ],
+        [
+          280,
+          40
+        ],
+        [
+          280,
+          150
+        ],
+        [
+          30,
+          150
+        ]
+      ],
+      "cap": 0,
+      "vues": [
+        {
+          "id": "ss_parking_1",
+          "image": "ss_parking_1.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "ext_rampe",
+              "zone_clic": [
+                0.455,
+                0.84,
+                0.09,
+                0.14
+              ],
+              "fleche": "bas"
+            },
+            {
+              "type": "vue",
+              "vue": "ss_parking_2",
+              "fleche": "haut",
+              "zone_clic": [
+                0.455,
+                0.55,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ss_parking_2",
+          "image": "ss_parking_2.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "ss_couloir_caves",
+              "zone_clic": [
+                0.289,
+                0.313,
+                0.138,
+                0.311
+              ]
+            },
+            {
+              "type": "passage",
+              "vers": "rdc_cage",
+              "zone_clic": [
+                0.751,
+                0.341,
+                0.167,
+                0.345
+              ],
+              "poi": "poi_porte_parking_cage",
+              "vue": "rdc_cage_2"
+            },
+            {
+              "type": "vue",
+              "vue": "ss_parking_1",
+              "fleche": "bas",
+              "zone_clic": [
+                0.455,
+                0.81,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        }
+      ],
+      "voisines": [
+        "ext_rampe",
+        "rdc_cage",
+        "ss_couloir_caves"
+      ]
+    },
+    {
+      "poids": 1,
+      "id": "ss_couloir_caves",
+      "niveau": "sous_sol",
+      "nom": "Couloir des caves",
+      "polygone": [
+        [
+          30,
+          155
+        ],
+        [
+          360,
+          155
+        ],
+        [
+          360,
+          193
+        ],
+        [
+          30,
+          193
+        ]
+      ],
+      "cap": 90,
+      "vues": [
+        {
+          "id": "ss_couloir_caves_1",
+          "image": "ss_couloir_caves_1.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "ss_parking",
+              "zone_clic": [
+                0.455,
+                0.84,
+                0.09,
+                0.14
+              ],
+              "fleche": "bas"
+            },
+            {
+              "type": "vue",
+              "vue": "ss_couloir_caves_2",
+              "fleche": "haut",
+              "zone_clic": [
+                0.455,
+                0.53,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ss_couloir_caves_2",
+          "image": "ss_couloir_caves_2.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "ss_local_poubelles",
+              "zone_clic": [
+                0.398,
+                0.324,
+                0.135,
+                0.439
+              ]
+            },
+            {
+              "type": "passage",
+              "vers": "ss_local_technique",
+              "zone_clic": [
+                0.566,
+                0.302,
+                0.158,
+                0.505
+              ]
+            },
+            {
+              "type": "vue",
+              "vue": "ss_couloir_caves_1",
+              "fleche": "bas",
+              "zone_clic": [
+                0.455,
+                0.81,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        }
+      ],
+      "voisines": [
+        "ss_parking",
+        "ss_local_poubelles",
+        "ss_local_technique"
+      ]
+    },
+    {
+      "poids": 1,
+      "id": "ss_local_poubelles",
+      "niveau": "sous_sol",
+      "nom": "Local poubelles",
+      "polygone": [
+        [
+          30,
+          198
+        ],
+        [
+          180,
+          198
+        ],
+        [
+          180,
+          268
+        ],
+        [
+          30,
+          268
+        ]
+      ],
+      "cap": 180,
+      "vues": [
+        {
+          "id": "ss_local_poubelles_1",
+          "image": "ss_local_poubelles_1.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "ss_couloir_caves",
+              "zone_clic": [
+                0.088,
+                0.03,
+                0.178,
+                0.97
+              ],
+              "poi": "poi_porte_cf_poubelles",
+              "vue": "ss_couloir_caves_2"
+            },
+            {
+              "type": "vue",
+              "vue": "ss_local_poubelles_2",
+              "fleche": "droite",
+              "zone_clic": [
+                0.775,
+                0.43,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ss_local_poubelles_2",
+          "image": "ss_local_poubelles_2.jpg",
+          "hotspots": [
+            {
+              "type": "vue",
+              "vue": "ss_local_poubelles_1",
+              "fleche": "gauche",
+              "zone_clic": [
+                0.155,
+                0.52,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        }
+      ],
+      "voisines": [
+        "ss_couloir_caves"
+      ]
+    },
+    {
+      "poids": 1,
+      "id": "ss_local_technique",
+      "niveau": "sous_sol",
+      "nom": "Local technique",
+      "polygone": [
+        [
+          185,
+          198
+        ],
+        [
+          360,
+          198
+        ],
+        [
+          360,
+          268
+        ],
+        [
+          185,
+          268
+        ]
+      ],
+      "cap": 180,
+      "vues": [
+        {
+          "id": "ss_local_technique_1",
+          "image": "ss_local_technique_1.jpg",
+          "hotspots": [
+            {
+              "type": "poi",
+              "poi": "poi_coupure_elec",
+              "zone_clic": [
+                0.457,
+                0.293,
+                0.204,
+                0.354
+              ]
+            },
+            {
+              "type": "passage",
+              "vers": "ss_couloir_caves",
+              "zone_clic": [
+                0.229,
+                0.236,
+                0.197,
+                0.624
+              ],
+              "poi": "poi_porte_cf_technique",
+              "vue": "ss_couloir_caves_2"
+            },
+            {
+              "type": "vue",
+              "vue": "ss_local_technique_2",
+              "fleche": "droite",
+              "zone_clic": [
+                0.795,
+                0.48,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ss_local_technique_2",
+          "image": "ss_local_technique_2.jpg",
+          "hotspots": [
+            {
+              "type": "poi",
+              "poi": "poi_bouteilles",
+              "zone_clic": [
+                0.41,
+                0.408,
+                0.253,
+                0.433
+              ]
+            },
+            {
+              "type": "vue",
+              "vue": "ss_local_technique_1",
+              "fleche": "gauche",
+              "zone_clic": [
+                0.075,
+                0.48,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        }
+      ],
+      "voisines": [
+        "ss_couloir_caves"
+      ]
+    },
+    {
+      "poids": 1,
+      "id": "rdc_hall",
+      "niveau": "rdc",
+      "nom": "Hall d'entrée",
+      "polygone": [
+        [
+          145,
+          80
+        ],
+        [
+          295,
+          80
+        ],
+        [
+          295,
+          210
+        ],
+        [
+          145,
+          210
+        ]
+      ],
+      "cap": 0,
+      "vues": [
+        {
+          "id": "rdc_hall_1",
+          "image": "rdc_hall_1.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "ext_facade_A",
+              "zone_clic": [
+                0.181,
+                0.234,
+                0.205,
+                0.496
+              ]
+            },
+            {
+              "type": "passage",
+              "vers": "rdc_local_velos",
+              "zone_clic": [
+                0.397,
+                0.264,
+                0.063,
+                0.511
+              ]
+            },
+            {
+              "type": "poi",
+              "poi": "poi_ascenseur",
+              "zone_clic": [
+                0.575,
+                0.18,
+                0.215,
+                0.68
+              ]
+            }
+          ],
+          "mouvement": "pivot"
+        },
+        {
+          "id": "rdc_hall_2",
+          "image": "rdc_hall_2.jpg",
+          "hotspots": [
+            {
+              "type": "poi",
+              "poi": "poi_consignes",
+              "zone_clic": [
+                0.451,
+                0.227,
+                0.173,
+                0.269
+              ]
+            },
+            {
+              "type": "passage",
+              "vers": "rdc_cage",
+              "zone_clic": [
+                0.628,
+                0.044,
+                0.316,
+                0.956
+              ]
+            }
+          ],
+          "mouvement": "pivot"
+        }
+      ],
+      "voisines": [
+        "ext_facade_A",
+        "rdc_cage",
+        "rdc_local_velos"
+      ]
+    },
+    {
+      "poids": 1,
+      "id": "rdc_local_velos",
+      "niveau": "rdc",
+      "nom": "Local vélos / poussettes",
+      "polygone": [
+        [
+          145,
+          215
+        ],
+        [
+          295,
+          215
+        ],
+        [
+          295,
+          275
+        ],
+        [
+          145,
+          275
+        ]
+      ],
+      "cap": 180,
+      "vues": [
+        {
+          "id": "rdc_local_velos_1",
+          "image": "rdc_local_velos_1.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "rdc_hall",
+              "zone_clic": [
+                0,
+                0,
+                0.095,
+                1
+              ]
+            },
+            {
+              "type": "vue",
+              "vue": "rdc_local_velos_2",
+              "fleche": "haut",
+              "zone_clic": [
+                0.455,
+                0.48,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        },
+        {
+          "id": "rdc_local_velos_2",
+          "image": "rdc_local_velos_2.jpg",
+          "hotspots": [
+            {
+              "type": "vue",
+              "vue": "rdc_local_velos_1",
+              "fleche": "bas",
+              "zone_clic": [
+                0.455,
+                0.83,
+                0.09,
+                0.14
+              ]
+            }
+          ],
+          "facultative": true
+        }
+      ],
+      "voisines": [
+        "rdc_hall"
+      ]
+    },
+    {
+      "poids": 1,
+      "id": "rdc_cage",
+      "niveau": "rdc",
+      "nom": "Cage d'escalier RDC",
+      "polygone": [
+        [
+          40,
+          80
+        ],
+        [
+          140,
+          80
+        ],
+        [
+          140,
+          210
+        ],
+        [
+          40,
+          210
+        ]
+      ],
+      "cap": 90,
+      "vues": [
+        {
+          "id": "rdc_cage_1",
+          "image": "rdc_cage_1.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "rdc_hall",
+              "zone_clic": [
+                0.093,
+                0.046,
+                0.342,
+                0.954
+              ],
+              "poi": "poi_porte_cage_rdc"
+            },
+            {
+              "type": "vue",
+              "vue": "rdc_cage_2",
+              "fleche": "haut",
+              "zone_clic": [
+                0.775,
+                0.55,
+                0.09,
+                0.14
+              ]
+            },
+            {
+              "type": "vue",
+              "vue": "rdc_cage_haut",
+              "fleche": "haut",
+              "zone_clic": [
+                0.455,
+                0.03,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        },
+        {
+          "id": "rdc_cage_2",
+          "image": "rdc_cage_2.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "ss_parking",
+              "zone_clic": [
+                0.029,
+                0.027,
+                0.194,
+                0.973
+              ],
+              "vue": "ss_parking_2"
+            },
+            {
+              "type": "passage",
+              "vers": "r1_cage",
+              "zone_clic": [
+                0.427,
+                0.467,
+                0.237,
+                0.452
+              ]
+            },
+            {
+              "type": "poi",
+              "poi": "poi_commande_exutoire",
+              "zone_clic": [
+                0.706,
+                0.4,
+                0.106,
+                0.147
+              ]
+            },
+            {
+              "type": "vue",
+              "vue": "rdc_cage_1",
+              "fleche": "gauche",
+              "zone_clic": [
+                0.255,
+                0.7,
+                0.09,
+                0.14
+              ]
+            },
+            {
+              "type": "vue",
+              "vue": "rdc_cage_haut",
+              "fleche": "haut",
+              "zone_clic": [
+                0.455,
+                0.03,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        },
+        {
+          "id": "rdc_cage_haut",
+          "image": "rdc_cage_haut.jpg",
+          "direction": "haut",
+          "hotspots": [
+            {
+              "type": "vue",
+              "vue": "@retour",
+              "fleche": "bas",
+              "zone_clic": [
+                0.455,
+                0.81,
+                0.09,
+                0.14
+              ]
+            }
+          ],
+          "image_desenfumage": "rdc_cage_haut_ouvert.jpg",
+          "facultative": true
+        }
+      ],
+      "voisines": [
+        "rdc_hall",
+        "ss_parking",
+        "r1_cage"
+      ]
+    },
+    {
+      "poids": 1,
+      "id": "r1_cage",
+      "niveau": "r1",
+      "nom": "Cage d'escalier R+1",
+      "polygone": [
+        [
+          40,
+          80
+        ],
+        [
+          140,
+          80
+        ],
+        [
+          140,
+          210
+        ],
+        [
+          40,
+          210
+        ]
+      ],
+      "cap": 90,
+      "vues": [
+        {
+          "id": "r1_cage_1",
+          "image": "r1_cage_1.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "et_cage",
+              "zone_clic": [
+                0.46,
+                0.468,
+                0.201,
+                0.454
+              ]
+            },
+            {
+              "type": "passage",
+              "vers": "r1_palier",
+              "zone_clic": [
+                0.026,
+                0.008,
+                0.333,
+                0.992
+              ]
+            }
+          ],
+          "mouvement": "pivot"
+        },
+        {
+          "id": "r1_cage_2",
+          "image": "r1_cage_2.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "rdc_cage",
+              "zone_clic": [
+                0.2,
+                0.6,
+                0.5,
+                0.4
+              ]
+            }
+          ],
+          "mouvement": "pivot",
+          "facultative": true
+        }
+      ],
+      "voisines": [
+        "rdc_cage",
+        "et_cage",
+        "r1_palier"
+      ]
+    },
+    {
+      "poids": 1,
+      "id": "r1_palier",
+      "niveau": "r1",
+      "nom": "Palier R+1",
+      "polygone": [
+        [
+          145,
+          80
+        ],
+        [
+          295,
+          80
+        ],
+        [
+          295,
+          210
+        ],
+        [
+          145,
+          210
+        ]
+      ],
+      "cap": 0,
+      "vues": [
+        {
+          "id": "r1_palier_1",
+          "image": "r1_palier_1.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "r1_cage",
+              "zone_clic": [
+                0.159,
+                0.135,
+                0.169,
+                0.801
+              ]
+            },
+            {
+              "type": "vue",
+              "vue": "r1_palier_2",
+              "fleche": "droite",
+              "zone_clic": [
+                0.805,
+                0.43,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        },
+        {
+          "id": "r1_palier_2",
+          "image": "r1_palier_2.jpg",
+          "hotspots": [
+            {
+              "type": "vue",
+              "vue": "r1_palier_1",
+              "fleche": "gauche",
+              "zone_clic": [
+                0.075,
+                0.43,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        }
+      ],
+      "voisines": [
+        "r1_cage"
+      ]
+    },
+    {
+      "poids": 1,
+      "id": "et_cage",
+      "niveau": "etage",
+      "nom": "Cage d'escalier R+2",
+      "polygone": [
+        [
+          40,
+          80
+        ],
+        [
+          140,
+          80
+        ],
+        [
+          140,
+          210
+        ],
+        [
+          40,
+          210
+        ]
+      ],
+      "cap": 90,
+      "vues": [
+        {
+          "id": "et_cage_1",
+          "image": "et_cage_1.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "et_palier",
+              "zone_clic": [
+                0.023,
+                0.008,
+                0.334,
+                0.992
+              ],
+              "poi": "poi_porte_cage_et"
+            },
+            {
+              "type": "vue",
+              "vue": "et_cage_haut",
+              "fleche": "haut",
+              "zone_clic": [
+                0.455,
+                0.03,
+                0.09,
+                0.14
+              ]
+            },
+            {
+              "type": "passage",
+              "vers": "r3_cage",
+              "zone_clic": [
+                0.46,
+                0.47,
+                0.2,
+                0.45
+              ]
+            }
+          ],
+          "mouvement": "pivot"
+        },
+        {
+          "id": "et_cage_2",
+          "nom": "Descente",
+          "image": "et_cage_2.jpg",
+          "mouvement": "pivot",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "r1_cage",
+              "zone_clic": [
+                0.2,
+                0.6,
+                0.5,
+                0.4
+              ]
+            },
+            {
+              "type": "vue",
+              "vue": "et_cage_haut",
+              "fleche": "haut",
+              "zone_clic": [
+                0.455,
+                0.03,
+                0.09,
+                0.14
+              ]
+            }
+          ],
+          "facultative": true
+        },
+        {
+          "id": "et_cage_haut",
+          "image": "et_cage_haut.jpg",
+          "direction": "haut",
+          "hotspots": [
+            {
+              "type": "vue",
+              "vue": "@retour",
+              "fleche": "bas",
+              "zone_clic": [
+                0.455,
+                0.81,
+                0.09,
+                0.14
+              ]
+            }
+          ],
+          "image_desenfumage": "et_cage_haut_ouvert.jpg",
+          "facultative": true
+        }
+      ],
+      "voisines": [
+        "r1_cage",
+        "et_palier",
+        "r3_cage"
+      ]
+    },
+    {
+      "poids": 1,
+      "id": "et_palier",
+      "niveau": "etage",
+      "nom": "Palier / circulation commune",
+      "polygone": [
+        [
+          145,
+          80
+        ],
+        [
+          295,
+          80
+        ],
+        [
+          295,
+          210
+        ],
+        [
+          145,
+          210
+        ]
+      ],
+      "cap": 0,
+      "vues": [
+        {
+          "id": "et_palier_1",
+          "image": "et_palier_1.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "et_cage",
+              "zone_clic": [
+                0,
+                0,
+                0.314,
+                1
+              ]
+            },
+            {
+              "type": "poi",
+              "poi": "poi_colonne_seche_palier",
+              "zone_clic": [
+                0.752,
+                0.652,
+                0.122,
+                0.211
+              ]
+            },
+            {
+              "type": "vue",
+              "vue": "et_palier_2",
+              "fleche": "haut",
+              "zone_clic": [
+                0.455,
+                0.48,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        },
+        {
+          "id": "et_palier_2",
+          "image": "et_palier_2.jpg",
+          "hotspots": [
+            {
+              "type": "poi",
+              "poi": "poi_colonne_montante",
+              "zone_clic": [
+                0.27,
+                0.399,
+                0.126,
+                0.3
+              ]
+            },
+            {
+              "type": "poi",
+              "poi": "poi_fumee_palier",
+              "zone_clic": [
+                0.489,
+                0.16,
+                0.18,
+                0.152
+              ]
+            },
+            {
+              "type": "passage",
+              "vers": "et_logement",
+              "zone_clic": [
+                0.499,
+                0.273,
+                0.164,
+                0.576
+              ],
+              "poi": "poi_porte_palliere"
+            },
+            {
+              "type": "vue",
+              "vue": "et_palier_1",
+              "fleche": "bas",
+              "zone_clic": [
+                0.455,
+                0.83,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        }
+      ],
+      "voisines": [
+        "et_cage",
+        "et_logement"
+      ]
+    },
+    {
+      "poids": 1,
+      "id": "et_logement",
+      "niveau": "etage",
+      "nom": "Logement",
+      "polygone": [
+        [
+          145,
+          215
+        ],
+        [
+          360,
+          215
+        ],
+        [
+          360,
+          275
+        ],
+        [
+          145,
+          275
+        ]
+      ],
+      "cap": 180,
+      "vues": [
+        {
+          "id": "et_logement_1",
+          "image": "et_logement_1.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "et_palier",
+              "zone_clic": [
+                0.455,
+                0.84,
+                0.09,
+                0.14
+              ],
+              "fleche": "bas"
+            },
+            {
+              "type": "vue",
+              "vue": "et_logement_2",
+              "fleche": "haut",
+              "zone_clic": [
+                0.455,
+                0.48,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        },
+        {
+          "id": "et_logement_2",
+          "image": "et_logement_2.jpg",
+          "hotspots": [
+            {
+              "type": "poi",
+              "poi": "poi_foyer",
+              "zone_clic": [
+                0.529,
+                0.357,
+                0.131,
+                0.289
+              ]
+            },
+            {
+              "type": "vue",
+              "vue": "et_logement_1",
+              "fleche": "bas",
+              "zone_clic": [
+                0.455,
+                0.83,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        }
+      ],
+      "voisines": [
+        "et_palier"
+      ]
+    },
+    {
+      "id": "r3_cage",
+      "niveau": "r3",
+      "nom": "Cage d'escalier R+3",
+      "poids": 1,
+      "polygone": [
+        [
+          40,
+          80
+        ],
+        [
+          140,
+          80
+        ],
+        [
+          140,
+          210
+        ],
+        [
+          40,
+          210
+        ]
+      ],
+      "cap": 90,
+      "voisines": [
+        "et_cage",
+        "r3_palier"
+      ],
+      "vues": [
+        {
+          "id": "r3_cage_1",
+          "image": "r3_cage_1.jpg",
+          "mouvement": "pivot",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "r3_palier",
+              "zone_clic": [
+                0.025,
+                0.008,
+                0.332,
+                0.992
+              ]
+            },
+            {
+              "type": "vue",
+              "vue": "r3_cage_haut",
+              "fleche": "haut",
+              "zone_clic": [
+                0.455,
+                0.03,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        },
+        {
+          "id": "r3_cage_2",
+          "image": "r3_cage_2.jpg",
+          "mouvement": "pivot",
+          "facultative": true,
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "et_cage",
+              "zone_clic": [
+                0.2,
+                0.6,
+                0.5,
+                0.4
+              ]
+            },
+            {
+              "type": "vue",
+              "vue": "r3_cage_haut",
+              "fleche": "haut",
+              "zone_clic": [
+                0.455,
+                0.03,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        },
+        {
+          "id": "r3_cage_haut",
+          "image": "r3_cage_haut.jpg",
+          "direction": "haut",
+          "facultative": true,
+          "image_desenfumage": "r3_cage_haut_ouvert.jpg",
+          "hotspots": [
+            {
+              "type": "vue",
+              "vue": "@retour",
+              "fleche": "bas",
+              "zone_clic": [
+                0.455,
+                0.81,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "r3_palier",
+      "niveau": "r3",
+      "nom": "Palier / circulation commune",
+      "poids": 1,
+      "polygone": [
+        [
+          145,
+          80
+        ],
+        [
+          295,
+          80
+        ],
+        [
+          295,
+          210
+        ],
+        [
+          145,
+          210
+        ]
+      ],
+      "cap": 0,
+      "voisines": [
+        "r3_cage",
+        "r3_logement"
+      ],
+      "vues": [
+        {
+          "id": "r3_palier_1",
+          "image": "r3_palier_1.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "r3_cage",
+              "zone_clic": [
+                0,
+                0,
+                0.318,
+                1
+              ]
+            },
+            {
+              "type": "vue",
+              "vue": "r3_palier_2",
+              "fleche": "haut",
+              "zone_clic": [
+                0.455,
+                0.48,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        },
+        {
+          "id": "r3_palier_2",
+          "image": "r3_palier_2.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "r3_logement",
+              "zone_clic": [
+                0.498,
+                0.274,
+                0.166,
+                0.579
+              ],
+              "poi": "poi_porte_palliere_r3"
+            },
+            {
+              "type": "vue",
+              "vue": "r3_palier_1",
+              "fleche": "bas",
+              "zone_clic": [
+                0.455,
+                0.83,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "r3_logement",
+      "niveau": "r3",
+      "nom": "Logement",
+      "poids": 1,
+      "polygone": [
+        [
+          145,
+          215
+        ],
+        [
+          360,
+          215
+        ],
+        [
+          360,
+          275
+        ],
+        [
+          145,
+          275
+        ]
+      ],
+      "cap": 180,
+      "voisines": [
+        "r3_palier"
+      ],
+      "vues": [
+        {
+          "id": "r3_logement_1",
+          "image": "r3_logement_1.jpg",
+          "hotspots": [
+            {
+              "type": "passage",
+              "vers": "r3_palier",
+              "zone_clic": [
+                0.214,
+                0.089,
+                0.133,
+                0.911
+              ],
+              "fleche": "bas"
+            },
+            {
+              "type": "vue",
+              "vue": "r3_logement_2",
+              "fleche": "haut",
+              "zone_clic": [
+                0.455,
+                0.48,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        },
+        {
+          "id": "r3_logement_2",
+          "image": "r3_logement_2.jpg",
+          "hotspots": [
+            {
+              "type": "poi",
+              "poi": "poi_logement_r3_enfume",
+              "zone_clic": [
+                0.374,
+                0.023,
+                0.3,
+                0.3
+              ]
+            },
+            {
+              "type": "vue",
+              "vue": "r3_logement_1",
+              "fleche": "bas",
+              "zone_clic": [
+                0.455,
+                0.83,
+                0.09,
+                0.14
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "passages": [
+    {
+      "de": "ext_facade_A",
+      "vers": "ext_pignon_B"
+    },
+    {
+      "de": "ext_pignon_B",
+      "vers": "ext_facade_C"
+    },
+    {
+      "de": "ext_facade_C",
+      "vers": "ext_pignon_D"
+    },
+    {
+      "de": "ext_pignon_D",
+      "vers": "ext_facade_A"
+    },
+    {
+      "de": "ext_facade_A",
+      "vers": "rdc_hall",
+      "porte": "porte_hall",
+      "ferme_au_depart": false,
+      "action": "ouvrir"
+    },
+    {
+      "de": "ext_pignon_D",
+      "vers": "ext_rampe"
+    },
+    {
+      "de": "ext_rampe",
+      "vers": "ss_parking"
+    },
+    {
+      "de": "rdc_hall",
+      "vers": "rdc_cage",
+      "porte": "porte_cage_rdc",
+      "ferme_au_depart": true,
+      "action": "ouvrir"
+    },
+    {
+      "de": "rdc_hall",
+      "vers": "rdc_local_velos"
+    },
+    {
+      "de": "rdc_cage",
+      "vers": "ss_parking",
+      "porte": "porte_parking_cage",
+      "ferme_au_depart": true,
+      "action": "ouvrir"
+    },
+    {
+      "de": "rdc_cage",
+      "vers": "r1_cage"
+    },
+    {
+      "de": "r1_cage",
+      "vers": "et_cage"
+    },
+    {
+      "de": "r1_cage",
+      "vers": "r1_palier",
+      "porte": "porte_cage_r1",
+      "ferme_au_depart": true,
+      "action": "ouvrir"
+    },
+    {
+      "de": "et_cage",
+      "vers": "et_palier",
+      "porte": "porte_cage_et",
+      "ferme_au_depart": true,
+      "action": "ouvrir"
+    },
+    {
+      "de": "et_palier",
+      "vers": "et_logement",
+      "porte": "porte_palliere",
+      "ferme_au_depart": true,
+      "action": "ouvrir"
+    },
+    {
+      "de": "ss_parking",
+      "vers": "ss_couloir_caves"
+    },
+    {
+      "de": "ss_couloir_caves",
+      "vers": "ss_local_poubelles",
+      "porte": "porte_cf_poubelles",
+      "ferme_au_depart": true,
+      "action": "ouvrir"
+    },
+    {
+      "de": "ss_couloir_caves",
+      "vers": "ss_local_technique",
+      "porte": "porte_cf_technique",
+      "ferme_au_depart": true,
+      "action": "ouvrir"
+    },
+    {
+      "de": "et_cage",
+      "vers": "r3_cage"
+    },
+    {
+      "de": "r3_cage",
+      "vers": "r3_palier",
+      "porte": "porte_cage_r3",
+      "ferme_au_depart": true,
+      "action": "ouvrir"
+    },
+    {
+      "de": "r3_palier",
+      "vers": "r3_logement",
+      "porte": "porte_palliere_r3",
+      "ferme_au_depart": true,
+      "action": "ouvrir"
+    }
+  ],
+  "poi": [
+    {
+      "id": "poi_feu_facade_B",
+      "zone": "ext_pignon_B",
+      "libelle": "Feu au R+2, façade B",
+      "texte_revele": "Des flammes et une fumée noire dense sortent d'une fenêtre du R+2 sur la façade B. Le feu est dans le bâtiment, à l'étage.",
+      "ou": "sur la façade B, au niveau R+2",
+      "cache": false,
+      "image_zoom": "poi_feu_facade_B.jpg"
+    },
+    {
+      "id": "poi_propagation_C",
+      "zone": "ext_facade_C",
+      "libelle": "Propagation en façade C",
+      "texte_revele": "Fumée et suie sortent aussi des fenêtres voisines du R+2, côté façade C : le feu se propage le long de cette façade.",
+      "ou": "sur la façade C, au R+2, côté façade B",
+      "cache": false,
+      "image_zoom": "poi_propagation_C.jpg"
+    },
+    {
+      "id": "poi_victime",
+      "zone": "ext_facade_C",
+      "libelle": "Victime à la fenêtre",
+      "texte_revele": "Une personne est à une fenêtre du R+2, façade C, et appelle à l'aide. De la fumée sort juste au-dessus d'elle.",
+      "ou": "à une fenêtre du R+2, en façade C",
+      "cache": false,
+      "image_zoom": "poi_victime.jpg"
+    },
+    {
+      "id": "poi_coupure_gaz",
+      "zone": "ext_pignon_B",
+      "libelle": "Coupure gaz",
+      "texte_revele": "Coffret gaz en limite de propriété, avec l'organe de coupure générale. Les sapeurs-pompiers manœuvrent l'organe de coupure du bâtiment, jamais le réseau.",
+      "ou": "au pied du pignon B, en limite de propriété",
+      "cache": false,
+      "image_zoom": "poi_coupure_gaz.jpg"
+    },
+    {
+      "id": "poi_coupure_elec",
+      "zone": "ss_local_technique",
+      "libelle": "Coupure électricité",
+      "texte_revele": "Disjoncteur de branchement et tableau général du bâtiment. À manœuvrer sur ordre uniquement, sans rétablissement par les sapeurs-pompiers.",
+      "ou": "dans le local technique du sous-sol",
+      "cache": false,
+      "image_zoom": "poi_coupure_elec.jpg"
+    },
+    {
+      "id": "poi_colonne_montante",
+      "zone": "et_palier",
+      "libelle": "Gaine technique palière",
+      "texte_revele": "Gaine technique palière (colonne montante électrique et fluides). Elle peut transmettre fumée et chaleur d'un niveau à l'autre.",
+      "ou": "sur le palier de l'étage",
+      "cache": false,
+      "image_zoom": "poi_colonne_montante.jpg"
+    },
+    {
+      "id": "poi_fumee_palier",
+      "zone": "et_palier",
+      "libelle": "Léger voile de fumée sur le palier",
+      "texte_revele": "Un léger voile de fumée apparaît en partie haute du palier du R+2, près de la porte palière du logement.",
+      "ou": "sur le palier du R+2",
+      "cache": false,
+      "image_zoom": "poi_fumee_palier.jpg"
+    },
+    {
+      "id": "poi_foyer",
+      "zone": "et_logement",
+      "libelle": "Foyer dans le logement",
+      "texte_revele": "Feu établi dans le séjour du logement du R+2 : flammes visibles, fumée noire dense et chaleur importante.",
+      "ou": "dans le séjour du logement du R+2",
+      "cache": false,
+      "image_zoom": "poi_foyer.jpg"
+    },
+    {
+      "id": "poi_porte_cage_rdc",
+      "zone": "rdc_cage",
+      "libelle": "Porte de cage d'escalier",
+      "texte_revele": "Porte de cage d'escalier du RDC : porte pare-flammes (½ h), avec ferme-porte, qui isole la cage du hall.",
+      "ou": "dans la cage d'escalier du RDC",
+      "cache": false,
+      "image_zoom": "poi_porte_cage_rdc.jpg"
+    },
+    {
+      "id": "poi_porte_cage_et",
+      "zone": "et_cage",
+      "libelle": "Porte de cage d'escalier",
+      "texte_revele": "Porte de cage d'escalier de l'étage : porte pare-flammes (½ h), avec ferme-porte, entre la cage et le palier.",
+      "ou": "dans la cage d'escalier de l'étage",
+      "cache": false,
+      "image_zoom": "poi_porte_cage_et.jpg"
+    },
+    {
+      "id": "poi_porte_parking_cage",
+      "zone": "ss_parking",
+      "libelle": "Porte parking / escalier",
+      "texte_revele": "Porte de communication entre le parking et la cage d'escalier. Une porte laissée ouverte met la cage d'escalier en communication avec le parking.",
+      "ou": "au fond du parking, côté cage d'escalier",
+      "cache": false,
+      "image_zoom": "poi_porte_parking_cage.jpg"
+    },
+    {
+      "id": "poi_porte_cf_poubelles",
+      "zone": "ss_local_poubelles",
+      "libelle": "Porte coupe-feu du local poubelles",
+      "texte_revele": "Porte coupe-feu du local poubelles, fermée, avec ferme-porte. De la fumée s'échappe par le jour de la porte.",
+      "ou": "à l'entrée du local poubelles",
+      "cache": false,
+      "image_zoom": "poi_porte_cf_poubelles.jpg"
+    },
+    {
+      "id": "poi_porte_cf_technique",
+      "zone": "ss_local_technique",
+      "libelle": "Porte coupe-feu du local technique",
+      "texte_revele": "Porte coupe-feu du local technique, fermée, avec ferme-porte.",
+      "ou": "à l'entrée du local technique",
+      "cache": false,
+      "image_zoom": "poi_porte_cf_technique.jpg"
+    },
+    {
+      "id": "poi_porte_palliere",
+      "zone": "et_palier",
+      "libelle": "Porte palière du logement",
+      "texte_revele": "Porte palière du logement du R+2, fermée ; un peu de fumée filtre par le jour de la porte.",
+      "ou": "sur le palier du R+2",
+      "cache": false,
+      "image_zoom": "poi_porte_palliere.jpg"
+    },
+    {
+      "id": "poi_commande_exutoire",
+      "zone": "rdc_cage",
+      "libelle": "Commande de désenfumage de la cage",
+      "texte_revele": "Commande d'ouverture du lanterneau de désenfumage de la cage, au RDC. Son emploi est un acte réfléchi : il se décide en connaissance de la situation, après isolement du foyer.",
+      "ou": "dans la cage d'escalier du RDC",
+      "cache": true,
+      "image_zoom": "poi_commande_exutoire.jpg",
+      "action": "desenfumer"
+    },
+    {
+      "id": "poi_colonne_seche_rdc",
+      "zone": "ext_facade_A",
+      "libelle": "Prise de colonne sèche",
+      "texte_revele": "Prise d'alimentation de la colonne sèche, en façade, avec ses bouchons. À contrôler avant utilisation.",
+      "ou": "en façade A, à côté de l'entrée",
+      "cache": false,
+      "image_zoom": "poi_colonne_seche_rdc.jpg"
+    },
+    {
+      "id": "poi_colonne_seche_palier",
+      "zone": "et_palier",
+      "libelle": "Prise palière de colonne sèche",
+      "texte_revele": "Prise palière de la colonne sèche, sur le palier de l'étage.",
+      "ou": "sur le palier de l'étage",
+      "cache": false,
+      "image_zoom": "poi_colonne_seche_palier.jpg"
+    },
+    {
+      "id": "poi_point_eau",
+      "zone": "ext_pignon_D",
+      "libelle": "Poteau incendie",
+      "texte_revele": "Poteau incendie sur le trottoir du pignon D.",
+      "ou": "au pignon D",
+      "cache": false,
+      "image_zoom": "poi_point_eau.jpg",
+      "a_valider": true
+    },
+    {
+      "id": "poi_boite_cles",
+      "zone": "ext_facade_A",
+      "libelle": "Boîte à clés / accès pompiers",
+      "texte_revele": "Boîte à clés avec digicode pour l'accès des sapeurs-pompiers, à côté de la porte du hall.",
+      "ou": "en façade A, près de la porte du hall",
+      "cache": false,
+      "image_zoom": "poi_boite_cles.jpg",
+      "a_valider": true
+    },
+    {
+      "id": "poi_voie_engins",
+      "zone": "ext_facade_A",
+      "libelle": "Voie engins",
+      "texte_revele": "Voie utilisable par les engins, avec emplacement de mise en station devant la façade A.",
+      "ou": "devant la façade A",
+      "cache": false,
+      "image_zoom": "poi_voie_engins.jpg",
+      "a_valider": true
+    },
+    {
+      "id": "poi_ascenseur",
+      "zone": "rdc_hall",
+      "libelle": "Ascenseur",
+      "texte_revele": "Ascenseur à l'arrêt, rappelé au RDC et bloqué : en cas d'incendie il n'est pas utilisé, on monte par l'escalier.",
+      "ou": "dans le hall d'entrée",
+      "cache": false,
+      "image_zoom": "poi_ascenseur.jpg"
+    },
+    {
+      "id": "poi_consignes",
+      "zone": "rdc_hall",
+      "libelle": "Consignes de sécurité",
+      "texte_revele": "Consignes de sécurité et plan d'évacuation affichés dans le hall.",
+      "ou": "dans le hall d'entrée",
+      "cache": false,
+      "image_zoom": "poi_consignes.jpg",
+      "a_valider": true
+    },
+    {
+      "id": "poi_bouteilles",
+      "zone": "ss_local_technique",
+      "libelle": "Bouteilles de gaz stockées",
+      "texte_revele": "Des bouteilles de gaz sont stockées au fond du local technique.",
+      "ou": "au fond du local technique",
+      "cache": true,
+      "image_zoom": "poi_bouteilles.jpg"
+    },
+    {
+      "id": "poi_logement_r3_enfume",
+      "zone": "r3_logement",
+      "libelle": "Fumée dans le logement du R+3",
+      "texte_revele": "Logement du R+3, au-dessus de l'appartement en feu : ses fenêtres étaient ouvertes, la fumée montée le long de la façade est entrée dans le logement.",
+      "ou": "dans le logement du R+3, au-dessus du foyer",
+      "cache": false,
+      "image_zoom": "poi_logement_r3_enfume.jpg"
+    },
+    {
+      "id": "poi_porte_palliere_r3",
+      "zone": "r3_palier",
+      "libelle": "Porte palière du logement du R+3",
+      "texte_revele": "Porte palière du logement du R+3, fermée. Le palier est resté net : la fumée du logement vient de la façade.",
+      "ou": "sur le palier du R+3",
+      "cache": false,
+      "image_zoom": "poi_porte_palliere_r3.jpg"
+    }
+  ],
+  "regles": {
+    "etats": {
+      "inconnue": 0,
+      "traversee": 0.5,
+      "reconnue": 1
+    },
+    "reconnue_si": "toutes_les_vues_vues",
+    "maintien_vue_ms": 1500,
+    "couverture_panorama": 0.9,
+    "depart_par_variante": {
+      "A": "ext_facade_A"
+    }
+  }
+}

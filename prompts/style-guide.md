@@ -1,0 +1,11 @@
+STYLE DES IMAGES (obligatoire pour toutes les vues) :
+- Photographie documentaire réaliste, NON retouchée, comme prise par un reporter ou un photographe de presse locale avec un appareil reflex et un objectif grand angle : couleurs sobres légèrement désaturées, contraste naturel, léger grain, perspective plausible, aucune symétrie parfaite, aucun rendu d'architecte, aucun éclairage artificiellement parfait.
+- Point de vue à hauteur d'yeux d'un adulte debout (1,70 m) pour l'intérieur ; à l'extérieur, point de vue au sol, depuis l'espace public, à une distance plausible du bâtiment.
+- Les bâtiments paraissent usés et habités : salissures, câbles, objets de la vie quotidienne, désordre ordinaire. Les proportions réelles sont respectées : un pignon est beaucoup plus étroit qu'une façade, un poteau d'incendie mesure environ 1 mètre.
+- Éclairage naturel de fin d'après-midi par temps couvert à l'extérieur ; éclairage artificiel réaliste à l'intérieur (plafonniers, néons).
+- AUCUNE personne dans l'image, sauf si le prompt de la vue demande explicitement une victime ; aucun sapeur-pompier ni véhicule de secours.
+- AUCUN texte lisible inventé : pas de panneau, d'affiche ou d'inscription lisible. Les pictogrammes et les étiquettes restent flous ou purement graphiques.
+- Ni logo, ni filigrane, ni cadre, ni bordure, ni interface, ni flèche ajoutée.
+- Pas d'effet cinématographique, pas de style illustration ou jeu vidéo.
+- Les éléments techniques demandés (coffret gaz, tableau électrique, prise de colonne sèche, exutoire, etc.) doivent être bien visibles, nets, à une taille suffisante et dans un état ordinaire.
+- Incendie (uniquement quand le prompt de la vue l'indique) : rendu de photographie de presse d'un feu d'appartement réel : flammes orangées visibles dans l'ouverture, fumée noire dense et épaisse qui sort en panache puis monte et dérive, suie sur l'enduit au-dessus des fenêtres, vitres brisées ; sans exagération spectaculaire. Hors incendie, la fumée reste grise, légère à moyenne, sans flammes.

@@ -1,0 +1,27 @@
+{
+  "name": "recon-fog-of-war",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc --noEmit && vite build",
+    "test": "vitest run",
+    "gen": "tsx tools/generate-images.ts",
+    "sync-server": "node tools/sync-server.mjs",
+    "locate": "tsx tools/locate-hotspots.ts",
+    "zoom": "tsx tools/make-zoom.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "@types/ws": "^8.18.2",
+    "sharp": "^0.35.5",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.3",
+    "vitest": "^5.0.3"
+  },
+  "dependencies": {
+    "ws": "^8.22.0"
+  }
+}

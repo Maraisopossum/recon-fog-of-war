@@ -1,0 +1,713 @@
+[
+  {
+    "id": "ext_facade_A_1",
+    "zone": "ext_facade_A",
+    "aspect": "21:9",
+    "prompt": "Vue panoramique extérieure large de la façade A (façade d'accès), prise depuis la voie d'accès goudronnée à environ 35 mètres, légèrement de côté : la longue façade de l'immeuble de 5 niveaux occupe presque toute la largeur de l'image, avec ses balcons filants. L'entrée principale (porte vitrée sous un auvent) est visible à gauche du centre, au rez-de-chaussée. Au premier plan : voie goudronnée, bordures, un emplacement libre large, quelques voitures garées en bout, un lampadaire, des arbres nus. Derrière le toit, à l'extrémité gauche du bâtiment, une colonne de fumée sombre monte dans le ciel, lointaine et discrète.",
+    "cibles": [
+      {
+        "cle": "poi:poi_voie_engins",
+        "description": "la voie goudronnée et l'emplacement libre devant la façade, au premier plan"
+      },
+      {
+        "cle": "pas:rdc_hall",
+        "description": "la porte vitrée de l'entrée principale sous l'auvent au rez-de-chaussée"
+      }
+    ]
+  },
+  {
+    "id": "ext_facade_A_2",
+    "zone": "ext_facade_A",
+    "aspect": "16:9",
+    "prompt": "Vue rapprochée de l'entrée principale de l'immeuble (façade A), de face à 5 mètres : porte vitrée à cadre aluminium sous un auvent en béton, à droite de la porte une petite boîte métallique grise murale à digicode (boîte à clés pompiers), à gauche de la porte au bas du mur une plaque murale métallique avec deux raccords de type Guillemin (prise d'alimentation de colonne sèche) portant leurs bouchons.",
+    "cibles": [
+      {
+        "cle": "poi:poi_boite_cles",
+        "description": "la petite boîte métallique grise à digicode fixée à droite de la porte"
+      },
+      {
+        "cle": "poi:poi_colonne_seche_rdc",
+        "description": "la prise murale de colonne sèche avec deux raccords et bouchons, à gauche de la porte, au bas du mur"
+      },
+      {
+        "cle": "pas:rdc_hall",
+        "description": "la porte vitrée d'entrée de l'immeuble"
+      }
+    ],
+    "ref": "ext_facade_A_1"
+  },
+  {
+    "id": "ext_pignon_B_1",
+    "zone": "ext_pignon_B",
+    "aspect": "21:9",
+    "prompt": "Vue panoramique large du pignon B de l'immeuble, prise depuis une pelouse à 35 mètres, de face : le pignon est le bout étroit du bâtiment (environ 14 mètres de large sur 5 niveaux de haut) et n'occupe qu'environ le tiers central de l'image ; de chaque côté s'étendent pelouse, arbres, parking de résidence avec voitures, lampadaire, mur bas. Le pignon est un mur d'enduit beige grisé, vieilli, avec une colonne verticale de petites fenêtres de cage d'escalier. SINISTRE : la fenêtre du logement en feu est exactement à la TROISIÈME ligne de fenêtres en partant du sol (R+2 : deux lignes complètes de fenêtres sous la fenêtre, rez-de-chaussée et premier étage, et deux lignes au-dessus) ; elle est entièrement soufflée, de larges flammes orange irrégulières sortent par toute l'ouverture et lèchent la façade au-dessus, l'enduit est noirci de suie sur plusieurs mètres au-dessus de la fenêtre ; une masse volumineuse de fumée noire et grise, épaisse, roule hors de la partie haute de l'ouverture, s'élargit en montant, passe devant les fenêtres des étages supérieurs en les masquant en partie, puis forme un grand panache qui dérive au-dessus du toit. Au pied du pignon, en limite de propriété, un petit coffret gaz encastré dans un muret avec sa porte grise. Style photographie de presse prise par un reporter lors d'un vrai feu d'appartement : la fumée est ample, irrégulière et turbulente, en volutes grises et noires qui se mélangent, jamais une colonne fine ni un dessin ; les flammes sont de larges langues orange vif irrégulières ; aucun sapeur-pompier, aucun véhicule de secours, aucune échelle.",
+    "cibles": [
+      {
+        "cle": "poi:poi_feu_facade_B",
+        "description": "la fenêtre brisée du R+2 d'où sortent les flammes et la fumée noire"
+      },
+      {
+        "cle": "poi:poi_coupure_gaz",
+        "description": "le petit coffret gaz grisé encastré dans le muret au pied du pignon"
+      }
+    ],
+    "ref": "ext_facade_A_1"
+  },
+  {
+    "id": "ext_facade_C_1",
+    "zone": "ext_facade_C",
+    "aspect": "21:9",
+    "prompt": "Vue panoramique large de la façade C (façade arrière côté jardins) de l'immeuble, prise depuis la pelouse à 35 mètres, de face : la longue façade de 5 niveaux occupe presque toute la largeur de l'image, balcons filants, pelouse, haie basse et quelques voitures au premier plan. SINISTRE : à l'extrémité droite de l'image (côté pignon B), au niveau du deuxième étage (R+2, troisième ligne de fenêtres en partant du sol), deux fenêtres voisines sont soufflées ; une épaisse fumée noire et grise, volumineuse et turbulente, sort de leur partie haute et s'étale en nappe sur la façade au-dessus en masquant en partie les fenêtres des étages supérieurs, l'enduit est noirci de suie, des flammes basses sont visibles dans la fenêtre la plus proche du coin. Au milieu-droit de la façade, à une fenêtre ouverte du R+2 (pas sur un balcon), une personne adulte en vêtements ordinaires se penche et agite le bras pour appeler à l'aide ; juste au-dessus d'elle, la fenêtre du R+3 laisse sortir de la fumée grise qui passe au-dessus de sa tête. Style photographie de presse prise par un reporter lors d'un vrai feu d'appartement : la fumée est ample, irrégulière et turbulente, en volutes grises et noires qui se mélangent, jamais une colonne fine ni un dessin ; les flammes sont de larges langues orange vif irrégulières ; aucun sapeur-pompier, aucun véhicule de secours, aucune échelle.",
+    "cibles": [
+      {
+        "cle": "poi:poi_victime",
+        "description": "la personne qui fait signe à la fenêtre ouverte du R+2"
+      },
+      {
+        "cle": "poi:poi_propagation_C",
+        "description": "les fenêtres voisines du R+2 d'où sortent la fumée noire et la suie, à droite"
+      }
+    ],
+    "ref": "ext_facade_A_1"
+  },
+  {
+    "id": "ext_pignon_D_1",
+    "zone": "ext_pignon_D",
+    "aspect": "21:9",
+    "prompt": "Vue panoramique large du pignon D de l'immeuble (bout étroit du bâtiment, environ 14 mètres de large sur 5 niveaux), de face depuis le trottoir à 30 mètres : le pignon occupe environ le tiers central de l'image, enduit beige grisé vieilli, colonne verticale de petites fenêtres de cage d'escalier, aucune fumée. À droite du pignon, au ras du sol, l'entrée de la rampe en béton qui descend vers le parking souterrain, avec un portail ouvert et un garde-corps. Au premier plan sur le trottoir, petit poteau d'incendie rouge de taille normale (environ 1 mètre), à côté un candélabre ; pelouse, arbres.",
+    "cibles": [
+      {
+        "cle": "poi:poi_point_eau",
+        "description": "le petit poteau d'incendie rouge sur le trottoir au premier plan"
+      },
+      {
+        "cle": "pas:ext_rampe",
+        "description": "l'entrée de la rampe en béton qui descend vers le parking, à droite"
+      }
+    ],
+    "ref": "ext_facade_A_1"
+  },
+  {
+    "id": "ext_rampe_1",
+    "zone": "ext_rampe",
+    "aspect": "16:9",
+    "prompt": "Vue du haut de la rampe d'accès au parking souterrain : portail métallique ouvert, rampe en pente en béton brut, aucune fumée ; au fond à gauche, le coin du pignon D de l'immeuble.",
+    "cibles": [
+      {
+        "cle": "pas:ext_pignon_D",
+        "description": "le coin du bâtiment et le pignon, à gauche"
+      }
+    ],
+    "ref": "ext_pignon_D_1"
+  },
+  {
+    "id": "ext_rampe_2",
+    "zone": "ext_rampe",
+    "aspect": "16:9",
+    "prompt": "Vue depuis le bas de la rampe, à l'entrée du parking souterrain : ouverture sombre du garage, éclairage néon, portail ouvert, voitures garées au fond.",
+    "cibles": [
+      {
+        "cle": "pas:ss_parking",
+        "description": "l'ouverture sombre du parking, au centre"
+      }
+    ],
+    "ref": "ext_rampe_1"
+  },
+  {
+    "id": "ss_parking_1",
+    "zone": "ss_parking",
+    "aspect": "16:9",
+    "prompt": "Parking souterrain vu depuis la rampe d'entrée : grand volume de béton brut, rangées de voitures garées, poteaux carrés, marquage jaune, air limpide, éclairage néon faible.",
+    "cibles": [
+      {
+        "cle": "pas:ext_rampe",
+        "description": "la rampe lumineuse d'entrée, derrière"
+      }
+    ]
+  },
+  {
+    "id": "ss_parking_2",
+    "zone": "ss_parking",
+    "aspect": "16:9",
+    "prompt": "Fond du parking souterrain : au fond à droite une porte métallique grise de communication avec la cage d'escalier (avec son ferme-porte et un pictogramme vert de sortie de secours flou) ; sur le côté gauche l'ouverture du couloir menant aux caves .",
+    "cibles": [
+      {
+        "cle": "pas:ss_couloir_caves",
+        "description": "l'ouverture du couloir des caves, à gauche"
+      },
+      {
+        "cle": "pas:rdc_cage",
+        "description": "la porte métallique grise de communication avec l'escalier, à droite"
+      }
+    ],
+    "ref": "ss_parking_1"
+  },
+  {
+    "id": "ss_couloir_caves_1",
+    "zone": "ss_couloir_caves",
+    "aspect": "16:9",
+    "prompt": "Long couloir des caves, vu depuis l'entrée du côté du parking : béton peint en blanc cassé, portes de caves en métal gris alignées, tuyauteries blanches au plafond, éclairage néon, air limpide.",
+    "cibles": [
+      {
+        "cle": "pas:ss_parking",
+        "description": "l'ouverture lumineuse vers le parking, derrière"
+      }
+    ]
+  },
+  {
+    "id": "ss_couloir_caves_2",
+    "zone": "ss_couloir_caves",
+    "aspect": "16:9",
+    "prompt": "Bout du couloir des caves : à gauche une porte coupe-feu métallique grise fermée (local poubelles), à droite une autre porte coupe-feu métallique grise fermée (local technique). Aucune fumée.",
+    "cibles": [
+      {
+        "cle": "pas:ss_local_poubelles",
+        "description": "la porte coupe-feu grise de gauche"
+      },
+      {
+        "cle": "pas:ss_local_technique",
+        "description": "la porte coupe-feu grise de droite"
+      }
+    ],
+    "ref": "ss_couloir_caves_1"
+  },
+  {
+    "id": "ss_local_poubelles_1",
+    "zone": "ss_local_poubelles",
+    "aspect": "16:9",
+    "prompt": "Intérieur du local poubelles du sous-sol, vu depuis la porte : une dizaine de conteneurs à roulettes verts et gris, sol en béton, air limpide, au plafond un détecteur de fumée rond blanc dont le voyant est éteint ; derrière la caméra, la porte coupe-feu grise ouverte vers le couloir.",
+    "cibles": [
+      {
+        "cle": "pas:ss_couloir_caves",
+        "description": "la porte coupe-feu grise ouverte sur la gauche"
+      }
+    ]
+  },
+  {
+    "id": "ss_local_poubelles_2",
+    "zone": "ss_local_poubelles",
+    "aspect": "16:9",
+    "prompt": "Fond du local poubelles : conteneurs à roulettes alignés contre le mur, quelques cartons pliés, sol propre, aucune fumée.",
+    "cibles": [],
+    "ref": "ss_local_poubelles_1"
+  },
+  {
+    "id": "ss_local_technique_1",
+    "zone": "ss_local_technique",
+    "aspect": "16:9",
+    "prompt": "Local technique du sous-sol vu depuis l'entrée : au mur du fond un grand tableau électrique général gris avec disjoncteur principal et gaines, compteurs d'eau, tuyauteries blanches ; sol béton ; sur la gauche la porte coupe-feu grise ouverte vers le couloir. Pas de fumée.",
+    "cibles": [
+      {
+        "cle": "poi:poi_coupure_elec",
+        "description": "le grand tableau électrique général gris au mur du fond"
+      },
+      {
+        "cle": "pas:ss_couloir_caves",
+        "description": "la porte coupe-feu grise ouverte à gauche"
+      }
+    ]
+  },
+  {
+    "id": "ss_local_technique_2",
+    "zone": "ss_local_technique",
+    "aspect": "16:9",
+    "prompt": "Fond du local technique : plusieurs bouteilles de gaz métalliques (butane, propane) rangées debout contre le mur de béton, certaines non attachées, des cartons et outils posés à côté.",
+    "cibles": [
+      {
+        "cle": "poi:poi_bouteilles",
+        "description": "les bouteilles de gaz métalliques debout contre le mur"
+      }
+    ],
+    "ref": "ss_local_technique_1"
+  },
+  {
+    "id": "rdc_hall_1",
+    "zone": "rdc_hall",
+    "aspect": "16:9",
+    "prompt": "Hall d'entrée de l'immeuble vu depuis la porte d'entrée : à gauche le mur des boîtes aux lettres, au fond à droite une porte d'ascenseur en inox brossé avec bouton d'appel, au-dessus de l'ascenseur un petit pictogramme d'interdiction flou, une porte de local vélos au fond-gauche, lumière du jour par la porte vitrée derrière la caméra.",
+    "cibles": [
+      {
+        "cle": "poi:poi_ascenseur",
+        "description": "la porte d'ascenseur en inox brossé, en entier, avec son bouton d'appel"
+      },
+      {
+        "cle": "pas:rdc_local_velos",
+        "description": "la porte du local vélos au fond-gauche"
+      },
+      {
+        "cle": "pas:ext_facade_A",
+        "description": "la porte vitrée d'entrée lumineuse, derrière"
+      }
+    ]
+  },
+  {
+    "id": "rdc_hall_2",
+    "zone": "rdc_hall",
+    "aspect": "16:9",
+    "prompt": "Hall d'entrée côté escalier : un panneau d'affichage mural avec une feuille de consignes de sécurité et un plan d'évacuation (contenu flou, illisible), à droite une porte de cage d'escalier en bois à vitrage armé avec ferme-porte.",
+    "cibles": [
+      {
+        "cle": "poi:poi_consignes",
+        "description": "le panneau d'affichage mural avec la feuille de consignes et le plan d'évacuation"
+      },
+      {
+        "cle": "pas:rdc_cage",
+        "description": "la porte de la cage d'escalier en bois à vitrage armé, à droite"
+      }
+    ],
+    "ref": "rdc_hall_1"
+  },
+  {
+    "id": "rdc_local_velos_1",
+    "zone": "rdc_local_velos",
+    "aspect": "16:9",
+    "prompt": "Local vélos et poussettes du rez-de-chaussée : plusieurs vélos accrochés, deux poussettes, sol béton, éclairage néon ; la porte du local est derrière la caméra.",
+    "cibles": [
+      {
+        "cle": "pas:rdc_hall",
+        "description": "la porte ouverte vers le hall, à gauche"
+      }
+    ]
+  },
+  {
+    "id": "rdc_local_velos_2",
+    "zone": "rdc_local_velos",
+    "aspect": "16:9",
+    "prompt": "Fond du local vélos : étagères avec quelques cartons, trottinettes, un casier, murs blancs.",
+    "cibles": [],
+    "ref": "rdc_local_velos_1"
+  },
+  {
+    "id": "rdc_cage_1",
+    "zone": "rdc_cage",
+    "aspect": "16:9",
+    "prompt": "Cage d'escalier du rez-de-chaussée, vue vers la porte d'accès depuis le hall : porte de cage en bois à vitrage armé pare-flammes avec ferme-porte, escalier en béton qui monte à droite, palier de bas de cage.",
+    "cibles": [
+      {
+        "cle": "pas:rdc_hall",
+        "description": "la porte de cage en bois à vitrage armé avec son ferme-porte, à gauche"
+      }
+    ]
+  },
+  {
+    "id": "rdc_cage_2",
+    "zone": "rdc_cage",
+    "aspect": "16:9",
+    "prompt": "Cage d'escalier du rez-de-chaussée vue côté parking : à gauche une porte métallique grise vers le sous-sol, au centre l'escalier en béton qui monte, sur le mur de droite à hauteur d'homme un petit boîtier rouge de commande d'ouverture de désenfumage (poignée de commande d'exutoire).",
+    "cibles": [
+      {
+        "cle": "pas:ss_parking",
+        "description": "la porte métallique grise vers le sous-sol, à gauche"
+      },
+      {
+        "cle": "pas:r1_cage",
+        "description": "l'escalier en béton qui monte, au centre"
+      },
+      {
+        "cle": "poi:poi_commande_exutoire",
+        "description": "le petit boîtier rouge de commande de désenfumage sur le mur de droite"
+      }
+    ],
+    "ref": "rdc_cage_1"
+  },
+  {
+    "id": "rdc_cage_haut",
+    "zone": "rdc_cage",
+    "aspect": "16:9",
+    "prompt": "Même cage d'escalier, mêmes matériaux et même éclairage, mais la caméra bascule vers le haut : on voit la sous-face de la volée qui monte et, au-dessus, le puits de la cage. Entre la caméra et la verrière du lanterneau de désenfumage tout en haut, on compte exactement 4 niveaux (paliers) avec la même rampe métallique. Une seule volée par niveau, aucune symétrie, aucune fumée.",
+    "cibles": [],
+    "ref": "rdc_cage_2",
+    "edit": true
+  },
+  {
+    "id": "r1_cage_1",
+    "zone": "r1_cage",
+    "aspect": "16:9",
+    "prompt": "Reprends exactement cette photo de cage d'escalier : mêmes murs blanc cassé, même escalier en granito avec la même rampe métallique, même éclairage, même grain. Nous sommes au premier étage (R+1) : supprime le boîtier rouge au mur et remplace la porte métallique grise de gauche par la porte de cage en bois à vitrage armé avec ferme-porte, qui donne sur le palier. La seule volée visible monte vers le fond à droite. Aucune autre volée, aucune symétrie, aucune fumée.",
+    "cibles": [
+      {
+        "cle": "pas:et_cage",
+        "description": "la volée de marches qui monte vers le fond, dont les marches s'élèvent en s'éloignant"
+      },
+      {
+        "cle": "pas:r1_palier",
+        "description": "la porte de cage en bois à vitrage armé à gauche"
+      }
+    ],
+    "ref": "rdc_cage_2",
+    "edit": true
+  },
+  {
+    "id": "r1_cage_2",
+    "zone": "r1_cage",
+    "aspect": "16:9",
+    "prompt": "Même cage d'escalier, mêmes matériaux et même éclairage, après un demi-tour de la caméra : on regarde maintenant la volée qui DESCEND vers le rez-de-chaussée depuis le palier, les marches s'abaissent en s'éloignant, une seule volée visible avec la même rampe métallique, la fenêtre de la cage au fond. Aucune fumée, aucune symétrie.",
+    "cibles": [
+      {
+        "cle": "pas:rdc_cage",
+        "description": "la volée de marches qui descend, dont les marches s'abaissent en s'éloignant"
+      }
+    ],
+    "ref": "r1_cage_1",
+    "edit": true
+  },
+  {
+    "id": "r1_palier_1",
+    "zone": "r1_palier",
+    "aspect": "16:9",
+    "prompt": "Palier du premier étage (R+1) : couloir carrelé gris avec murs blancs cassés, à gauche la porte de cage d'escalier en bois à vitrage armé, au fond une porte d'ascenseur en inox, portes palières en bois clair, éclairage normal, aucune fumée, air limpide.",
+    "cibles": [
+      {
+        "cle": "pas:r1_cage",
+        "description": "la porte de cage d'escalier en bois à vitrage armé, à gauche"
+      }
+    ],
+    "ref": "rdc_hall_1"
+  },
+  {
+    "id": "r1_palier_2",
+    "zone": "r1_palier",
+    "aspect": "16:9",
+    "prompt": "Palier du premier étage (R+1), autre côté : portes palières en bois clair alignées, une porte métallique grise de gaine technique fermée, paillasson devant une porte, éclairage normal, aucune fumée, air limpide.",
+    "cibles": [],
+    "ref": "r1_palier_1"
+  },
+  {
+    "id": "et_cage_1",
+    "zone": "et_cage",
+    "aspect": "16:9",
+    "prompt": "Même cage d'escalier que sur la photo, mêmes matériaux et même éclairage, mais au deuxième étage (R+2) : même cadrage, la porte de cage en bois à vitrage armé à gauche donne sur le palier, la volée continue de monter vers le fond. Aucune fumée, aucune symétrie.",
+    "cibles": [
+      {
+        "cle": "pas:et_palier",
+        "description": "la porte de cage en bois à vitrage armé avec son ferme-porte, à gauche"
+      }
+    ],
+    "ref": "r1_cage_1",
+    "edit": true
+  },
+  {
+    "id": "et_cage_haut",
+    "zone": "et_cage",
+    "aspect": "16:9",
+    "prompt": "Même cage d'escalier, mêmes matériaux et même éclairage, mais la caméra bascule vers le haut : on voit la sous-face de la volée qui monte et, au-dessus, le puits de la cage. Entre la caméra et la verrière du lanterneau de désenfumage tout en haut, on compte exactement 2 niveaux (paliers) avec la même rampe métallique. Une seule volée par niveau, aucune symétrie, aucune fumée.",
+    "cibles": [],
+    "ref": "et_cage_1",
+    "edit": true
+  },
+  {
+    "id": "et_palier_1",
+    "zone": "et_palier",
+    "aspect": "16:9",
+    "prompt": "Palier d'étage (R+2), éclairage normal et net, bonne visibilité : couloir carrelé gris avec murs blancs cassés, à gauche la porte de cage d'escalier en bois à vitrage armé, sur le mur de droite une petite plaque murale métallique de colonne sèche palière avec deux raccords et leurs bouchons, au fond une porte d'ascenseur en inox. Un très léger voile de fumée grise, presque transparent, sous le plafond au fond du couloir seulement ; tout le reste est parfaitement net.",
+    "cibles": [
+      {
+        "cle": "pas:et_cage",
+        "description": "la porte de cage d'escalier en bois à vitrage armé, à gauche"
+      },
+      {
+        "cle": "poi:poi_colonne_seche_palier",
+        "description": "la petite plaque murale de colonne sèche palière avec ses deux raccords"
+      }
+    ],
+    "ref": "rdc_hall_1"
+  },
+  {
+    "id": "et_palier_2",
+    "zone": "et_palier",
+    "aspect": "16:9",
+    "prompt": "Palier d'étage (R+2), côté logement, éclairage normal et net, bonne visibilité : à gauche une porte métallique grise entrouverte de gaine technique palière laissant voir des câbles, à droite la porte palière en bois clair du logement, fermée. De très fines volutes de fumée grise légère, presque transparentes, s'échappent par le haut de la porte palière et forment un voile discret sous le plafond ; le couloir reste net, sans suie, sans brouillard.",
+    "cibles": [
+      {
+        "cle": "poi:poi_colonne_montante",
+        "description": "la porte métallique grise de la gaine technique palière avec les câbles visibles"
+      },
+      {
+        "cle": "poi:poi_fumee_palier",
+        "description": "le haut de la porte palière d'où s'échappent de fines volutes de fumée"
+      },
+      {
+        "cle": "pas:et_logement",
+        "description": "la porte palière en bois clair fermée"
+      }
+    ],
+    "ref": "et_palier_1"
+  },
+  {
+    "id": "et_logement_1",
+    "zone": "et_logement",
+    "aspect": "16:9",
+    "prompt": "Entrée d'un appartement dont le séjour est en feu, vue depuis la porte palière à hauteur d'yeux : petit vestibule avec portemanteau et chaussures, fumée noire très dense du plafond jusqu'à environ un mètre du sol, visibilité d'un mètre à peine, plafond et murs noircis de suie, au fond une forte lueur orange qui éclaire la fumée ; photo prise au flash, floue, avec du grain.",
+    "cibles": [
+      {
+        "cle": "pas:et_palier",
+        "description": "la porte d'entrée palière, à gauche"
+      }
+    ],
+    "ref": "et_palier_2"
+  },
+  {
+    "id": "et_logement_2",
+    "zone": "et_logement",
+    "aspect": "16:9",
+    "prompt": "Séjour d'un appartement en feu vu de la porte, photo de terrain prise au flash : visibilité très réduite, fumée noire épaisse du plafond jusqu'à environ un mètre du sol, au fond un canapé et un meuble qui brûlent avec de larges flammes orange vif irrégulières, plafond et murs noircis par la suie, objets du quotidien à moitié fondus, vitre de la porte-fenêtre brisée, lueur orange diffuse sur la fumée ; image légèrement floue, avec du grain, aucune personne.",
+    "cibles": [
+      {
+        "cle": "poi:poi_foyer",
+        "description": "les flammes qui brûlent le canapé et les meubles"
+      }
+    ],
+    "ref": "et_logement_1"
+  },
+  {
+    "id": "poi_feu_facade_B",
+    "zone": null,
+    "aspect": "16:9",
+    "prompt": "Gros plan au téléobjectif depuis le sol sur la fenêtre soufflée du deuxième étage d'un pignon d'immeuble : de larges flammes orange irrégulières sortent par toute l'ouverture et noircissent la façade au-dessus, une masse de fumée noire et grise épaisse roule vers le haut et masque les fenêtres des étages supérieurs. Style photographie de presse prise par un reporter lors d'un vrai feu d'appartement : la fumée est ample, irrégulière et turbulente, en volutes grises et noires qui se mélangent, jamais une colonne fine ni un dessin ; les flammes sont de larges langues orange vif irrégulières ; aucun sapeur-pompier, aucun véhicule de secours, aucune échelle.",
+    "cibles": [],
+    "ref": "ext_pignon_B_1",
+    "kind": "crop",
+    "crop": {
+      "vue": "ext_pignon_B_1",
+      "poi": "poi_feu_facade_B"
+    }
+  },
+  {
+    "id": "poi_propagation_C",
+    "zone": null,
+    "aspect": "16:9",
+    "prompt": "Gros plan au téléobjectif depuis le sol sur deux fenêtres voisines soufflées du deuxième étage d'une façade d'immeuble : fumée noire et grise épaisse qui sort de la partie haute des ouvertures et s'étale sur la façade au-dessus, enduit noirci de suie, balcon voisin enfumé. Style photographie de presse prise par un reporter lors d'un vrai feu d'appartement : la fumée est ample, irrégulière et turbulente, en volutes grises et noires qui se mélangent, jamais une colonne fine ni un dessin ; les flammes sont de larges langues orange vif irrégulières ; aucun sapeur-pompier, aucun véhicule de secours, aucune échelle.",
+    "cibles": [],
+    "ref": "ext_facade_C_1",
+    "kind": "crop",
+    "crop": {
+      "vue": "ext_facade_C_1",
+      "poi": "poi_propagation_C"
+    }
+  },
+  {
+    "id": "poi_victime",
+    "zone": null,
+    "aspect": "16:9",
+    "prompt": "Gros plan au téléobjectif depuis le sol sur une personne adulte en vêtements ordinaires penchée à une fenêtre ouverte du deuxième étage, qui agite le bras pour appeler à l'aide ; de la fumée grise sort de la fenêtre juste au-dessus d'elle et passe au-dessus de sa tête, façade d'immeuble beige grisé. Style photographie de presse prise par un reporter lors d'un vrai feu d'appartement : la fumée est ample, irrégulière et turbulente, en volutes grises et noires qui se mélangent, jamais une colonne fine ni un dessin ; les flammes sont de larges langues orange vif irrégulières ; aucun sapeur-pompier, aucun véhicule de secours, aucune échelle.",
+    "cibles": [],
+    "ref": "ext_facade_C_1",
+    "kind": "crop",
+    "crop": {
+      "vue": "ext_facade_C_1",
+      "poi": "poi_victime"
+    }
+  },
+  {
+    "id": "poi_foyer",
+    "zone": null,
+    "aspect": "16:9",
+    "prompt": "Gros plan de terrain, photo au flash, sur un canapé qui brûle avec de larges flammes orange vif dans un séjour : fumée noire épaisse au plafond, murs et plafond noircis de suie, éclats de verre au sol, objets fondus ; image légèrement floue avec du grain, aucune personne.",
+    "cibles": [],
+    "ref": "et_logement_2",
+    "kind": "zoom"
+  },
+  {
+    "id": "poi_coupure_gaz",
+    "zone": null,
+    "aspect": "16:9",
+    "prompt": "Gros plan net sur le coffret gaz encastré dans le muret en limite de propriété : porte grise ouverte, robinet d'arrêt à quart de tour et compteur visibles.",
+    "cibles": [],
+    "ref": "ext_pignon_B_1",
+    "kind": "zoom"
+  },
+  {
+    "id": "poi_coupure_elec",
+    "zone": null,
+    "aspect": "16:9",
+    "prompt": "Gros plan net sur le tableau électrique général : disjoncteur différentiel principal bien visible, plusieurs disjoncteurs divisionnaires.",
+    "cibles": [],
+    "ref": "ss_local_technique_1",
+    "kind": "zoom"
+  },
+  {
+    "id": "poi_colonne_seche_rdc",
+    "zone": null,
+    "aspect": "16:9",
+    "prompt": "Gros plan net sur la prise d'alimentation de colonne sèche : plaque murale métallique avec deux raccords Guillemin et leurs bouchons à chaînette.",
+    "cibles": [],
+    "ref": "ext_facade_A_2",
+    "kind": "zoom"
+  },
+  {
+    "id": "poi_colonne_seche_palier",
+    "zone": null,
+    "aspect": "16:9",
+    "prompt": "Gros plan net sur la prise palière de colonne sèche : plaque murale avec deux raccords et bouchons, robinets de purge.",
+    "cibles": [],
+    "ref": "et_palier_1",
+    "kind": "zoom"
+  },
+  {
+    "id": "poi_commande_exutoire",
+    "zone": null,
+    "aspect": "16:9",
+    "prompt": "Gros plan net sur le boîtier rouge de commande d'ouverture du désenfumage avec sa poignée et son pictogramme graphique flou.",
+    "cibles": [],
+    "ref": "rdc_cage_2",
+    "kind": "zoom"
+  },
+  {
+    "id": "poi_boite_cles",
+    "zone": null,
+    "aspect": "16:9",
+    "prompt": "Gros plan net sur la boîte à clés grise à digicode fixée au mur à côté de la porte d'entrée.",
+    "cibles": [],
+    "ref": "ext_facade_A_2",
+    "kind": "zoom"
+  },
+  {
+    "id": "poi_bouteilles",
+    "zone": null,
+    "aspect": "16:9",
+    "prompt": "Gros plan net sur les bouteilles de gaz debout contre le mur, certaines sans chaîne de retenue.",
+    "cibles": [],
+    "ref": "ss_local_technique_2",
+    "kind": "zoom"
+  },
+  {
+    "id": "poi_porte_cage_rdc",
+    "zone": null,
+    "aspect": "16:9",
+    "prompt": "Gros plan net sur la porte de cage d'escalier en bois à vitrage armé avec son ferme-porte en haut, sans texte lisible.",
+    "cibles": [],
+    "ref": "rdc_cage_1",
+    "kind": "zoom"
+  },
+  {
+    "id": "et_cage_2",
+    "zone": "et_cage",
+    "aspect": "16:9",
+    "cibles": [
+      {
+        "cle": "pas:r1_cage",
+        "description": "la volée de marches qui descend, dont les marches s'abaissent en s'éloignant"
+      }
+    ],
+    "ref": "r1_cage_2",
+    "edit": true,
+    "prompt": "Même cage d'escalier, mêmes matériaux et même éclairage, au deuxième étage (R+2), après un demi-tour de la caméra : on regarde la volée qui DESCEND vers le premier étage, une seule volée visible avec la même rampe métallique. Aucune fumée, aucune symétrie."
+  },
+  {
+    "id": "rdc_cage_haut_ouvert",
+    "zone": "rdc_cage",
+    "aspect": "16:9",
+    "cibles": [],
+    "ref": "rdc_cage_haut",
+    "edit": true,
+    "prompt": "Reprends exactement cette image, sans rien changer d'autre, mais le lanterneau de désenfumage en haut est ouvert : battant relevé, on voit le ciel gris et il entre plus de lumière du jour dans la cage."
+  },
+  {
+    "id": "et_cage_haut_ouvert",
+    "zone": "et_cage",
+    "aspect": "16:9",
+    "cibles": [],
+    "ref": "et_cage_haut",
+    "edit": true,
+    "prompt": "Reprends exactement cette image, sans rien changer d'autre, mais le lanterneau de désenfumage en haut est ouvert : battant relevé, on voit le ciel gris et il entre plus de lumière du jour dans la cage."
+  },
+  {
+    "id": "r3_cage_1",
+    "zone": "r3_cage",
+    "aspect": "16:9",
+    "cibles": [
+      {
+        "cle": "pas:r3_palier",
+        "description": "la porte de cage en bois à vitrage armé avec son ferme-porte, à gauche"
+      }
+    ],
+    "ref": "et_cage_1",
+    "edit": true,
+    "prompt": "Même cage d'escalier que sur la photo, mêmes matériaux et même éclairage, mais au troisième étage (R+3) : même cadrage. Aucune fumée, aucune symétrie."
+  },
+  {
+    "id": "r3_cage_2",
+    "zone": "r3_cage",
+    "aspect": "16:9",
+    "cibles": [
+      {
+        "cle": "pas:et_cage",
+        "description": "la volée de marches qui descend, dont les marches s'abaissent en s'éloignant"
+      }
+    ],
+    "ref": "et_cage_2",
+    "edit": true,
+    "prompt": "Même cage d'escalier, mêmes matériaux et même éclairage, au troisième étage (R+3), caméra tournée vers la volée qui DESCEND. Aucune fumée, aucune symétrie."
+  },
+  {
+    "id": "r3_cage_haut",
+    "zone": "r3_cage",
+    "aspect": "16:9",
+    "cibles": [],
+    "ref": "r3_cage_1",
+    "edit": true,
+    "prompt": "Même cage d'escalier, mêmes matériaux et même éclairage, mais la caméra bascule vers le haut, depuis le palier du troisième étage : la cage est courte au-dessus de nous. On voit la sous-face de la seule volée qui monte, puis un UNIQUE niveau (un seul palier avec sa rampe métallique), et juste après, très proche, la verrière du lanterneau de désenfumage au plafond de la cage, qui laisse passer la lumière du jour. Pas de volées supplémentaires plus haut, aucune symétrie, aucune fumée."
+  },
+  {
+    "id": "r3_cage_haut_ouvert",
+    "zone": "r3_cage",
+    "aspect": "16:9",
+    "cibles": [],
+    "ref": "r3_cage_haut",
+    "edit": true,
+    "prompt": "Reprends exactement cette image, sans rien changer d'autre, mais le lanterneau de désenfumage en haut est ouvert : battant relevé, on voit le ciel gris et il entre plus de lumière du jour dans la cage."
+  },
+  {
+    "id": "r3_palier_1",
+    "zone": "r3_palier",
+    "aspect": "16:9",
+    "cibles": [
+      {
+        "cle": "pas:r3_cage",
+        "description": "la porte de cage d'escalier en bois à vitrage armé, à gauche"
+      }
+    ],
+    "ref": "et_palier_1",
+    "edit": true,
+    "prompt": "Reprends exactement cette photo de palier (mêmes murs, même sol, mêmes portes), au troisième étage : supprime toute fumée, l'air est limpide, l'éclairage est normal et net."
+  },
+  {
+    "id": "r3_palier_2",
+    "zone": "r3_palier",
+    "aspect": "16:9",
+    "cibles": [
+      {
+        "cle": "pas:r3_logement",
+        "description": "la porte palière en bois clair fermée"
+      }
+    ],
+    "ref": "et_palier_2",
+    "edit": true,
+    "prompt": "Reprends exactement cette photo de palier (mêmes murs, même sol, mêmes portes), au troisième étage : la porte palière en bois clair est fermée, supprime toute fumée, l'air est limpide, l'éclairage est normal et net."
+  },
+  {
+    "id": "r3_logement_1",
+    "zone": "r3_logement",
+    "aspect": "16:9",
+    "cibles": [
+      {
+        "cle": "pas:r3_palier",
+        "description": "la porte d'entrée palière, à gauche"
+      }
+    ],
+    "prompt": "Entrée d'un appartement ordinaire du troisième étage vue depuis la porte palière : petit vestibule avec portemanteau et chaussures, au fond l'ouverture sur le séjour dont on voit la lumière du jour par une fenêtre ouverte ; une fumée grise légère flotte en partie haute du vestibule, venant du séjour ; bonne visibilité, aucune flamme, aucune lueur de feu."
+  },
+  {
+    "id": "r3_logement_2",
+    "zone": "r3_logement",
+    "aspect": "16:9",
+    "cibles": [
+      {
+        "cle": "poi:poi_logement_r3_enfume",
+        "description": "la nappe de fumée grise qui entre par la fenêtre ouverte"
+      }
+    ],
+    "ref": "r3_logement_1",
+    "prompt": "Séjour d'un appartement ordinaire au troisième étage, les grandes fenêtres sont ouvertes (rideaux agités par le vent) : de la fumée grise épaisse venant de l'extérieur entre par les fenêtres et s'accumule sous le plafond, descendant à environ 1,20 m du sol près des fenêtres ; visibilité moyenne ; aucune flamme, aucune lueur de feu ; mobilier ordinaire intact (canapé, table basse, télévision). Photo de terrain, légère netteté réduite, grain."
+  }
+]
