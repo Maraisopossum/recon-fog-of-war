@@ -72,7 +72,7 @@ export function creerCarte(parent: HTMLElement, store: Store, opts: MapOptions =
     fonds = new Map();
     contours = new Map();
     etiquettes = new Map();
-    svg = s('svg', { viewBox: '0 0 400 300', class: 'carte-svg', role: 'img', 'aria-label': 'Plan tactique' });
+    svg = s('svg', { viewBox: '15 22 360 262', class: 'carte-svg', role: 'img', 'aria-label': 'Plan tactique' });
     svg.append(defs());
     const calqueFond = s('g', { class: 'c-fond' });
     const calqueFog = s('g', { class: 'c-fog' });

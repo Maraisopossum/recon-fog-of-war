@@ -59,6 +59,15 @@ try {
   app.append(zoneJeu);
 
   if (mode !== 'carte') creerVueChef(colChef, store);
+  // Téléphone en portrait : suggérer le mode paysage (une seule fois par session)
+  if (mode !== 'carte') {
+    let vu = false;
+    try { vu = sessionStorage.getItem('astuce-paysage') === '1'; } catch { /* stockage indisponible */ }
+    if (!vu) {
+      const astuce = h('div', { class: 'astuce-paysage', role: 'note' }, h('span', {}, 'Astuce : tournez le téléphone en mode paysage pour agrandir l’image.'), h('button', { onclick: () => { astuce.remove(); try { sessionStorage.setItem('astuce-paysage', '1'); } catch { /* sans effet */ } } }, 'OK'));
+      colChef.append(astuce);
+    }
+  }
   if (mode === 'carte') {
     creerCarte(colCarte, store);
     const attente = h('p', { class: 'attente' }, 'En attente de la mission…');

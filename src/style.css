@@ -259,3 +259,119 @@ button { font: inherit; color: inherit; }
 .pivot:hover, .pivot:focus-visible { background: var(--accent); color: #1b1305; border-color: #fff; }
 .pivot-g { border-left: 0; }
 .pivot-d { border-right: 0; }
+
+/* ───────── Téléphones et petits écrans ───────── */
+html, body, #app { height: 100dvh; }
+body { overscroll-behavior: none; -webkit-text-size-adjust: 100%; }
+.stage.pano .defile { touch-action: pan-x; }
+
+/* Téléphone en portrait */
+@media (max-width: 700px) and (orientation: portrait) {
+  body { font-size: 14px; }
+  .topbar { height: auto; flex-wrap: wrap; gap: 6px 8px; padding: 6px 10px; padding-top: max(6px, env(safe-area-inset-top)); }
+  .logo { letter-spacing: .16em; font-size: 14px; }
+  .logo, .logo em, .mission { display: none; }
+  .chrono { padding: 3px 8px; font-size: 13px; }
+  .topbar-actions { margin-left: auto; }
+  .topbar-actions { gap: 6px; }
+  .btn { min-height: 40px; padding: 0 12px; font-size: 13px; }
+  .niveaux-ind { order: 5; width: 100%; justify-content: space-between; gap: 3px; }
+  .puce-niveau { flex: 1; text-align: center; padding: 5px 2px; font-size: 12px; letter-spacing: 0; }
+  .col-chef { min-height: 0; }
+  .chef { justify-content: flex-start; }
+  /* l'image garde ses proportions, la barre d'information vient juste dessous */
+  .chef-scene { flex: none; width: 100%; aspect-ratio: 16 / 9; }
+  .chef-scene:has(.stage.pano) { aspect-ratio: 4 / 3; }
+  .chef-barre { min-height: 0; padding: 8px 12px; }
+  .chef-titre strong { font-size: 15px; }
+  .hotspot.passage .fleche { width: 46px; height: 46px; font-size: 24px; }
+  .pivot { width: 44px; height: 88px; font-size: 32px; }
+  .hotspot { min-width: 48px; min-height: 48px; }
+  .toast { max-width: 92vw; font-size: 13px; }
+  .tour { font-size: 10px; }
+  /* fenêtres */
+  .zoom { padding: 8px; align-items: start; }
+  .zoom-img { max-height: 36vh; }
+  .zoom-texte, .popup-texte { padding: 10px 14px 14px; }
+  .rapport { padding: 14px; }
+  .radio { min-height: 40px; padding: 0 10px; font-size: 13px; }
+  .journal { left: 8px; right: 8px; width: auto; top: auto; bottom: 8px; max-height: 55vh; }
+  /* briefing */
+  .ecran { padding: 10px; place-items: start center; }
+  .briefing-carte { padding: 16px 16px 20px; }
+  .briefing-carte h1 { font-size: 21px; }
+  .briefing-carte .texte { font-size: 15px; line-height: 1.5; }
+  .btn.grand { width: 100%; min-height: 50px; font-size: 16px; padding: 0 12px; }
+  /* débriefing */
+  .deb-grille { gap: 12px; }
+  .deb-carte { height: 340px; padding: 10px; }
+  .deb-bloc { padding: 12px 14px; }
+  .deb-bloc.score .gros { font-size: 48px; }
+  .barre-ligne { grid-template-columns: 70px 1fr 44px; font-size: 13px; }
+  .deb-pois { grid-template-columns: 1fr; }
+  .deb-niveaux .radar { width: 180px; height: 180px; }
+  /* second écran (carte) */
+  .carte-niveaux { padding: 6px 6px 0; }
+  .onglet { min-height: 40px; padding: 0 8px; font-size: 13px; }
+  .carte-cadre { margin: 0 6px 6px; }
+}
+
+/* Téléphone en paysage (peu de hauteur) */
+@media (max-height: 520px) {
+  .topbar { height: 40px; gap: 6px; padding: 0 10px; flex-wrap: nowrap; }
+  .logo, .logo em, .mission { display: none; }
+  .topbar-actions { margin-left: auto; }
+  .niveaux-ind { margin-left: 0; }
+  .btn { min-height: 34px; padding: 0 10px; font-size: 12px; }
+  .puce-niveau { padding: 3px 6px; font-size: 11px; }
+  .chrono { padding: 2px 6px; font-size: 12px; }
+  .chef-barre { padding: 4px 10px; min-height: 0; }
+  .chef-titre { flex-direction: row; gap: 10px; align-items: baseline; }
+  .chef-titre strong { font-size: 14px; }
+  .hotspot.passage .fleche { width: 42px; height: 42px; font-size: 22px; }
+  .pivot { width: 40px; height: 80px; font-size: 28px; }
+  .zoom { padding: 6px; }
+  .zoom-img { max-height: 40vh; }
+  .zoom-texte, .popup-texte { padding: 8px 12px 10px; }
+  .journal { top: 46px; max-height: 70vh; }
+  .ecran { padding: 8px; place-items: start center; }
+  .briefing-carte { padding: 12px 18px; }
+  .briefing-carte h1 { font-size: 20px; margin-bottom: 6px; }
+  .briefing-carte .texte { font-size: 14px; line-height: 1.4; }
+  .option-aide { margin: 2px 0 10px; padding: 8px 10px; }
+  .btn.grand { min-height: 44px; }
+  .deb-carte { height: 320px; position: static; }
+}
+
+/* Tablette en portrait : la barre se range sur deux lignes */
+@media (min-width: 701px) and (max-width: 900px) {
+  .topbar { flex-wrap: wrap; height: auto; padding: 6px 12px; row-gap: 6px; }
+  .niveaux-ind { order: 5; width: 100%; justify-content: center; }
+}
+
+/* Astuce pour tourner le téléphone */
+.astuce-paysage { display: none; }
+@media (max-width: 700px) and (orientation: portrait) {
+  .astuce-paysage { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 8px 10px 0; padding: 8px 12px; border: 1px solid var(--trait); border-radius: 6px; background: var(--fond-2); color: var(--discret); font-size: 13px; }
+  .astuce-paysage button { min-height: 32px; padding: 0 10px; background: transparent; border: 1px solid var(--trait); border-radius: 4px; color: var(--texte); }
+}
+@media (max-height: 520px) {
+  .consigne { display: none; }
+  .briefing-carte .texte { font-size: 13px; }
+  .briefing-carte .requerant { margin: 4px 0; font-size: 13px; }
+}
+
+.btn, .puce-niveau, .onglet { white-space: nowrap; }
+.stage.pano .toile { margin-inline: auto; }
+
+/* Portrait : le journal des relevés occupe la place sous l'image au lieu d'une fenêtre flottante */
+@media (max-width: 700px) and (orientation: portrait) {
+  #btn-journal { display: none; }
+  .jeu { flex: none; order: 2; }
+  .journal, .journal.cache { display: flex !important; flex-direction: column; position: static; order: 3; margin: 8px 10px 10px; width: auto; max-height: none; flex: 1; min-height: 0; overflow: auto; box-shadow: none; }
+  .journal h2 { flex: none; }
+  .journal-liste { overflow: auto; }
+  .zoom { position: fixed; inset: 0; }
+}
+.journal-liste li.muted { display: block; }
+@media (max-width: 700px) { .carte-niveaux { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; } .onglet { flex: none; } }
