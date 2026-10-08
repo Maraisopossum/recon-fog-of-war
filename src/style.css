@@ -407,16 +407,11 @@ body { overscroll-behavior: none; -webkit-text-size-adjust: 100%; }
   .zoom-texte .btn, .popup-texte .btn { min-height: 36px; font-size: 13px; }
 }
 
-/* Compteurs de la gaine technique et boutons « Couper » */
-.panneau-compteurs { display: flex; flex-direction: column; gap: 6px; margin: 4px 0 10px; }
-.panneau-compteurs:empty { display: none; }
-.compteur { display: grid; grid-template-columns: 1fr auto auto auto auto; gap: 6px 8px; align-items: center; padding: 6px 8px; border: 1px solid var(--trait); border-radius: 4px; background: var(--fond); font-size: 13px; }
-.compteur span { color: var(--discret); }
+/* Boutons « Couper » */
 .btn.couper { min-height: 34px; padding: 0 10px; font-size: 12px; border-color: var(--ko); color: var(--ko); }
 .btn.couper:hover { background: rgba(255, 107, 94, .12); }
 .btn.couper.fait { border-color: var(--trait); color: var(--discret); }
 .actions { flex-wrap: wrap; }
-@media (max-width: 700px) { .compteur { grid-template-columns: 1fr auto auto; } }
 
 /* Bon de départ et tutoriel */
 .depart { display: flex; flex-direction: column; gap: 6px; margin: 4px 0 14px; padding: 12px 14px; border: 1px solid var(--trait); border-left: 3px solid var(--accent); border-radius: 4px; background: var(--fond-3); }

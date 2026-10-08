@@ -77,7 +77,6 @@ export function creerVueChef(parent: HTMLElement, store: Store) {
     const z = idx.zones.get(p.zone)!;
     chargerImage(img, [nom], () => placeholderUrl(p.libelle, 'zoom', 1280, 800, teinteZone(z.niveau)));
     const zoneActions = h('div', { class: 'actions' });
-    const panneau = h('div', { class: 'panneau-compteurs' });
 
     // Boutons « Couper » : gaz et électricité (immeuble ou logement), sans jugement pendant la partie
     const couper = (energie: 'gaz' | 'elec' | 'palier', cible: 'immeuble' | 'logement' | 'palier', logement?: string, etiquette?: string) => {
@@ -98,7 +97,6 @@ export function creerVueChef(parent: HTMLElement, store: Store) {
 
     function majActions() {
       clear(zoneActions);
-      clear(panneau);
       const st = store.get();
       if (p.action === 'gaine') zoneActions.append(couper('palier', 'palier', undefined, 'Couper'));
       if (p.action === 'coupure_gaz_immeuble') zoneActions.append(couper('gaz', 'immeuble', undefined, "Couper le gaz de l'immeuble"));
@@ -128,7 +126,7 @@ export function creerVueChef(parent: HTMLElement, store: Store) {
     zoneOverlay = h(
       'div',
       { class: 'zoom', role: 'dialog', 'aria-label': p.libelle, onclick: (e: Event) => e.target === zoneOverlay && fermerZoom() },
-      h('div', { class: 'zoom-carte' }, img, h('div', { class: 'zoom-texte' }, h('h3', {}, p.libelle), h('p', {}, p.texte_revele), panneau, zoneActions)),
+      h('div', { class: 'zoom-carte' }, img, h('div', { class: 'zoom-texte' }, h('h3', {}, p.libelle), h('p', {}, p.texte_revele), zoneActions)),
     );
     racine.append(zoneOverlay);
   }

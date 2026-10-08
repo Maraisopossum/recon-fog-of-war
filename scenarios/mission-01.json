@@ -2103,7 +2103,7 @@
       "id": "poi_colonne_montante",
       "zone": "et_palier",
       "libelle": "Gaine technique palière",
-      "texte_revele": "Gaine technique palière ouverte : compteurs d'électricité et de gaz des logements du palier. On peut y couper l'alimentation.",
+      "texte_revele": "Gaine technique palière ouverte : compteurs d'électricité et de gaz. On peut y couper l'alimentation.",
       "ou": "sur le palier de l'étage",
       "cache": false,
       "image_zoom": "poi_colonne_montante.jpg",
