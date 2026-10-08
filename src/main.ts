@@ -42,6 +42,11 @@ try {
 
   boutons.append(h('button', { class: 'btn', id: 'btn-journal', onclick: () => journal.basculer() }, 'Journal'));
   if (mode !== 'carte') {
+    // « Action demandée » : simple marqueur horodaté, la reconnaissance continue
+    const demande = h('button', { class: 'btn', id: 'btn-demande', title: 'Noter une action demandée (sans interrompre la reconnaissance)', onclick: () => { store.dispatch({ type: 'demande' }); demande.classList.add('note'); setTimeout(() => demande.classList.remove('note'), 1200); } }, 'Action demandée');
+    store.subscribe((st) => demande.classList.toggle('cache', st.phase !== 'jeu'));
+    demande.classList.add('cache');
+    boutons.append(demande);
     const quitter = h('button', { class: 'btn', id: 'btn-quitter', onclick: () => ouvrirQuitter(app, store) }, 'Quitter');
     store.subscribe((st) => quitter.classList.toggle('cache', st.phase !== 'jeu'));
     quitter.classList.add('cache');

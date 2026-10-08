@@ -68,39 +68,64 @@ export function creerVueChef(parent: HTMLElement, store: Store) {
     const nom = p.image_zoom ?? `${p.id}.jpg`;
     const z = idx.zones.get(p.zone)!;
     chargerImage(img, [nom], () => placeholderUrl(p.libelle, 'zoom', 1280, 800, teinteZone(z.niveau)));
+    const zoneActions = h('div', { class: 'actions' });
+    const panneau = h('div', { class: 'panneau-compteurs' });
+
+    // Boutons « Couper » : gaz et électricité (immeuble ou logement), sans jugement pendant la partie
+    const couper = (energie: 'gaz' | 'elec', cible: 'immeuble' | 'logement', logement?: string, etiquette?: string) => {
+      const fait = store.get().coupures.some((c) => c.energie === energie && c.cible === cible && c.logement === logement);
+      return h(
+        'button',
+        {
+          class: 'btn couper' + (fait ? ' fait' : ''),
+          ...(fait ? { disabled: true } : {}),
+          onclick: () => {
+            store.dispatch({ type: 'couper', energie, cible, logement });
+            majActions();
+          },
+        },
+        fait ? 'Coupé' : etiquette ?? 'Couper',
+      );
+    };
+
+    function majActions() {
+      clear(zoneActions);
+      clear(panneau);
+      const st = store.get();
+      if (p.action === 'gaine') {
+        for (const l of sc.logements.liste) {
+          panneau.append(h('div', { class: 'compteur' }, h('strong', {}, `Logement ${l}`), h('span', {}, 'Gaz'), couper('gaz', 'logement', l), h('span', {}, 'Électricité'), couper('elec', 'logement', l)));
+        }
+      }
+      if (p.action === 'coupure_gaz_immeuble') zoneActions.append(couper('gaz', 'immeuble', undefined, "Couper le gaz de l'immeuble"));
+      if (p.action === 'coupure_elec_immeuble') zoneActions.append(couper('elec', 'immeuble', undefined, "Couper l'électricité de l'immeuble"));
+      if (p.action === 'desenfumer') {
+        zoneActions.append(
+          h(
+            'button',
+            {
+              class: 'btn primaire',
+              ...(st.desenfumage ? { disabled: true } : {}),
+              onclick: () => {
+                store.dispatch({ type: 'desenfumer' });
+                fermerZoom();
+              },
+            },
+            st.desenfumage ? 'Désenfumage déjà actionné' : 'Actionner la commande de désenfumage',
+          ),
+        );
+      }
+      zoneActions.append(
+        h('button', { class: 'btn', onclick: () => { store.dispatch({ type: 'demande' }); toast('Action demandée notée'); } }, 'Action demandée'),
+        h('button', { class: 'btn', onclick: fermerZoom }, 'Fermer'),
+      );
+    }
+    majActions();
+
     zoneOverlay = h(
       'div',
       { class: 'zoom', role: 'dialog', 'aria-label': p.libelle, onclick: (e: Event) => e.target === zoneOverlay && fermerZoom() },
-      h(
-        'div',
-        { class: 'zoom-carte' },
-        img,
-        h(
-          'div',
-          { class: 'zoom-texte' },
-          h('h3', {}, p.libelle),
-          h('p', {}, p.texte_revele),
-          h(
-            'div',
-            { class: 'actions' },
-            p.action === 'desenfumer'
-              ? h(
-                  'button',
-                  {
-                    class: 'btn primaire',
-                    ...(store.get().desenfumage ? { disabled: true } : {}),
-                    onclick: () => {
-                      store.dispatch({ type: 'desenfumer' });
-                      fermerZoom();
-                    },
-                  },
-                  store.get().desenfumage ? 'Désenfumage déjà actionné' : 'Actionner la commande de désenfumage',
-                )
-              : null,
-            h('button', { class: 'btn', onclick: fermerZoom }, 'Fermer'),
-          ),
-        ),
-      ),
+      h('div', { class: 'zoom-carte' }, img, h('div', { class: 'zoom-texte' }, h('h3', {}, p.libelle), h('p', {}, p.texte_revele), panneau, zoneActions)),
     );
     racine.append(zoneOverlay);
   }
@@ -121,6 +146,7 @@ export function creerVueChef(parent: HTMLElement, store: Store) {
     if (hs.type === 'poi' && hs.poi) {
       const p = idx.poi.get(hs.poi)!;
       store.dispatch({ type: 'poi', poi: p.id });
+      if (p.action === 'gaine') store.dispatch({ type: 'ouvrirGaine' });
       ouvrirZoom(p);
       return;
     }
@@ -210,7 +236,7 @@ export function creerVueChef(parent: HTMLElement, store: Store) {
     const toile = h('div', { class: 'toile' });
     toile.style.aspectRatio = String(panorama ? RATIO_PANORAMA : RATIO_VUE);
     const img = h('img', { class: 'vue-img', alt: `${zone.nom}`, draggable: false });
-    const cand = [st.desenfumage ? vue.image_desenfumage : undefined, vue.variantes_image?.[st.variante] ?? vue.image, vue.image].filter((x): x is string => !!x).filter((x, i, a) => a.indexOf(x) === i);
+    const cand = [st.desenfumage ? vue.image_desenfumage : undefined, st.gaineOuverte ? vue.image_gaine : undefined, vue.variantes_image?.[st.variante] ?? vue.image, vue.image].filter((x): x is string => !!x).filter((x, i, a) => a.indexOf(x) === i);
     const w = panorama ? 2400 : 1600;
     const hh = Math.round(w / (panorama ? RATIO_PANORAMA : RATIO_VUE));
     chargerImage(img, cand, () => placeholderUrl(zone.nom, vue.id, w, hh, teinteZone(zone.niveau)), (est) => {
@@ -307,7 +333,7 @@ export function creerVueChef(parent: HTMLElement, store: Store) {
       clear(barre);
       return;
     }
-    if (prev && prev.desenfumage !== st.desenfumage) vueCourante = '';
+    if (prev && (prev.desenfumage !== st.desenfumage || prev.gaineOuverte !== st.gaineOuverte)) vueCourante = '';
     if (st.position.vue !== vueCourante || st.variante !== varianteCourante) {
       afficherVue(st);
     } else if (hotspotsEl && prev && (prev.portesOuvertes !== st.portesOuvertes || prev.poiTrouves !== st.poiTrouves || prev.zones !== st.zones || prev.aide !== st.aide)) {

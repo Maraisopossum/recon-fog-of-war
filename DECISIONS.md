@@ -35,6 +35,16 @@ Choix non couverts (ou précisés) par le brief, pris selon la règle « solutio
 - **R+3 (étage au-dessus du foyer)** : cage, palier et logement. La fumée du logement vient de la **façade** (ses fenêtres étaient ouvertes), pas de la cage : cage et palier du R+3 restent nets. Le bâtiment compte 5 niveaux (le R+4 existe mais n'est pas accessible).
 - **« Regarder en haut »** montre le bon nombre de niveaux jusqu'au lanterneau : 4 depuis le RDC, 2 depuis le R+2, 1 depuis le R+3 (comptage contrôlé par Gemini en vision avec `tools/verify-count.ts`).
 
+## Accueil, compte rendu et débriefing (méthode, pas de note)
+- **Bon de départ** : motif (alarme incendie), adresse (8 rue Dessein Bernier, 59069 Amour), information complémentaire (alarme déclenchée au R+2, non confirmée), puis **tutoriel** en 5 diapositives passables (case « Ne plus afficher » mémorisée dans le navigateur) avant le départ du chrono.
+- **Plus aucun pourcentage ni conclusion** : ni couverture, ni radar, ni axe de progression. Le débriefing montre la méthode suivie.
+- **Rendre compte** (irréversible, après confirmation) en deux étapes : (1) cocher les éléments vus, classés **reconnaissance 360°** et **reconnaissance intérieure**, avec quelques éléments absents du scénario et un ordre sans rapport avec leur présence ; (2) **lecture du feu BV-FFCOS** (Bâtiment, Vent, Fumées, Flammes, Chaleur, Ouvrants, Sons) en sept zones de texte. Le débriefing compare, élément par élément : dans le scénario / relevé en jeu / coché, puis restitue les textes tels quels avec le rappel de ce qu'il fallait observer.
+- **BV-FFCOS** : indicateurs de la lecture du feu et de la lecture bâtimentaire du GDO « Interventions sur les incendies de structures » (SDIS), complétés par la fiche FFCOS (Fumées, Flammes, Chaleur, Ouvertures, Sons). Placé à la fin, dans « Rendre compte », car c'est un exercice de restitution : l'observer en jeu est la reconnaissance, le formuler est le compte rendu.
+- **Action demandée** : bouton dans la barre (et dans les zooms), simple marqueur horodaté sans contenu. Il évite les « moi, j'aurais demandé ça » et la reconnaissance continue.
+- **Coupures de fluides** : boutons « Couper » conservés. Le coffret du pignon B coupe le gaz de tout l'immeuble ; la gaine technique palière du R+2 (fermée, puis ouverte pour de bon) permet de couper gaz et électricité par logement (21 à 24, le feu est au 22, numéro lisible sur la porte palière). Rien n'est jugé pendant la partie ; le débriefing liste les actions dans l'ordre.
+- Pignon B : le feu est sur la colonne de fenêtres de gauche, du côté de la façade C. Façade C : la victime est penchée à la fenêtre du R+2 la plus proche du feu, bloquée par une cloison, avec de la fumée dense au R+3 au-dessus d'elle et des témoins effrayés au sol.
+- Local vélos : une seule vue. Façade A, vue 1 : plus de passage direct vers le hall.
+
 ## Score et débrief
 - Poids de zone : 1 par défaut ; `zone.poids` configurable dans le JSON.
 - Axe de progression : niveau le moins couvert (à égalité, premier dans l'ordre des niveaux).

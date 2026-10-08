@@ -1,32 +1,20 @@
-import { chargerImage } from '../first-person/viewer';
-import { placeholderUrl, teinteZone } from '../first-person/placeholder';
-import { indexer, zonePoi } from '../game/rules';
-import { couverture, niveauLeMoinsCouvert, pct } from '../game/score';
+import { indexer } from '../game/rules';
 import type { Store } from '../game/store';
+import type { GameState, GrilleItem, Scenario } from '../game/types';
 import { creerCarte } from '../map/map';
+import { chronoTexte, h } from './dom';
 import { ouvrirPopupPoi } from './poi-popup';
-import { chronoTexte, h, s } from './dom';
 
-function radar(noms: string[], valeurs: number[]): SVGSVGElement {
-  const R = 78;
-  const c = 100;
-  const n = noms.length;
-  const pt = (i: number, r: number): [number, number] => {
-    const a = -Math.PI / 2 + (2 * Math.PI * i) / n;
-    return [c + Math.cos(a) * r, c + Math.sin(a) * r];
+/** Un élément de la grille : existait ? relevé pendant la partie ? déclaré dans le compte rendu ? */
+export function statutElement(_sc: Scenario, st: GameState, it: GrilleItem) {
+  return {
+    existe: it.poi.length > 0,
+    releve: it.poi.some((p) => st.poiTrouves.includes(p)),
+    declare: !!st.rapport?.coches.includes(it.id),
   };
-  const svg = s('svg', { viewBox: '0 0 200 200', class: 'radar', role: 'img', 'aria-label': 'Couverture par niveau' });
-  for (const k of [0.25, 0.5, 0.75, 1]) svg.append(s('polygon', { points: noms.map((_, i) => pt(i, R * k).join(',')).join(' '), class: 'radar-grille' }));
-  noms.forEach((nom, i) => {
-    const [x, y] = pt(i, R);
-    svg.append(s('line', { x1: c, y1: c, x2: x, y2: y, class: 'radar-axe' }));
-    const [lx, ly] = pt(i, R + 14);
-    svg.append(s('text', { x: lx, y: ly + 3, 'text-anchor': 'middle', class: 'radar-lib' }, nom));
-  });
-  svg.append(s('polygon', { points: valeurs.map((v, i) => pt(i, R * Math.max(v, 0.02)).join(',')).join(' '), class: 'radar-forme' }));
-  return svg;
 }
 
+/** Débriefing : la méthode suivie, sans pourcentage ni conclusion. */
 export function creerDebrief(parent: HTMLElement, store: Store, peutRejouer: boolean) {
   const sc = store.scenario;
   const idx = indexer(sc);
@@ -36,51 +24,87 @@ export function creerDebrief(parent: HTMLElement, store: Store, peutRejouer: boo
 
   function rendre() {
     const st = store.get();
-    const cov = couverture(sc, st);
-    const pire = niveauLeMoinsCouvert(sc, cov);
     racine.replaceChildren();
-
-    const colCarte = h('div', { class: 'deb-carte' }, h('h2', {}, 'Plan final'), h('p', { class: 'muted' }, 'Ce qui reste sous le nuage n\'a pas été reconnu.'));
-    colCarte.append(h('div', { class: 'deb-carte-hote' }));
     detruireCarte?.();
     let carte: ReturnType<typeof creerCarte> | null = null;
-    // Un clic sur un point (carte ou liste) oriente le plan vers lui et montre la photo de la vue concernée.
+    // Un clic sur un élément (plan ou tableau) oriente le plan vers lui et montre la photo de la vue concernée.
     const ouvrir = (id: string) => {
       carte?.voir(id);
       ouvrirPopupPoi(document.getElementById('app') ?? document.body, store, id);
     };
 
-    const pois = sc.poi.map((p) => {
-      const trouve = st.poiTrouves.includes(p.id);
-      const z = idx.zones.get(zonePoi(sc, p, st.variante))!;
-      const img = h('img', { class: 'deb-vignette', alt: p.libelle });
-      chargerImage(img, [p.image_zoom ?? `${p.id}.jpg`], () => placeholderUrl(p.libelle, '', 480, 300, teinteZone(z.niveau)));
-      return h(
-        'li',
-        { class: 'deb-poi ' + (trouve ? 'trouve' : 'manque'), role: 'button', tabindex: 0, title: 'Voir la photo', onclick: () => ouvrir(p.id) },
-        img,
-        h('div', {}, h('strong', {}, p.libelle), h('p', {}, `Emplacement : ${p.ou}.`), h('span', { class: 'etat' }, trouve ? 'Trouvé' : 'Non trouvé')),
+    const oui = (v: boolean, si: string, non: string) => h('span', { class: 'pastille-etat ' + (v ? 'oui' : 'non') }, v ? si : non);
+    const tableau = (titre: string, sous: string, items: GrilleItem[]) =>
+      h(
+        'div',
+        { class: 'deb-bloc' },
+        h('h2', {}, titre),
+        h('p', { class: 'muted' }, sous),
+        h(
+          'table',
+          { class: 'deb-table' },
+          h('thead', {}, h('tr', {}, h('th', {}, 'Élément'), h('th', {}, 'Dans le scénario'), h('th', {}, 'Relevé en jeu'), h('th', {}, st.rapport ? 'Coché au compte rendu' : 'Compte rendu'))),
+          h(
+            'tbody',
+            {},
+            ...items.map((it) => {
+              const s = statutElement(sc, st, it);
+              const cible = it.poi.find((p) => st.poiTrouves.includes(p)) ?? it.poi[0];
+              return h(
+                'tr',
+                { class: cible ? 'cliquable' : '', ...(cible ? { tabindex: 0, role: 'button', title: 'Voir la photo', onclick: () => ouvrir(cible) } : {}) },
+                h('td', {}, it.libelle),
+                h('td', {}, oui(s.existe, 'Oui', 'Absent')),
+                h('td', {}, s.existe ? oui(s.releve, 'Oui', 'Non') : h('span', { class: 'muted' }, '—')),
+                h('td', {}, st.rapport ? oui(s.declare, 'Oui', 'Non') : h('span', { class: 'muted' }, 'Non rempli')),
+              );
+            }),
+          ),
+        ),
       );
-    });
-    const nbTrouves = st.poiTrouves.length;
 
-    const barres = sc.niveaux.map((n) =>
-      h('div', { class: 'barre-ligne' }, h('span', {}, n.nom), h('div', { class: 'barre' }, h('div', { class: 'barre-val', style: `width:${Math.round(cov.parNiveau[n.id] * 100)}%` })), h('span', { class: 'val' }, pct(cov.parNiveau[n.id]))),
+    // Lecture du feu BV-FFCOS : texte du joueur, tel quel, avec le rappel de ce qu'il fallait observer
+    const lecture = h(
+      'div',
+      { class: 'deb-bloc' },
+      h('h2', {}, 'Lecture du feu : BV-FFCOS'),
+      st.rapport ? null : h('p', { class: 'muted' }, 'Compte rendu non rempli.'),
+      ...sc.lecture_feu.map((it) => {
+        const texte = st.rapport?.lecture[it.id]?.trim();
+        return h(
+          'div',
+          { class: 'lecture-deb' },
+          h('p', { class: 'lecture-titre' }, h('strong', { class: 'lecture-lettre' }, it.lettre), ` ${it.titre}`),
+          h('p', { class: 'muted petit' }, it.aide),
+          st.rapport ? h('p', { class: 'lecture-texte' + (texte ? '' : ' vide') }, texte || 'Non renseigné') : null,
+        );
+      }),
     );
 
-    const rapport = st.rapport
-      ? h('div', { class: 'deb-bloc' }, h('h2', {}, 'Compte rendu transmis'), h('p', {}, `Lieu présumé : ${st.rapport.lieu}`), h('p', {}, `Victime(s) : ${st.rapport.victimes}`), h('p', {}, `Moyens demandés : ${st.rapport.moyens.join(', ') || 'aucun'}`))
-      : null;
+    // Actions réalisées et demandées, dans l'ordre, sans interprétation
+    const actions = st.evenements.filter((e) => e.type === 'action');
+    const blocActions = h(
+      'div',
+      { class: 'deb-bloc' },
+      h('h2', {}, 'Actions réalisées et demandées'),
+      actions.length
+        ? h('ol', { class: 'chrono' }, ...actions.map((e) => h('li', {}, h('span', { class: 't' }, chronoTexte(e.t)), e.texte)))
+        : h('p', { class: 'muted' }, 'Aucune action.'),
+      h('p', { class: 'muted' }, `Le feu était dans le logement n°${sc.logements.sinistre} (R+2).`),
+    );
+
+    const colCarte = h('div', { class: 'deb-carte' }, h('h2', {}, 'Plan final'), h('p', { class: 'muted' }, "Ce qui reste sous le nuage n'a pas été parcouru. Touchez un point pour voir la photo."));
+    colCarte.append(h('div', { class: 'deb-carte-hote' }));
 
     const colInfos = h(
       'div',
       { class: 'deb-infos' },
-      h('div', { class: 'deb-bloc score' }, h('p', { class: 'etiquette' }, 'Couverture globale'), h('p', { class: 'gros' }, pct(cov.global)), h('p', { class: 'muted' }, `Durée : ${chronoTexte(st.chrono)} (non notée) · Arrivée côté ${st.variante}`)),
-      h('div', { class: 'deb-bloc' }, h('h2', {}, 'Couverture par niveau'), h('div', { class: 'deb-niveaux' }, radar(sc.niveaux.map((n) => n.nom), sc.niveaux.map((n) => cov.parNiveau[n.id])), h('div', { class: 'barres' }, ...barres))),
-      h('div', { class: 'deb-bloc axe' }, h('h2', {}, 'Axe de progression'), h('p', {}, `Reconnaissance du niveau « ${pire.nom} » (couverture ${pct(pire.valeur)}).`)),
-      rapport,
-      h('div', { class: 'deb-bloc' }, h('h2', {}, `Éléments factuels (${nbTrouves}/${sc.poi.length} trouvés)`), h('ul', { class: 'deb-pois' }, ...pois)),
-      h('div', { class: 'deb-bloc' }, h('h2', {}, 'Chronologie'), h('ol', { class: 'chrono' }, ...st.chronologie.map((c) => h('li', {}, h('span', { class: 't' }, chronoTexte(c.t)), idx.zones.get(c.zone)!.nom)))),
+      h('div', { class: 'deb-bloc' }, h('p', { class: 'etiquette' }, 'Débriefing de la reconnaissance'), h('p', { class: 'muted' }, `Durée : ${chronoTexte(st.chrono)} · Arrivée devant la façade ${st.variante}`)),
+      tableau('Reconnaissance 360°', "Tour du bâtiment, vu de l'extérieur.", sc.grille.exterieur),
+      tableau('Reconnaissance intérieure', 'Sous-sol, parties communes et logements.', sc.grille.interieur),
+      lecture,
+      blocActions,
+      h('div', { class: 'deb-bloc' }, h('h2', {}, 'Déroulé : zones visitées'), h('ol', { class: 'chrono' }, ...st.chronologie.map((c) => h('li', {}, h('span', { class: 't' }, chronoTexte(c.t)), idx.zones.get(c.zone)!.nom)))),
       peutRejouer ? h('button', { class: 'btn primaire grand', onclick: () => store.dispatch({ type: 'restart' }) }, 'Rejouer la mission') : null,
     );
 

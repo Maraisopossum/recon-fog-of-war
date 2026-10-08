@@ -40,7 +40,7 @@
     "id": "ext_pignon_B_1",
     "zone": "ext_pignon_B",
     "aspect": "21:9",
-    "prompt": "Vue panoramique large du pignon B de l'immeuble, prise depuis une pelouse à 35 mètres, de face : le pignon est le bout étroit du bâtiment (environ 14 mètres de large sur 5 niveaux de haut) et n'occupe qu'environ le tiers central de l'image ; de chaque côté s'étendent pelouse, arbres, parking de résidence avec voitures, lampadaire, mur bas. Le pignon est un mur d'enduit beige grisé, vieilli, avec une colonne verticale de petites fenêtres de cage d'escalier. SINISTRE : la fenêtre du logement en feu est exactement à la TROISIÈME ligne de fenêtres en partant du sol (R+2 : deux lignes complètes de fenêtres sous la fenêtre, rez-de-chaussée et premier étage, et deux lignes au-dessus) ; elle est entièrement soufflée, de larges flammes orange irrégulières sortent par toute l'ouverture et lèchent la façade au-dessus, l'enduit est noirci de suie sur plusieurs mètres au-dessus de la fenêtre ; une masse volumineuse de fumée noire et grise, épaisse, roule hors de la partie haute de l'ouverture, s'élargit en montant, passe devant les fenêtres des étages supérieurs en les masquant en partie, puis forme un grand panache qui dérive au-dessus du toit. Au pied du pignon, en limite de propriété, un petit coffret gaz encastré dans un muret avec sa porte grise. Style photographie de presse prise par un reporter lors d'un vrai feu d'appartement : la fumée est ample, irrégulière et turbulente, en volutes grises et noires qui se mélangent, jamais une colonne fine ni un dessin ; les flammes sont de larges langues orange vif irrégulières ; aucun sapeur-pompier, aucun véhicule de secours, aucune échelle.",
+    "prompt": "Vue panoramique large du pignon B de l'immeuble, prise depuis une pelouse à 35 mètres, de face : le pignon est le bout étroit du bâtiment (environ 14 mètres de large sur 5 niveaux de haut) et n'occupe qu'environ le tiers central de l'image ; de chaque côté s'étendent pelouse, arbres, parking de résidence avec voitures, lampadaire, mur bas. Le pignon est un mur d'enduit beige grisé, vieilli, avec une colonne verticale de petites fenêtres de cage d'escalier ; sur son bord DROIT on aperçoit en perspective le début des balcons de la longue façade. SINISTRE : la fenêtre du logement en feu est sur le côté GAUCHE du pignon, la colonne de fenêtres la plus à gauche, près de l'arête de gauche du bâtiment, exactement à la TROISIÈME ligne de fenêtres en partant du sol (R+2 : deux lignes complètes de fenêtres sous la fenêtre, et deux lignes au-dessus) ; elle est entièrement soufflée, de larges flammes orange irrégulières sortent par toute l'ouverture et lèchent la façade au-dessus, l'enduit est noirci de suie sur plusieurs mètres ; une masse volumineuse de fumée noire et grise, épaisse, roule hors de la partie haute de l'ouverture, passe devant les fenêtres des étages supérieurs et forme un grand panache qui dérive au-dessus du toit. Au pied du pignon, en limite de propriété, un petit coffret gaz encastré dans un muret avec sa porte grise. Style photographie de presse prise par un reporter lors d'un vrai feu d'appartement : la fumée est ample, irrégulière et turbulente ; les flammes sont de larges langues orange vif irrégulières ; aucun sapeur-pompier, aucun véhicule de secours, aucune échelle.",
     "cibles": [
       {
         "cle": "poi:poi_feu_facade_B",
@@ -57,7 +57,7 @@
     "id": "ext_facade_C_1",
     "zone": "ext_facade_C",
     "aspect": "21:9",
-    "prompt": "Vue panoramique large de la façade C (façade arrière côté jardins) de l'immeuble, prise depuis la pelouse à 35 mètres, de face : la longue façade de 5 niveaux occupe presque toute la largeur de l'image, balcons filants, pelouse, haie basse et quelques voitures au premier plan. SINISTRE : à l'extrémité droite de l'image (côté pignon B), au niveau du deuxième étage (R+2, troisième ligne de fenêtres en partant du sol), deux fenêtres voisines sont soufflées ; une épaisse fumée noire et grise, volumineuse et turbulente, sort de leur partie haute et s'étale en nappe sur la façade au-dessus en masquant en partie les fenêtres des étages supérieurs, l'enduit est noirci de suie, des flammes basses sont visibles dans la fenêtre la plus proche du coin. Au milieu-droit de la façade, à une fenêtre ouverte du R+2 (pas sur un balcon), une personne adulte en vêtements ordinaires se penche et agite le bras pour appeler à l'aide ; juste au-dessus d'elle, la fenêtre du R+3 laisse sortir de la fumée grise qui passe au-dessus de sa tête. Style photographie de presse prise par un reporter lors d'un vrai feu d'appartement : la fumée est ample, irrégulière et turbulente, en volutes grises et noires qui se mélangent, jamais une colonne fine ni un dessin ; les flammes sont de larges langues orange vif irrégulières ; aucun sapeur-pompier, aucun véhicule de secours, aucune échelle.",
+    "prompt": "Vue panoramique large de la façade C (façade arrière côté jardins) de l'immeuble, prise depuis la pelouse à 35 mètres, de face : la longue façade de 5 niveaux occupe presque toute la largeur de l'image, balcons filants, pelouse, haie basse et quelques voitures au premier plan. SINISTRE : à l'extrémité droite de l'image (côté pignon B), au niveau du deuxième étage (R+2, troisième ligne de fenêtres en partant du sol), deux fenêtres sont soufflées et en feu, de larges flammes orange en sortent, une épaisse fumée noire et grise, volumineuse et turbulente, s'étale sur la façade au-dessus en masquant en partie les fenêtres des étages supérieurs, l'enduit est noirci de suie. TOUT PRÈS de ces fenêtres en feu, juste à leur gauche, à la fenêtre du R+2 la plus proche du feu, une personne adulte en vêtements ordinaires est PENCHÉE en avant par-dessus l'appui de la fenêtre, le buste incliné vers le bas pour éviter la fumée, un bras levé, appelant à l'aide ; elle ne peut pas quitter l'endroit : le balcon filant est interrompu à cet endroit par une cloison pleine et un garde-corps haut qui bloquent le passage. Juste AU-DESSUS d'elle, la fenêtre du R+3 laisse sortir une fumée noire dense qui passe au-dessus de sa tête. Au sol, devant la façade, plusieurs personnes (cinq ou six) en vêtements ordinaires, effrayées, regardent vers le haut, les mains sur la tête ou sur la bouche, certaines pointent du doigt, groupées sur la pelouse. Style photographie de presse prise par un reporter lors d'un vrai feu d'appartement : la fumée est ample, irrégulière et turbulente ; les flammes sont de larges langues orange vif irrégulières ; aucun sapeur-pompier, aucun véhicule de secours, aucune échelle.",
     "cibles": [
       {
         "cle": "poi:poi_victime",
@@ -270,14 +270,6 @@
     ]
   },
   {
-    "id": "rdc_local_velos_2",
-    "zone": "rdc_local_velos",
-    "aspect": "16:9",
-    "prompt": "Fond du local vélos : étagères avec quelques cartons, trottinettes, un casier, murs blancs.",
-    "cibles": [],
-    "ref": "rdc_local_velos_1"
-  },
-  {
     "id": "rdc_cage_1",
     "zone": "rdc_cage",
     "aspect": "16:9",
@@ -416,7 +408,7 @@
     "id": "et_palier_2",
     "zone": "et_palier",
     "aspect": "16:9",
-    "prompt": "Palier d'étage (R+2), côté logement, éclairage normal et net, bonne visibilité : à gauche une porte métallique grise entrouverte de gaine technique palière laissant voir des câbles, à droite la porte palière en bois clair du logement, fermée. De très fines volutes de fumée grise légère, presque transparentes, s'échappent par le haut de la porte palière et forment un voile discret sous le plafond ; le couloir reste net, sans suie, sans brouillard.",
+    "prompt": "Reprends exactement cette photo de palier (mêmes murs, même sol, même porte palière en bois, même ascenseur, même éclairage, même fumée très légère). SEUL CHANGEMENT : la gaine technique, à gauche, est maintenant FERMÉE : une porte métallique grise pleine, parfaitement fermée dans son cadre, avec une petite serrure, occupe l'ouverture ; on ne voit AUCUN compteur, AUCUN câble, AUCUN tuyau, rien de l'intérieur de la gaine.",
     "cibles": [
       {
         "cle": "poi:poi_colonne_montante",
@@ -431,7 +423,8 @@
         "description": "la porte palière en bois clair fermée"
       }
     ],
-    "ref": "et_palier_1"
+    "ref": "et_palier_2_gaine_ouverte",
+    "edit": true
   },
   {
     "id": "et_logement_1",
@@ -709,5 +702,37 @@
     ],
     "ref": "r3_logement_1",
     "prompt": "Séjour d'un appartement ordinaire au troisième étage, les grandes fenêtres sont ouvertes (rideaux agités par le vent) : de la fumée grise épaisse venant de l'extérieur entre par les fenêtres et s'accumule sous le plafond, descendant à environ 1,20 m du sol près des fenêtres ; visibilité moyenne ; aucune flamme, aucune lueur de feu ; mobilier ordinaire intact (canapé, table basse, télévision). Photo de terrain, légère netteté réduite, grain."
+  },
+  {
+    "id": "et_palier_2_gaine_ouverte",
+    "zone": "et_palier",
+    "aspect": "16:9",
+    "cibles": [],
+    "ref": "et_palier_2",
+    "edit": true,
+    "prompt": "Reprends exactement cette photo de palier, même cadrage, mêmes matériaux, même éclairage et même fumée très légère. La porte métallique grise de la gaine technique palière, à gauche, est ouverte (battant ouvert vers l'extérieur) : on voit dans la gaine quatre compteurs d'électricité et quatre compteurs de gaz alignés, avec leurs câbles et tuyaux, des étiquettes floues et illisibles. Aucun autre changement."
+  },
+  {
+    "id": "poi_porte_palliere",
+    "zone": null,
+    "aspect": "16:9",
+    "cibles": [],
+    "ref": "et_palier_2",
+    "kind": "zoom",
+    "prompt": "Gros plan net sur la porte palière en bois clair, fermée, avec son judas et une petite plaque métallique portant le numéro « 22 » bien lisible ; de très fines volutes de fumée grise au-dessus de la porte ; même matériaux que sur la photo de référence."
+  },
+  {
+    "id": "poi_colonne_montante",
+    "zone": null,
+    "aspect": "16:9",
+    "prompt": "",
+    "cibles": [],
+    "kind": "crop",
+    "crop": {
+      "vue": "et_palier_2",
+      "poi": "poi_colonne_montante",
+      "image": "et_palier_2_gaine_ouverte"
+    },
+    "ref": "et_palier_2_gaine_ouverte"
   }
 ]

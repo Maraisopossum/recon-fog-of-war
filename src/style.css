@@ -406,3 +406,65 @@ body { overscroll-behavior: none; -webkit-text-size-adjust: 100%; }
   .zoom-texte h3, .popup-texte h3 { font-size: 15px; }
   .zoom-texte .btn, .popup-texte .btn { min-height: 36px; font-size: 13px; }
 }
+
+/* Compteurs de la gaine technique et boutons « Couper » */
+.panneau-compteurs { display: flex; flex-direction: column; gap: 6px; margin: 4px 0 10px; }
+.panneau-compteurs:empty { display: none; }
+.compteur { display: grid; grid-template-columns: 1fr auto auto auto auto; gap: 6px 8px; align-items: center; padding: 6px 8px; border: 1px solid var(--trait); border-radius: 4px; background: var(--fond); font-size: 13px; }
+.compteur span { color: var(--discret); }
+.btn.couper { min-height: 34px; padding: 0 10px; font-size: 12px; border-color: var(--ko); color: var(--ko); }
+.btn.couper:hover { background: rgba(255, 107, 94, .12); }
+.btn.couper.fait { border-color: var(--trait); color: var(--discret); }
+.actions { flex-wrap: wrap; }
+@media (max-width: 700px) { .compteur { grid-template-columns: 1fr auto auto; } }
+
+/* Bon de départ et tutoriel */
+.depart { display: flex; flex-direction: column; gap: 6px; margin: 4px 0 14px; padding: 12px 14px; border: 1px solid var(--trait); border-left: 3px solid var(--accent); border-radius: 4px; background: var(--fond-3); }
+.depart-ligne { display: grid; grid-template-columns: 190px 1fr; gap: 10px; align-items: baseline; }
+.depart-etiq { color: var(--discret); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+.btn.lien { background: transparent; border: 0; color: var(--discret); text-decoration: underline; min-height: 36px; margin-top: 6px; }
+.tuto { max-width: 560px; }
+.tuto h2 { margin: 0 0 10px; }
+.tuto-schema { display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; padding: 18px 10px; margin-bottom: 10px; background: #05080c; border: 1px solid var(--trait); border-radius: 6px; }
+.tuto-fleche, .tuto-pivot { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(8, 12, 18, .6); color: var(--accent-2); border: 2px solid rgba(242, 176, 74, .9); font-size: 24px; font-weight: 700; }
+.tuto-pivot { border-radius: 8px; height: 70px; width: 38px; }
+.tuto-cadre { padding: 10px 18px; border: 2px dashed var(--accent); border-radius: 6px; color: var(--accent-2); }
+.tuto-btn { min-height: 38px; display: inline-flex; align-items: center; }
+.tuto-texte { line-height: 1.5; margin: 0 0 10px; }
+.tuto-points { display: flex; gap: 6px; justify-content: center; margin: 4px 0 8px; }
+.tuto-point { width: 8px; height: 8px; border-radius: 50%; background: var(--trait); }
+.tuto-point.actif { background: var(--accent); }
+.tuto-nepas { display: flex; gap: 8px; align-items: center; color: var(--discret); font-size: 13px; margin-top: 4px; }
+@media (max-width: 700px) { .depart-ligne { grid-template-columns: 1fr; gap: 2px; } }
+
+/* Rendre compte (liste à cocher) et tableaux du débriefing */
+.grille { border: 1px solid var(--trait); border-radius: 6px; margin: 12px 0 0; padding: 8px 12px 12px; }
+.grille legend { padding: 0 6px; color: var(--accent); letter-spacing: .06em; }
+.grille p { margin: 0 0 8px; font-size: 13px; }
+.grille-liste { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 6px; }
+.case { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 4px 10px; border: 1px solid var(--trait); border-radius: 4px; background: var(--fond-3); cursor: pointer; font-size: 14px; }
+.case.on { border-color: var(--accent); background: rgba(242, 176, 74, .12); }
+.case input { accent-color: var(--accent); width: 18px; height: 18px; }
+.deb-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 6px; }
+.deb-table th { text-align: left; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--discret); padding: 4px 6px; border-bottom: 1px solid var(--trait); }
+.deb-table td { padding: 7px 6px; border-bottom: 1px solid var(--fond-3); }
+.deb-table tr.cliquable { cursor: pointer; }
+.deb-table tr.cliquable:hover { background: var(--fond-3); }
+.pastille-etat { display: inline-block; padding: 1px 8px; border-radius: 3px; font-size: 12px; border: 1px solid var(--trait); color: var(--discret); }
+.pastille-etat.oui { color: var(--texte); border-color: var(--accent); }
+@media (max-width: 700px) { .deb-table th:nth-child(2), .deb-table td:nth-child(2) { display: none; } .grille-liste { grid-template-columns: 1fr; } }
+
+/* Lecture du feu BV-FFCOS */
+.lecture { display: flex; flex-direction: column; gap: 4px; margin: 10px 0; }
+.lecture small { color: var(--discret); }
+.lecture textarea { width: 100%; resize: vertical; background: var(--fond); color: var(--texte); border: 1px solid var(--trait); border-radius: 4px; padding: 8px 10px; font: inherit; font-size: 15px; min-height: 56px; }
+.lecture textarea:focus { outline: none; border-color: var(--accent); }
+.lecture-lettre { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 4px; background: var(--accent); color: #1b1305; margin-right: 4px; }
+.lecture-deb { padding: 8px 0; border-bottom: 1px solid var(--fond-3); }
+.lecture-deb p { margin: 2px 0; }
+.petit { font-size: 12px; }
+.lecture-texte { white-space: pre-wrap; background: var(--fond); border-left: 3px solid var(--accent); padding: 6px 10px; }
+.lecture-texte.vide { color: var(--discret); border-left-color: var(--trait); }
+
+.btn.note { background: var(--accent); color: #1b1305; border-color: var(--accent); }
+@media (max-width: 700px) and (orientation: portrait) { #btn-demande { padding: 0 8px; font-size: 12px; } }

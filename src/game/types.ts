@@ -25,6 +25,8 @@ export interface Vue {
   image: string;
   /** image affichée une fois le désenfumage de la cage actionné */
   image_desenfumage?: string;
+  /** image affichée une fois la gaine technique palière ouverte (elle reste ouverte) */
+  image_gaine?: string;
   /** vue annexe (regard vers le haut, volée qui descend…) : n'est pas exigée pour reconnaître la zone */
   facultative?: boolean;
   /** pivot : flèches sur les bords de l'image pour tourner */
@@ -65,7 +67,7 @@ export interface Poi {
   placement?: string;
   a_valider?: boolean;
   /** action proposée dans le zoom du POI */
-  action?: 'desenfumer';
+  action?: 'desenfumer' | 'gaine' | 'coupure_gaz_immeuble' | 'coupure_elec_immeuble';
 }
 
 export interface Niveau {
@@ -79,7 +81,13 @@ export interface Niveau {
 export interface Scenario {
   id: string;
   titre: string;
-  briefing: { texte: string; requerant: string };
+  briefing: { motif: string; adresse: string; info: string; requerant: string; texte: string };
+  /** logements desservis par le palier du sinistre et logement en feu (compteurs de la gaine) */
+  logements: { liste: string[]; sinistre: string };
+  /** grille de méthode à cocher dans « Rendre compte », séparée en reconnaissance 360° et intérieure */
+  grille: { exterieur: GrilleItem[]; interieur: GrilleItem[] };
+  /** lecture du feu BV-FFCOS demandée à la fin de la reconnaissance, avec des zones de texte */
+  lecture_feu: LectureItem[];
   variantes_arrivee: Variante[];
   niveaux: Niveau[];
   zones: Zone[];
@@ -96,12 +104,40 @@ export interface Scenario {
   };
 }
 
+export interface GrilleItem {
+  id: string;
+  libelle: string;
+  /** POI qui correspondent à cet élément (liste vide : élément absent du scénario) */
+  poi: string[];
+}
+
+/** Un indicateur de la lecture du feu BV-FFCOS (Bâtiment, Vent, Fumées, Flammes, Chaleur, Ouvrants, Sons). */
+export interface LectureItem {
+  id: string;
+  lettre: string;
+  titre: string;
+  /** ce qu'il faut observer, d'après le GDO « Interventions sur les incendies de structures » */
+  aide: string;
+}
+
 export type Phase = 'briefing' | 'jeu' | 'debrief';
 
+/** Compte rendu : éléments cochés (ids de la grille) et lecture du feu rédigée par le joueur (BV-FFCOS). */
 export interface Rapport {
-  lieu: string;
-  victimes: string;
-  moyens: string[];
+  coches: string[];
+  lecture: Record<string, string>;
+}
+
+export interface Coupure {
+  t: number;
+  energie: 'gaz' | 'elec';
+  cible: 'immeuble' | 'logement';
+  logement?: string;
+}
+
+export interface Demande {
+  t: number;
+  zone: string;
 }
 
 export interface GameState {
@@ -119,6 +155,11 @@ export interface GameState {
   aide: boolean;
   /** désenfumage de la cage actionné depuis la commande du RDC */
   desenfumage: boolean;
+  /** gaine technique palière du R+2 ouverte (elle reste ouverte) */
+  gaineOuverte: boolean;
+  coupures: Coupure[];
+  /** « Action demandée » : marqueurs horodatés, sans contenu */
+  demandes: Demande[];
   /** vue d'où l'on a levé les yeux : la flèche « retour » y ramène */
   vueRetour: string | null;
   /** journal des découvertes et actions */

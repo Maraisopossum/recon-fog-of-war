@@ -11,7 +11,7 @@ import { appeler, RACINE } from './gemini';
 
 const MODELE = process.env.GEMINI_IMAGE_MODEL ?? 'gemini-3.1-flash-image';
 const DIR = path.join(RACINE, 'public', 'assets', 'generated');
-const views = JSON.parse(fs.readFileSync(path.join(RACINE, 'prompts', 'views.json'), 'utf8')) as { id: string; kind?: string; crop?: { vue: string; poi: string } }[];
+const views = JSON.parse(fs.readFileSync(path.join(RACINE, 'prompts', 'views.json'), 'utf8')) as { id: string; kind?: string; crop?: { vue: string; poi: string; image?: string } }[];
 const scenario = JSON.parse(fs.readFileSync(path.join(RACINE, 'scenarios', 'mission-01.json'), 'utf8')) as { zones: { vues: { id: string; hotspots?: { poi?: string; zone_clic: number[] }[] }[] }[] };
 
 const PROMPT =
@@ -24,7 +24,7 @@ async function zoom(id: string) {
   const hs = vue?.hotspots?.find((h) => h.poi === def.crop!.poi);
   if (!vue || !hs) throw new Error(`${id} : hotspot introuvable dans ${def.crop.vue}`);
   const sharp = (await import('sharp')).default;
-  const source = path.join(DIR, `${vue.id}.jpg`);
+  const source = path.join(DIR, `${def.crop!.image ?? vue.id}.jpg`);
   const meta = await sharp(source).metadata();
   const W = meta.width!;
   const H = meta.height!;

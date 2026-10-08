@@ -2,8 +2,11 @@
   "id": "mission-01",
   "titre": "Alarme incendie : immeuble d'habitation",
   "briefing": {
-    "texte": "FPT rappelé pendant un retour d'intervention. Alarme incendie dans un immeuble d'habitation de 3e famille, R+4, géré par un bailleur. Le requérant, agent des services techniques du bailleur, a entendu l'alarme générale mais n'est pas entré dans le bâtiment et ne sait pas d'où elle vient. Vous êtes chef d'agrès. Faites la reconnaissance du site.",
-    "requerant": "Agent des services techniques du bailleur"
+    "motif": "Alarme incendie",
+    "adresse": "8 rue Dessein Bernier, 59069 Amour",
+    "info": "Alarme déclenchée au R+2 (information non confirmée)",
+    "requerant": "Agent des services techniques du bailleur",
+    "texte": "FPT rappelé pendant un retour d'intervention. Immeuble d'habitation de 3e famille, R+4, géré par un bailleur. Le requérant, agent des services techniques du bailleur, n'est pas entré dans le bâtiment. Vous êtes chef d'agrès : faites la reconnaissance."
   },
   "variantes_arrivee": [
     "A"
@@ -123,20 +126,10 @@
               "type": "poi",
               "poi": "poi_voie_engins",
               "zone_clic": [
-                0,
-                0.856,
-                1,
-                0.144
-              ]
-            },
-            {
-              "type": "passage",
-              "vers": "rdc_hall",
-              "zone_clic": [
-                0.28,
-                0.701,
-                0.109,
-                0.157
+                0.35,
+                0.855,
+                0.3,
+                0.145
               ]
             },
             {
@@ -260,20 +253,20 @@
               "type": "poi",
               "poi": "poi_coupure_gaz",
               "zone_clic": [
-                0.459,
+                0.312,
                 0.796,
-                0.083,
-                0.144
+                0.06,
+                0.124
               ]
             },
             {
               "type": "poi",
               "poi": "poi_feu_facade_B",
               "zone_clic": [
-                0.508,
-                0.405,
-                0.077,
-                0.15
+                0.386,
+                0.461,
+                0.088,
+                0.094
               ]
             }
           ]
@@ -338,20 +331,20 @@
               "type": "poi",
               "poi": "poi_victime",
               "zone_clic": [
-                0.606,
-                0.493,
+                0.666,
+                0.499,
                 0.05,
-                0.102
+                0.099
               ]
             },
             {
               "type": "poi",
               "poi": "poi_propagation_C",
               "zone_clic": [
-                0.825,
-                0.458,
-                0.114,
-                0.138
+                0.77,
+                0.355,
+                0.21,
+                0.124
               ]
             }
           ]
@@ -1028,37 +1021,8 @@
                 0.095,
                 1
               ]
-            },
-            {
-              "type": "vue",
-              "vue": "rdc_local_velos_2",
-              "fleche": "haut",
-              "zone_clic": [
-                0.455,
-                0.48,
-                0.09,
-                0.14
-              ]
             }
           ]
-        },
-        {
-          "id": "rdc_local_velos_2",
-          "image": "rdc_local_velos_2.jpg",
-          "hotspots": [
-            {
-              "type": "vue",
-              "vue": "rdc_local_velos_1",
-              "fleche": "bas",
-              "zone_clic": [
-                0.455,
-                0.83,
-                0.09,
-                0.14
-              ]
-            }
-          ],
-          "facultative": true
         }
       ],
       "voisines": [
@@ -1557,9 +1521,9 @@
               "type": "poi",
               "poi": "poi_colonne_montante",
               "zone_clic": [
-                0.27,
-                0.399,
-                0.126,
+                0.182,
+                0.359,
+                0.176,
                 0.3
               ]
             },
@@ -1567,20 +1531,20 @@
               "type": "poi",
               "poi": "poi_fumee_palier",
               "zone_clic": [
-                0.489,
-                0.16,
-                0.18,
-                0.152
+                0.498,
+                0.25,
+                0.165,
+                0.095
               ]
             },
             {
               "type": "passage",
               "vers": "et_logement",
               "zone_clic": [
-                0.499,
-                0.273,
-                0.164,
-                0.576
+                0.498,
+                0.272,
+                0.165,
+                0.574
               ],
               "poi": "poi_porte_palliere"
             },
@@ -1595,7 +1559,8 @@
                 0.14
               ]
             }
-          ]
+          ],
+          "image_gaine": "et_palier_2_gaine_ouverte.jpg"
         }
       ],
       "voisines": [
@@ -2115,11 +2080,12 @@
     {
       "id": "poi_coupure_gaz",
       "zone": "ext_pignon_B",
-      "libelle": "Coupure gaz",
-      "texte_revele": "Coffret gaz en limite de propriété, avec l'organe de coupure générale. Les sapeurs-pompiers manœuvrent l'organe de coupure du bâtiment, jamais le réseau.",
+      "libelle": "Coffret gaz de l'immeuble",
+      "texte_revele": "Coffret gaz en limite de propriété : organe de coupure générale du gaz de tout l'immeuble.",
       "ou": "au pied du pignon B, en limite de propriété",
       "cache": false,
-      "image_zoom": "poi_coupure_gaz.jpg"
+      "image_zoom": "poi_coupure_gaz.jpg",
+      "action": "coupure_gaz_immeuble"
     },
     {
       "id": "poi_coupure_elec",
@@ -2128,16 +2094,18 @@
       "texte_revele": "Disjoncteur de branchement et tableau général du bâtiment. À manœuvrer sur ordre uniquement, sans rétablissement par les sapeurs-pompiers.",
       "ou": "dans le local technique du sous-sol",
       "cache": false,
-      "image_zoom": "poi_coupure_elec.jpg"
+      "image_zoom": "poi_coupure_elec.jpg",
+      "action": "coupure_elec_immeuble"
     },
     {
       "id": "poi_colonne_montante",
       "zone": "et_palier",
       "libelle": "Gaine technique palière",
-      "texte_revele": "Gaine technique palière (colonne montante électrique et fluides). Elle peut transmettre fumée et chaleur d'un niveau à l'autre.",
+      "texte_revele": "Gaine technique palière : compteurs de gaz et d'électricité de chaque logement du palier. Elle permet de couper l'énergie d'un seul logement.",
       "ou": "sur le palier de l'étage",
       "cache": false,
-      "image_zoom": "poi_colonne_montante.jpg"
+      "image_zoom": "poi_colonne_montante.jpg",
+      "action": "gaine"
     },
     {
       "id": "poi_fumee_palier",
@@ -2205,8 +2173,8 @@
     {
       "id": "poi_porte_palliere",
       "zone": "et_palier",
-      "libelle": "Porte palière du logement",
-      "texte_revele": "Porte palière du logement du R+2, fermée ; un peu de fumée filtre par le jour de la porte.",
+      "libelle": "Porte palière du logement 22",
+      "texte_revele": "Porte palière du logement n°22, fermée ; un peu de fumée filtre par le jour de la porte.",
       "ou": "sur le palier du R+2",
       "cache": false,
       "image_zoom": "poi_porte_palliere.jpg"
@@ -2328,5 +2296,235 @@
     "depart_par_variante": {
       "A": "ext_facade_A"
     }
-  }
+  },
+  "logements": {
+    "liste": [
+      "21",
+      "22",
+      "23",
+      "24"
+    ],
+    "sinistre": "22"
+  },
+  "grille": {
+    "exterieur": [
+      {
+        "id": "ext_victime",
+        "libelle": "Victime(s) visible(s) depuis l'extérieur",
+        "poi": [
+          "poi_victime"
+        ]
+      },
+      {
+        "id": "ext_feu",
+        "libelle": "Feu ou flammes visibles",
+        "poi": [
+          "poi_feu_facade_B"
+        ]
+      },
+      {
+        "id": "ext_fumee",
+        "libelle": "Fumée ou propagation en façade",
+        "poi": [
+          "poi_propagation_C"
+        ]
+      },
+      {
+        "id": "ext_voie",
+        "libelle": "Voie utilisable par les engins",
+        "poi": [
+          "poi_voie_engins"
+        ]
+      },
+      {
+        "id": "ext_pei",
+        "libelle": "Point d'eau (poteau ou bouche d'incendie)",
+        "poi": [
+          "poi_point_eau"
+        ]
+      },
+      {
+        "id": "ext_cles",
+        "libelle": "Boîte à clés / accès pompiers",
+        "poi": [
+          "poi_boite_cles"
+        ]
+      },
+      {
+        "id": "ext_cs",
+        "libelle": "Prise d'alimentation de la colonne sèche",
+        "poi": [
+          "poi_colonne_seche_rdc"
+        ]
+      },
+      {
+        "id": "ext_gaz",
+        "libelle": "Coupure gaz extérieure",
+        "poi": [
+          "poi_coupure_gaz"
+        ]
+      },
+      {
+        "id": "ext_pv",
+        "libelle": "Panneaux photovoltaïques",
+        "poi": []
+      },
+      {
+        "id": "ext_isolation",
+        "libelle": "Isolation thermique extérieure",
+        "poi": []
+      }
+    ],
+    "interieur": [
+      {
+        "id": "int_fumee_commune",
+        "libelle": "Fumée dans les parties communes",
+        "poi": [
+          "poi_fumee_palier"
+        ]
+      },
+      {
+        "id": "int_foyer",
+        "libelle": "Foyer dans un logement",
+        "poi": [
+          "poi_foyer"
+        ]
+      },
+      {
+        "id": "int_fumee_logement",
+        "libelle": "Fumée dans un autre logement",
+        "poi": [
+          "poi_logement_r3_enfume"
+        ]
+      },
+      {
+        "id": "int_porte_cage",
+        "libelle": "Portes de cage d'escalier",
+        "poi": [
+          "poi_porte_cage_rdc",
+          "poi_porte_cage_et"
+        ]
+      },
+      {
+        "id": "int_porte_palliere",
+        "libelle": "Porte palière du logement",
+        "poi": [
+          "poi_porte_palliere",
+          "poi_porte_palliere_r3"
+        ]
+      },
+      {
+        "id": "int_gaine",
+        "libelle": "Gaine technique palière (compteurs)",
+        "poi": [
+          "poi_colonne_montante"
+        ]
+      },
+      {
+        "id": "int_cs_palier",
+        "libelle": "Colonne sèche palière",
+        "poi": [
+          "poi_colonne_seche_palier"
+        ]
+      },
+      {
+        "id": "int_desenfumage",
+        "libelle": "Commande de désenfumage de la cage",
+        "poi": [
+          "poi_commande_exutoire"
+        ]
+      },
+      {
+        "id": "int_ascenseur",
+        "libelle": "Ascenseur",
+        "poi": [
+          "poi_ascenseur"
+        ]
+      },
+      {
+        "id": "int_consignes",
+        "libelle": "Consignes de sécurité affichées",
+        "poi": [
+          "poi_consignes"
+        ]
+      },
+      {
+        "id": "int_elec",
+        "libelle": "Tableau électrique général",
+        "poi": [
+          "poi_coupure_elec"
+        ]
+      },
+      {
+        "id": "int_portes_cf",
+        "libelle": "Portes coupe-feu et communication parking / cage",
+        "poi": [
+          "poi_porte_cf_poubelles",
+          "poi_porte_cf_technique",
+          "poi_porte_parking_cage"
+        ]
+      },
+      {
+        "id": "int_bouteilles",
+        "libelle": "Bouteilles de gaz stockées",
+        "poi": [
+          "poi_bouteilles"
+        ]
+      },
+      {
+        "id": "int_detecteur",
+        "libelle": "Détecteur de fumée déclenché",
+        "poi": []
+      },
+      {
+        "id": "int_depart_cave",
+        "libelle": "Départ de feu au sous-sol",
+        "poi": []
+      }
+    ]
+  },
+  "lecture_feu": [
+    {
+      "id": "batiment",
+      "lettre": "B",
+      "titre": "Bâtiment",
+      "aide": "Destination et occupants, dimensions et implantation, mode constructif et matériaux, volumes à risques, distribution intérieure, nombre et types d'ouvrants."
+    },
+    {
+      "id": "vent",
+      "lettre": "V",
+      "titre": "Vent",
+      "aide": "Conditions aérauliques : vent (force, direction), tirage, ouvrants ouverts ou fermés."
+    },
+    {
+      "id": "fumees",
+      "lettre": "F",
+      "titre": "Fumées",
+      "aide": "Débit, couleur, densité, vitesse, sens de tirage, stratification et provenance."
+    },
+    {
+      "id": "flammes",
+      "lettre": "F",
+      "titre": "Flammes",
+      "aide": "Couleur, hauteur, volume et emplacement, direction, intensité et vitesse, potentiel fumigène."
+    },
+    {
+      "id": "chaleur",
+      "lettre": "C",
+      "titre": "Chaleur",
+      "aide": "Chaleur émise, sa répartition et sa progression ; ses effets : vitesse des fumées, dégradation des matériaux, pyrolyse, ressenti."
+    },
+    {
+      "id": "ouvrants",
+      "lettre": "O",
+      "titre": "Ouvrants",
+      "aide": "Portes, fenêtres et autres ouvertures : nombre, types, ouvertes ou fermées."
+    },
+    {
+      "id": "sons",
+      "lettre": "S",
+      "titre": "Sons",
+      "aide": "Bruits inhabituels : crépitements, sifflements, sons assourdis dans une atmosphère chaude."
+    }
+  ]
 }

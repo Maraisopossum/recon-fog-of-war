@@ -45,6 +45,15 @@ export function validerScenario(s: Scenario): string[] {
     if (s.regles.victime && !zones.has(s.regles.victime.zone_par_variante[v])) err.push(`Placement variante ${v} : zone inexistante`);
   }
 
+  // Grille de méthode et logements
+  for (const g of [...s.grille.exterieur, ...s.grille.interieur]) for (const p of g.poi) if (!pois.has(p)) err.push(`Grille « ${g.id} » : POI inexistant « ${p} »`);
+  const ids = [...s.grille.exterieur, ...s.grille.interieur].map((g) => g.id);
+  if (new Set(ids).size !== ids.length) err.push('Grille : identifiants en double');
+  if (!s.logements.liste.includes(s.logements.sinistre)) err.push('Logement sinistré absent de la liste des logements');
+  for (const p of s.poi) {
+    if (p.action === 'gaine' && !s.zones.some((z) => z.vues.some((v) => v.image_gaine))) err.push(`POI ${p.id} : action « gaine » sans image_gaine`);
+  }
+
   // Navigation : chaque passage doit pouvoir se prendre dans les deux sens avec un hotspot,
   // et les hotspots doivent rester dans l'image.
   const aHotspot = (a: string, b: string) => s.zones.some((z) => z.id === a && z.vues.some((v) => (v.hotspots ?? []).some((h) => h.type === 'passage' && h.vers === b)));

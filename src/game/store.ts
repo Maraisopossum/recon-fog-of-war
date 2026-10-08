@@ -1,5 +1,5 @@
 import { etatInitial, etatZone, indexer, porteFermee, trouverPassage, vuesPlanes } from './rules';
-import type { GameState, Rapport, Scenario, Variante } from './types';
+import type { Coupure, GameState, Rapport, Scenario, Variante } from './types';
 
 export type Action =
   | { type: 'start'; variante: Variante }
@@ -10,6 +10,9 @@ export type Action =
   | { type: 'poi'; poi: string }
   | { type: 'tick' }
   | { type: 'desenfumer' }
+  | { type: 'ouvrirGaine' }
+  | { type: 'couper'; energie: Coupure['energie']; cible: Coupure['cible']; logement?: string }
+  | { type: 'demande' }
   | { type: 'aide'; valeur: boolean }
   | { type: 'report'; rapport: Rapport }
   | { type: 'terminer' }
@@ -31,6 +34,9 @@ export function stateInitial(s: Scenario): GameState {
     rapport: null,
     aide: false,
     desenfumage: false,
+    gaineOuverte: false,
+    coupures: [],
+    demandes: [],
     vueRetour: null,
     evenements: [],
   };
@@ -101,6 +107,19 @@ export function reduce(s: Scenario, st: GameState, a: Action): GameState {
     case 'desenfumer':
       if (st.phase !== 'jeu' || st.desenfumage) return st;
       return log({ ...st, desenfumage: true }, 'action', 'Désenfumage de la cage actionné (lanterneau ouvert)');
+    case 'ouvrirGaine':
+      if (st.phase !== 'jeu' || st.gaineOuverte) return st;
+      return log({ ...st, gaineOuverte: true }, 'action', 'Gaine technique palière ouverte');
+    case 'couper': {
+      if (st.phase !== 'jeu') return st;
+      if (st.coupures.some((c) => c.energie === a.energie && c.cible === a.cible && c.logement === a.logement)) return st;
+      const quoi = a.energie === 'gaz' ? 'Gaz' : 'Électricité';
+      const ou = a.cible === 'immeuble' ? "de l'immeuble" : `du logement ${a.logement}`;
+      return log({ ...st, coupures: [...st.coupures, { t: st.chrono, energie: a.energie, cible: a.cible, logement: a.logement }] }, 'action', `${quoi} coupé ${ou}`);
+    }
+    case 'demande':
+      if (st.phase !== 'jeu') return st;
+      return log({ ...st, demandes: [...st.demandes, { t: st.chrono, zone: st.position.zone }] }, 'action', 'Action demandée');
     case 'aide':
       return { ...st, aide: a.valeur };
     case 'report':

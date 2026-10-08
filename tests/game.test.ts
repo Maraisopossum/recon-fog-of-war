@@ -4,6 +4,7 @@ import { couverture, niveauLeMoinsCouvert } from '../src/game/score';
 import { reduce, stateInitial } from '../src/game/store';
 import type { Action } from '../src/game/store';
 import { silhouetteVisible, vueDuPoi, zonePoi } from '../src/game/rules';
+import { statutElement } from '../src/ui/debrief';
 import type { GameState, Scenario } from '../src/game/types';
 import { validerScenario } from '../src/game/validate';
 
@@ -345,5 +346,68 @@ describe('R+3 : étage au-dessus du foyer', () => {
       const v = sc.zones.flatMap((z) => z.vues).find((x) => x.id === id)!;
       expect(v.image_desenfumage, id).toBe(`${id}_ouvert.jpg`);
     }
+  });
+});
+
+describe('accueil, coupures, compte rendu', () => {
+  it('le bon de départ porte le motif, l\'adresse et l\'information R+2', () => {
+    expect(sc.briefing.motif).toBe('Alarme incendie');
+    expect(sc.briefing.adresse).toContain('8 rue Dessein Bernier');
+    expect(sc.briefing.adresse).toContain('59069 Amour');
+    expect(sc.briefing.info).toContain('R+2');
+  });
+
+  it('enregistre les coupures sans doublon, par logement ou pour l\'immeuble', () => {
+    let st = demarrer('A');
+    st = jouer(st, { type: 'couper', energie: 'gaz', cible: 'immeuble' }, { type: 'couper', energie: 'gaz', cible: 'immeuble' }, { type: 'couper', energie: 'gaz', cible: 'logement', logement: '22' }, { type: 'couper', energie: 'elec', cible: 'logement', logement: '22' });
+    expect(st.coupures).toHaveLength(3);
+    expect(st.evenements.filter((e) => e.type === 'action').map((e) => e.texte)).toContain('Gaz coupé du logement 22');
+    expect(sc.logements.liste).toContain(sc.logements.sinistre);
+  });
+
+  it('la gaine s\'ouvre une fois et reste ouverte ; l\'action demandée est un marqueur sans contenu', () => {
+    let st = jouer(demarrer('A'), { type: 'ouvrirGaine' }, { type: 'ouvrirGaine' }, { type: 'demande' }, { type: 'demande' });
+    expect(st.gaineOuverte).toBe(true);
+    expect(st.evenements.filter((e) => e.texte.includes('Gaine'))).toHaveLength(1);
+    expect(st.demandes).toHaveLength(2);
+    st = jouer(st, { type: 'restart' });
+    expect(st.gaineOuverte).toBe(false);
+    expect(st.coupures).toEqual([]);
+    expect(st.demandes).toEqual([]);
+  });
+
+  it('la gaine du palier a une image fermée et une image ouverte, et le local vélos n\'a plus qu\'une vue', () => {
+    const v = sc.zones.flatMap((z) => z.vues).find((x) => x.id === 'et_palier_2')!;
+    expect(v.image_gaine).toBe('et_palier_2_gaine_ouverte.jpg');
+    expect(sc.poi.find((p) => p.id === 'poi_colonne_montante')?.action).toBe('gaine');
+    expect(sc.zones.find((z) => z.id === 'rdc_local_velos')!.vues).toHaveLength(1);
+  });
+
+  it('la façade A n\'a plus de passage direct vers le hall depuis le panorama', () => {
+    const v = sc.zones.flatMap((z) => z.vues).find((x) => x.id === 'ext_facade_A_1')!;
+    expect(v.hotspots!.some((h) => h.type === 'passage' && h.vers === 'rdc_hall')).toBe(false);
+  });
+
+  it('la grille sépare reconnaissance 360° et intérieure, avec des éléments absents du scénario', () => {
+    expect(sc.grille.exterieur.length).toBeGreaterThan(5);
+    expect(sc.grille.interieur.length).toBeGreaterThan(5);
+    expect(sc.grille.exterieur.some((g) => g.poi.length === 0)).toBe(true);
+    expect(sc.grille.interieur.some((g) => g.poi.length === 0)).toBe(true);
+  });
+
+  it('compare ce qui existait, ce qui a été relevé et ce qui a été coché, sans note', () => {
+    const it = sc.grille.exterieur.find((g) => g.id === 'ext_gaz')!;
+    let st = jouer(demarrer('A'), { type: 'poi', poi: 'poi_coupure_gaz' });
+    st = jouer(st, { type: 'report', rapport: { coches: ['ext_gaz', 'ext_pv'], lecture: { fumees: 'noire, dense' } } });
+    expect(statutElement(sc, st, it)).toEqual({ existe: true, releve: true, declare: true });
+    const pv = sc.grille.exterieur.find((g) => g.id === 'ext_pv')!;
+    expect(statutElement(sc, st, pv)).toEqual({ existe: false, releve: false, declare: true });
+    expect(st.phase).toBe('debrief');
+    expect(st.rapport?.lecture.fumees).toBe('noire, dense');
+  });
+
+  it('demande la lecture du feu BV-FFCOS en sept indicateurs', () => {
+    expect(sc.lecture_feu.map((l) => l.lettre).join('')).toBe('BVFFCOS');
+    expect(new Set(sc.lecture_feu.map((l) => l.id)).size).toBe(7);
   });
 });
