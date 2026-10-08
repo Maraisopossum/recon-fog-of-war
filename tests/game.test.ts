@@ -411,3 +411,23 @@ describe('accueil, coupures, compte rendu', () => {
     expect(new Set(sc.lecture_feu.map((l) => l.id)).size).toBe(7);
   });
 });
+
+describe('gaine palière simplifiée et retour du logement', () => {
+  it('une seule coupure à la gaine, sans choix de logement', () => {
+    let st = jouer(demarrer('A'), { type: 'couper', energie: 'palier', cible: 'palier' }, { type: 'couper', energie: 'palier', cible: 'palier' });
+    expect(st.coupures).toHaveLength(1);
+    expect(st.evenements.filter((e) => e.texte === 'Coupure effectuée à la gaine technique palière')).toHaveLength(1);
+    st = jouer(st, { type: 'restart' });
+    expect(st.coupures).toEqual([]);
+  });
+
+  it('le retour du logement arrive sur la vue 2/2 du palier (R+2 et R+3)', () => {
+    const passage = (vueId: string, vers: string) => sc.zones.flatMap((z) => z.vues).find((v) => v.id === vueId)!.hotspots!.find((h) => h.type === 'passage' && h.vers === vers)!;
+    expect(passage('et_logement_1', 'et_palier').vue).toBe('et_palier_2');
+    expect(passage('r3_logement_1', 'r3_palier').vue).toBe('r3_palier_2');
+    let st = demarrer('A');
+    st = { ...st, position: { zone: 'et_logement', vue: 'et_logement_1' }, zones: { ...st.zones, et_logement: { etat: 'traversee' } }, portesOuvertes: ['porte_palliere'] };
+    st = jouer(st, { type: 'goto', zone: 'et_palier', vue: 'et_palier_2' });
+    expect(st.position).toEqual({ zone: 'et_palier', vue: 'et_palier_2' });
+  });
+});

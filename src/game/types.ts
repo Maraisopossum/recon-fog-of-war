@@ -130,8 +130,8 @@ export interface Rapport {
 
 export interface Coupure {
   t: number;
-  energie: 'gaz' | 'elec';
-  cible: 'immeuble' | 'logement';
+  energie: 'gaz' | 'elec' | 'palier';
+  cible: 'immeuble' | 'logement' | 'palier';
   logement?: string;
 }
 

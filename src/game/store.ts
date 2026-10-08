@@ -113,9 +113,8 @@ export function reduce(s: Scenario, st: GameState, a: Action): GameState {
     case 'couper': {
       if (st.phase !== 'jeu') return st;
       if (st.coupures.some((c) => c.energie === a.energie && c.cible === a.cible && c.logement === a.logement)) return st;
-      const quoi = a.energie === 'gaz' ? 'Gaz' : 'Électricité';
-      const ou = a.cible === 'immeuble' ? "de l'immeuble" : `du logement ${a.logement}`;
-      return log({ ...st, coupures: [...st.coupures, { t: st.chrono, energie: a.energie, cible: a.cible, logement: a.logement }] }, 'action', `${quoi} coupé ${ou}`);
+      const texte = a.cible === 'palier' ? 'Coupure effectuée à la gaine technique palière' : `${a.energie === 'gaz' ? 'Gaz' : 'Électricité'} coupé ${a.cible === 'immeuble' ? "de l'immeuble" : `du logement ${a.logement}`}`;
+      return log({ ...st, coupures: [...st.coupures, { t: st.chrono, energie: a.energie, cible: a.cible, logement: a.logement }] }, 'action', texte);
     }
     case 'demande':
       if (st.phase !== 'jeu') return st;

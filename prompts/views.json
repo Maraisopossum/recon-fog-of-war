@@ -452,7 +452,9 @@
         "description": "les flammes qui brûlent le canapé et les meubles"
       }
     ],
-    "ref": "et_logement_1"
+    "ref": "et_logement_1",
+    "kind": "fourni",
+    "source": "archives/images_fournies/et_logement_2.png (image fournie par le formateur)"
   },
   {
     "id": "poi_feu_facade_B",
@@ -500,7 +502,11 @@
     "prompt": "Gros plan de terrain, photo au flash, sur un canapé qui brûle avec de larges flammes orange vif dans un séjour : fumée noire épaisse au plafond, murs et plafond noircis de suie, éclats de verre au sol, objets fondus ; image légèrement floue avec du grain, aucune personne.",
     "cibles": [],
     "ref": "et_logement_2",
-    "kind": "zoom"
+    "kind": "crop",
+    "crop": {
+      "vue": "et_logement_2",
+      "poi": "poi_foyer"
+    }
   },
   {
     "id": "poi_coupure_gaz",
@@ -729,12 +735,8 @@
     "aspect": "16:9",
     "prompt": "",
     "cibles": [],
-    "kind": "crop",
-    "crop": {
-      "vue": "et_palier_2",
-      "poi": "poi_colonne_montante",
-      "image": "et_palier_2_gaine_ouverte"
-    },
-    "ref": "et_palier_2_gaine_ouverte"
+    "kind": "fourni",
+    "ref": "et_palier_2_gaine_ouverte",
+    "source": "archives/images_fournies/gaine_palier_ouverte.png (image fournie par le formateur)"
   }
 ]

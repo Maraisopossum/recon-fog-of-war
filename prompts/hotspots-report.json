@@ -1,21 +1,12 @@
 {
-  "ext_facade_C_1": [
+  "et_logement_2": [
     {
-      "cle": "poi:poi_victime",
+      "cle": "poi:poi_foyer",
       "box_2d": [
-        453,
-        858,
-        597,
-        912
-      ]
-    },
-    {
-      "cle": "poi:poi_propagation_C",
-      "box_2d": [
-        415,
-        736,
-        521,
-        812
+        170,
+        331,
+        674,
+        635
       ]
     }
   ]

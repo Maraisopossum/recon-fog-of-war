@@ -72,7 +72,7 @@ export function creerVueChef(parent: HTMLElement, store: Store) {
     const panneau = h('div', { class: 'panneau-compteurs' });
 
     // Boutons « Couper » : gaz et électricité (immeuble ou logement), sans jugement pendant la partie
-    const couper = (energie: 'gaz' | 'elec', cible: 'immeuble' | 'logement', logement?: string, etiquette?: string) => {
+    const couper = (energie: 'gaz' | 'elec' | 'palier', cible: 'immeuble' | 'logement' | 'palier', logement?: string, etiquette?: string) => {
       const fait = store.get().coupures.some((c) => c.energie === energie && c.cible === cible && c.logement === logement);
       return h(
         'button',
@@ -92,11 +92,7 @@ export function creerVueChef(parent: HTMLElement, store: Store) {
       clear(zoneActions);
       clear(panneau);
       const st = store.get();
-      if (p.action === 'gaine') {
-        for (const l of sc.logements.liste) {
-          panneau.append(h('div', { class: 'compteur' }, h('strong', {}, `Logement ${l}`), h('span', {}, 'Gaz'), couper('gaz', 'logement', l), h('span', {}, 'Électricité'), couper('elec', 'logement', l)));
-        }
-      }
+      if (p.action === 'gaine') zoneActions.append(couper('palier', 'palier', undefined, 'Couper'));
       if (p.action === 'coupure_gaz_immeuble') zoneActions.append(couper('gaz', 'immeuble', undefined, "Couper le gaz de l'immeuble"));
       if (p.action === 'coupure_elec_immeuble') zoneActions.append(couper('elec', 'immeuble', undefined, "Couper l'électricité de l'immeuble"));
       if (p.action === 'desenfumer') {
@@ -115,10 +111,9 @@ export function creerVueChef(parent: HTMLElement, store: Store) {
           ),
         );
       }
-      zoneActions.append(
-        h('button', { class: 'btn', onclick: () => { store.dispatch({ type: 'demande' }); toast('Action demandée notée'); } }, 'Action demandée'),
-        h('button', { class: 'btn', onclick: fermerZoom }, 'Fermer'),
-      );
+      // Dans la gaine, « Couper » remplace « Action demandée »
+      if (p.action !== 'gaine') zoneActions.append(h('button', { class: 'btn', onclick: () => { store.dispatch({ type: 'demande' }); toast('Action demandée notée'); } }, 'Action demandée'));
+      zoneActions.append(h('button', { class: 'btn', onclick: fermerZoom }, 'Fermer'));
     }
     majActions();
 

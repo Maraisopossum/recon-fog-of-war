@@ -41,7 +41,7 @@ Choix non couverts (ou précisés) par le brief, pris selon la règle « solutio
 - **Rendre compte** (irréversible, après confirmation) en deux étapes : (1) cocher les éléments vus, classés **reconnaissance 360°** et **reconnaissance intérieure**, avec quelques éléments absents du scénario et un ordre sans rapport avec leur présence ; (2) **lecture du feu BV-FFCOS** (Bâtiment, Vent, Fumées, Flammes, Chaleur, Ouvrants, Sons) en sept zones de texte. Le débriefing compare, élément par élément : dans le scénario / relevé en jeu / coché, puis restitue les textes tels quels avec le rappel de ce qu'il fallait observer.
 - **BV-FFCOS** : indicateurs de la lecture du feu et de la lecture bâtimentaire du GDO « Interventions sur les incendies de structures » (SDIS), complétés par la fiche FFCOS (Fumées, Flammes, Chaleur, Ouvertures, Sons). Placé à la fin, dans « Rendre compte », car c'est un exercice de restitution : l'observer en jeu est la reconnaissance, le formuler est le compte rendu.
 - **Action demandée** : bouton dans la barre (et dans les zooms), simple marqueur horodaté sans contenu. Il évite les « moi, j'aurais demandé ça » et la reconnaissance continue.
-- **Coupures de fluides** : boutons « Couper » conservés. Le coffret du pignon B coupe le gaz de tout l'immeuble ; la gaine technique palière du R+2 (fermée, puis ouverte pour de bon) permet de couper gaz et électricité par logement (21 à 24, le feu est au 22, numéro lisible sur la porte palière). Rien n'est jugé pendant la partie ; le débriefing liste les actions dans l'ordre.
+- **Coupures de fluides** : boutons « Couper » conservés. Le coffret du pignon B coupe le gaz de tout l'immeuble ; la gaine technique palière du R+2 (fermée, puis ouverte pour de bon) s'affiche en gros plan avec un seul bouton « Couper » (sans choisir de logement) à la place de « Action demandée ». Rien n'est jugé pendant la partie ; le débriefing liste les actions dans l'ordre.
 - Pignon B : le feu est sur la colonne de fenêtres de gauche, du côté de la façade C. Façade C : la victime est penchée à la fenêtre du R+2 la plus proche du feu, bloquée par une cloison, avec de la fumée dense au R+3 au-dessus d'elle et des témoins effrayés au sol.
 - Local vélos : une seule vue. Façade A, vue 1 : plus de passage direct vers le hall.
 
@@ -65,3 +65,5 @@ Choix non couverts (ou précisés) par le brief, pris selon la règle « solutio
 
 ## Synchronisation double écran
 - La carte reçoit l'**état complet** (petit, sérialisable) plutôt que des actions : plus simple et robuste à la reconnexion. Le chef reste l'autorité ; le niveau affiché sur la carte est un choix local.
+
+- Images fournies par le formateur (façade C, gros plan de la gaine ouverte, séjour en feu du R+2) conservées dans `archives/` et marquées « fourni » pour ne pas être régénérées. Le retour du logement (R+2 et R+3) arrive sur la vue 2/2 du palier.

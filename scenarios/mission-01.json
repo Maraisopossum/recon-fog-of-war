@@ -1606,7 +1606,8 @@
                 0.09,
                 0.14
               ],
-              "fleche": "bas"
+              "fleche": "bas",
+              "vue": "et_palier_2"
             },
             {
               "type": "vue",
@@ -1629,10 +1630,10 @@
               "type": "poi",
               "poi": "poi_foyer",
               "zone_clic": [
-                0.529,
-                0.357,
-                0.131,
-                0.289
+                0.333,
+                0.272,
+                0.3,
+                0.3
               ]
             },
             {
@@ -1888,7 +1889,8 @@
                 0.133,
                 0.911
               ],
-              "fleche": "bas"
+              "fleche": "bas",
+              "vue": "r3_palier_2"
             },
             {
               "type": "vue",
@@ -2101,7 +2103,7 @@
       "id": "poi_colonne_montante",
       "zone": "et_palier",
       "libelle": "Gaine technique palière",
-      "texte_revele": "Gaine technique palière : compteurs de gaz et d'électricité de chaque logement du palier. Elle permet de couper l'énergie d'un seul logement.",
+      "texte_revele": "Gaine technique palière ouverte : compteurs d'électricité et de gaz des logements du palier. On peut y couper l'alimentation.",
       "ou": "sur le palier de l'étage",
       "cache": false,
       "image_zoom": "poi_colonne_montante.jpg",
