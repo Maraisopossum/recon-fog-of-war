@@ -68,9 +68,7 @@
         "description": "les fenêtres voisines du R+2 d'où sortent la fumée noire et la suie, à droite"
       }
     ],
-    "ref": "ext_facade_A_1",
-    "kind": "fourni",
-    "source": "archives/facade_C/ext_facade_C_1.v-utilisateur.png (image fournie par le formateur : ne pas régénérer)"
+    "ref": "ext_facade_A_1"
   },
   {
     "id": "ext_pignon_D_1",

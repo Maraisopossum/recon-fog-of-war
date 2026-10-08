@@ -322,29 +322,29 @@
               "vers": "ext_pignon_B",
               "zone_clic": [
                 0.94,
-                0.3,
+                0.66,
                 0.06,
-                0.4
+                0.2
               ]
             },
             {
               "type": "poi",
               "poi": "poi_victime",
               "zone_clic": [
-                0.608,
-                0.458,
-                0.051,
-                0.102
+                0.932,
+                0.486,
+                0.042,
+                0.088
               ]
             },
             {
               "type": "poi",
               "poi": "poi_propagation_C",
               "zone_clic": [
-                0.843,
-                0.337,
-                0.093,
-                0.155
+                0.83,
+                0.34,
+                0.11,
+                0.22
               ]
             }
           ]
@@ -2072,7 +2072,7 @@
       "id": "poi_victime",
       "zone": "ext_facade_C",
       "libelle": "Victime coincée par le foyer",
-      "texte_revele": "Une personne est sur le balcon du R+2, en façade C, juste à côté des fenêtres en feu. Le foyer lui barre la sortie et une cloison bloque l'autre côté : elle est coincée et se penche pour éviter les fumées.",
+      "texte_revele": "Une personne est sur le balcon du R+2, en façade C, au bout du balcon, contre les fenêtres en feu. Le foyer lui barre la sortie : elle est coincée et se baisse pour éviter les fumées.",
       "ou": "sur le balcon du R+2, en façade C, à côté du foyer",
       "cache": false,
       "image_zoom": "poi_victime.jpg"

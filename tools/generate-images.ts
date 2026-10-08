@@ -48,6 +48,7 @@ async function versJpeg(buf: Buffer): Promise<Buffer> {
 async function generer(id: string, force: boolean, pile: string[] = []): Promise<void> {
   const v = parId.get(id);
   if (!v) throw new Error(`Vue inconnue : ${id}`);
+  if (v.kind === 'fourni') return void console.log(`· ${id} : image fournie, non régénérée`);
   if (v.kind === 'crop') return void console.log(`· ${id} : zoom par recadrage, utiliser tools/make-zoom.ts`);
   if (!force && fs.existsSync(fichier(id))) return;
   if (pile.includes(id)) throw new Error('Référence circulaire : ' + pile.join(' > '));
