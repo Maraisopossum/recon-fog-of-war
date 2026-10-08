@@ -18,9 +18,7 @@ export function creerBriefing(parent: HTMLElement, store: Store) {
       h('p', { class: 'etiquette' }, 'RECON · Fog of War'),
       h('h1', {}, 'Bon de départ'),
       h('div', { class: 'depart' }, ligne('Motif de départ', b.motif), ligne('Adresse', b.adresse), ligne('Information complémentaire', b.info)),
-      h('p', { class: 'texte' }, b.texte),
-      h('p', { class: 'requerant' }, h('span', { class: 'muted' }, 'Requérant : '), b.requerant),
-      h('p', { class: 'consigne' }, 'Ces informations ne seront pas répétées. Vous arrivez devant la façade A, accès des secours.'),
+      h('p', { class: 'consigne' }, 'Vous arrivez devant la façade A, accès des secours.'),
       h(
         'label',
         { class: 'option-aide' },
