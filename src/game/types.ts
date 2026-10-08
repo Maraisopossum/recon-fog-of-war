@@ -138,6 +138,8 @@ export interface Coupure {
 export interface Demande {
   t: number;
   zone: string;
+  /** précision facultative saisie par le joueur */
+  texte?: string;
 }
 
 export interface GameState {
@@ -158,7 +160,7 @@ export interface GameState {
   /** gaine technique palière du R+2 ouverte (elle reste ouverte) */
   gaineOuverte: boolean;
   coupures: Coupure[];
-  /** « Action demandée » : marqueurs horodatés, sans contenu */
+  /** « Action demandée » : marqueurs horodatés, avec une précision facultative */
   demandes: Demande[];
   /** vue d'où l'on a levé les yeux : la flèche « retour » y ramène */
   vueRetour: string | null;

@@ -431,3 +431,14 @@ describe('gaine palière simplifiée et retour du logement', () => {
     expect(st.position).toEqual({ zone: 'et_palier', vue: 'et_palier_2' });
   });
 });
+
+describe('action demandée avec précision facultative', () => {
+  it('note l\'action avec ou sans texte', () => {
+    let st = jouer(demarrer('A'), { type: 'demande' }, { type: 'demande', texte: 'sauvetage' });
+    expect(st.demandes).toHaveLength(2);
+    expect(st.demandes[0].texte).toBeUndefined();
+    expect(st.demandes[1].texte).toBe('sauvetage');
+    const textes = st.evenements.filter((e) => e.type === 'action').map((e) => e.texte);
+    expect(textes).toEqual(['Action demandée', 'Action demandée : sauvetage']);
+  });
+});

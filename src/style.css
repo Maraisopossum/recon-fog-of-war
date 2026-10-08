@@ -468,3 +468,6 @@ body { overscroll-behavior: none; -webkit-text-size-adjust: 100%; }
 
 .btn.note { background: var(--accent); color: #1b1305; border-color: var(--accent); }
 @media (max-width: 700px) and (orientation: portrait) { #btn-demande { padding: 0 8px; font-size: 12px; } }
+
+.demande textarea { width: 100%; resize: vertical; background: var(--fond); color: var(--texte); border: 1px solid var(--trait); border-radius: 4px; padding: 8px 10px; font: inherit; font-size: 15px; min-height: 70px; margin: 8px 0; }
+.demande textarea:focus { outline: none; border-color: var(--accent); }

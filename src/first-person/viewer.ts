@@ -1,6 +1,7 @@
 import { indexer, porteFermee, vuesPlanes, zonePoi } from '../game/rules';
 import type { Store } from '../game/store';
 import type { GameState, Hotspot, Poi, Vue, Zone } from '../game/types';
+import { ouvrirDemande } from '../ui/demande';
 import { clear, h } from '../ui/dom';
 import { placeholderUrl, teinteZone } from './placeholder';
 
@@ -49,6 +50,7 @@ export function creerVueChef(parent: HTMLElement, store: Store) {
   let nbEvenements = 0;
   let hotspotsEl: HTMLElement | null = null;
   let zoneOverlay: HTMLElement | null = null;
+  let retourApresZoom: string | null = null;
 
   function toast(texte: string) {
     const t = h('div', { class: 'toast' }, texte);
@@ -60,6 +62,12 @@ export function creerVueChef(parent: HTMLElement, store: Store) {
   function fermerZoom() {
     zoneOverlay?.remove();
     zoneOverlay = null;
+    // Quitter la gaine technique : retour sur la vue du palier d'où l'on regardait
+    if (retourApresZoom) {
+      const cible = retourApresZoom;
+      retourApresZoom = null;
+      store.dispatch({ type: 'vue', vue: cible });
+    }
   }
 
   function ouvrirZoom(p: Poi) {
@@ -112,7 +120,7 @@ export function creerVueChef(parent: HTMLElement, store: Store) {
         );
       }
       // Dans la gaine, « Couper » remplace « Action demandée »
-      if (p.action !== 'gaine') zoneActions.append(h('button', { class: 'btn', onclick: () => { store.dispatch({ type: 'demande' }); toast('Action demandée notée'); } }, 'Action demandée'));
+      if (p.action !== 'gaine') zoneActions.append(h('button', { class: 'btn', onclick: () => ouvrirDemande(document.getElementById('app') ?? document.body, store, () => toast('Action demandée notée')) }, 'Action demandée'));
       zoneActions.append(h('button', { class: 'btn', onclick: fermerZoom }, 'Fermer'));
     }
     majActions();
@@ -143,6 +151,7 @@ export function creerVueChef(parent: HTMLElement, store: Store) {
       store.dispatch({ type: 'poi', poi: p.id });
       if (p.action === 'gaine') store.dispatch({ type: 'ouvrirGaine' });
       ouvrirZoom(p);
+      retourApresZoom = p.action === 'gaine' ? store.get().position.vue : null; // après ouvrirZoom, qui ferme l'éventuel zoom précédent
       return;
     }
     if (hs.type === 'passage' && hs.vers) {

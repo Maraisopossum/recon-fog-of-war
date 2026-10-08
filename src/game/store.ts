@@ -12,7 +12,7 @@ export type Action =
   | { type: 'desenfumer' }
   | { type: 'ouvrirGaine' }
   | { type: 'couper'; energie: Coupure['energie']; cible: Coupure['cible']; logement?: string }
-  | { type: 'demande' }
+  | { type: 'demande'; texte?: string }
   | { type: 'aide'; valeur: boolean }
   | { type: 'report'; rapport: Rapport }
   | { type: 'terminer' }
@@ -118,7 +118,7 @@ export function reduce(s: Scenario, st: GameState, a: Action): GameState {
     }
     case 'demande':
       if (st.phase !== 'jeu') return st;
-      return log({ ...st, demandes: [...st.demandes, { t: st.chrono, zone: st.position.zone }] }, 'action', 'Action demandée');
+      return log({ ...st, demandes: [...st.demandes, { t: st.chrono, zone: st.position.zone, ...(a.texte ? { texte: a.texte } : {}) }] }, 'action', a.texte ? `Action demandée : ${a.texte}` : 'Action demandée');
     case 'aide':
       return { ...st, aide: a.valeur };
     case 'report':
