@@ -1,30 +1,21 @@
 {
-  "et_palier_2": [
+  "ext_facade_C_1": [
     {
-      "cle": "poi:poi_colonne_montante",
+      "cle": "poi:poi_victime",
       "box_2d": [
-        28,
-        192,
-        1000,
-        348
+        468,
+        618,
+        550,
+        649
       ]
     },
     {
-      "cle": "poi:poi_fumee_palier",
+      "cle": "poi:poi_propagation_C",
       "box_2d": [
-        260,
-        508,
-        335,
-        653
-      ]
-    },
-    {
-      "cle": "pas:et_logement",
-      "box_2d": [
-        282,
-        508,
-        836,
-        653
+        347,
+        853,
+        482,
+        926
       ]
     }
   ]

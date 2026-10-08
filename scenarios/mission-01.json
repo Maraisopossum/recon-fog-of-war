@@ -331,20 +331,20 @@
               "type": "poi",
               "poi": "poi_victime",
               "zone_clic": [
-                0.666,
-                0.499,
-                0.05,
-                0.099
+                0.608,
+                0.458,
+                0.051,
+                0.102
               ]
             },
             {
               "type": "poi",
               "poi": "poi_propagation_C",
               "zone_clic": [
-                0.77,
-                0.355,
-                0.21,
-                0.124
+                0.843,
+                0.337,
+                0.093,
+                0.155
               ]
             }
           ]
@@ -2063,7 +2063,7 @@
       "id": "poi_propagation_C",
       "zone": "ext_facade_C",
       "libelle": "Propagation en façade C",
-      "texte_revele": "Fumée et suie sortent aussi des fenêtres voisines du R+2, côté façade C : le feu se propage le long de cette façade.",
+      "texte_revele": "Les flammes sortent de deux fenêtres voisines du R+2, côté façade C, et noircissent la façade au-dessus : le feu se propage le long de cette façade.",
       "ou": "sur la façade C, au R+2, côté façade B",
       "cache": false,
       "image_zoom": "poi_propagation_C.jpg"
@@ -2071,9 +2071,9 @@
     {
       "id": "poi_victime",
       "zone": "ext_facade_C",
-      "libelle": "Victime à la fenêtre",
-      "texte_revele": "Une personne est à une fenêtre du R+2, façade C, et appelle à l'aide. De la fumée sort juste au-dessus d'elle.",
-      "ou": "à une fenêtre du R+2, en façade C",
+      "libelle": "Victime coincée par le foyer",
+      "texte_revele": "Une personne est sur le balcon du R+2, en façade C, juste à côté des fenêtres en feu. Le foyer lui barre la sortie et une cloison bloque l'autre côté : elle est coincée et se penche pour éviter les fumées.",
+      "ou": "sur le balcon du R+2, en façade C, à côté du foyer",
       "cache": false,
       "image_zoom": "poi_victime.jpg"
     },
