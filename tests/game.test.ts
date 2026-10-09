@@ -376,9 +376,9 @@ describe('accueil, coupures, compte rendu', () => {
     expect(st.demandes).toEqual([]);
   });
 
-  it('la gaine du palier a une image fermée et une image ouverte, et le local vélos n\'a plus qu\'une vue', () => {
+  it('la gaine du palier garde l\'image fermée même ouverte, et le local vélos n\'a plus qu\'une vue', () => {
     const v = sc.zones.flatMap((z) => z.vues).find((x) => x.id === 'et_palier_2')!;
-    expect(v.image_gaine).toBe('et_palier_2_gaine_ouverte.jpg');
+    expect(v.image_gaine).toBe('et_palier_2.jpg');
     expect(sc.poi.find((p) => p.id === 'poi_colonne_montante')?.action).toBe('gaine');
     expect(sc.zones.find((z) => z.id === 'rdc_local_velos')!.vues).toHaveLength(1);
   });
