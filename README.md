@@ -18,8 +18,18 @@ Paramètres d'URL :
 | `?mode=single` (défaut) | écran unique : vue du chef seule, **sans carte** (la carte guiderait le joueur) |
 | `?mode=chef` | vue du chef, qui diffuse l'état en direct vers l'écran carte |
 | `?mode=carte` | second écran : plan tactique et brouillard en direct (lecture seule) |
+| `?mode=resultats` | page formateur : comparatif par stagiaire et tableau de bord du groupe |
 
 Le jeu fonctionne sans aucune image : un placeholder est affiché quand `public/assets/generated/<id>.jpg` est absent.
+
+## Résultats formateur
+
+Le nom du stagiaire est demandé au bon de départ. Chaque partie terminée est enregistrée dans le navigateur du poste (`localStorage`, aucun serveur). `?mode=resultats` affiche :
+
+- **Comparatif** : le compte rendu de chaque stagiaire en colonnes (relevé en jeu, coché au compte rendu), actions, lecture BV-FFCOS, et les plans de tous les niveaux empilés ;
+- **Tableau de bord** : éléments les moins relevés, vus mais pas remontés, cochés sans avoir été vus, et plan du groupe (nuage de guerre sur ce qui n'a pas été visité).
+
+Exports CSV (Excel) et JSON, import JSON, suppression d'une partie. Les données restent sur le poste : exporter en fin de séance.
 
 ## Double écran (carte sur un autre écran)
 

@@ -2,7 +2,7 @@ import { etatInitial, etatZone, indexer, porteFermee, trouverPassage, vuesPlanes
 import type { Coupure, GameState, Rapport, Scenario, Variante } from './types';
 
 export type Action =
-  | { type: 'start'; variante: Variante }
+  | { type: 'start'; variante: Variante; stagiaire?: string }
   | { type: 'goto'; zone: string; vue?: string }
   | { type: 'vue'; vue: string }
   | { type: 'markSeen'; vue: string }
@@ -23,6 +23,7 @@ export function stateInitial(s: Scenario): GameState {
   const z0 = s.zones[0];
   return {
     phase: 'briefing',
+    stagiaire: '',
     position: { zone: z0.id, vue: z0.vues[0].id },
     zones: etatInitial(s),
     vuesVues: [],
@@ -68,7 +69,7 @@ export function reduce(s: Scenario, st: GameState, a: Action): GameState {
   switch (a.type) {
     case 'start': {
       const depart = s.regles.depart_par_variante[a.variante];
-      const base: GameState = { ...stateInitial(s), phase: 'jeu', variante: a.variante, aide: st.aide };
+      const base: GameState = { ...stateInitial(s), phase: 'jeu', variante: a.variante, aide: st.aide, stagiaire: (a.stagiaire ?? st.stagiaire).trim() };
       return entrer(s, base, depart);
     }
     case 'goto': {

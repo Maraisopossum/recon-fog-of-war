@@ -7,6 +7,7 @@ import { silhouetteVisible, vueDuPoi, zonePoi } from '../src/game/rules';
 import { statutElement } from '../src/ui/debrief';
 import type { GameState, Scenario } from '../src/game/types';
 import { validerScenario } from '../src/game/validate';
+import { creerResultat, frequentationZones, fusionner, synthese, versCsv } from '../src/game/resultats';
 
 const sc = mission as unknown as Scenario;
 const jouer = (st: GameState, ...actions: Action[]) => actions.reduce((s, a) => reduce(sc, s, a), st);
@@ -440,5 +441,55 @@ describe('action demandée avec précision facultative', () => {
     expect(st.demandes[1].texte).toBe('sauvetage');
     const textes = st.evenements.filter((e) => e.type === 'action').map((e) => e.texte);
     expect(textes).toEqual(['Action demandée', 'Action demandée : sauvetage']);
+  });
+});
+
+describe('résultats formateur', () => {
+  const partie = (nom: string, poi: string[], coches: string[] | null) => {
+    let st = jouer(stateInitial(sc), { type: 'start', variante: 'A', stagiaire: `  ${nom} ` });
+    for (const p of poi) st = jouer(st, { type: 'poi', poi: p });
+    st = coches ? jouer(st, { type: 'report', rapport: { coches, lecture: { batiment: 'R+4; "béton"' } } }) : jouer(st, { type: 'terminer' });
+    return creerResultat(sc, st, new Date('2026-10-13T10:00:00Z'));
+  };
+
+  it('le nom saisi au départ est conservé, sans espaces, et effacé au rejeu', () => {
+    const st = jouer(stateInitial(sc), { type: 'start', variante: 'A', stagiaire: '  Jean Dupont ' });
+    expect(st.stagiaire).toBe('Jean Dupont');
+    expect(jouer(st, { type: 'restart' }).stagiaire).toBe('');
+  });
+
+  it('compte, par élément, les vus, les vus non remontés et les cochés sans avoir été vus', () => {
+    const rs = [partie('A', ['poi_victime'], ['ext_victime']), partie('B', ['poi_victime'], []), partie('C', [], ['ext_victime']), partie('D', ['poi_victime'], null)];
+    const v = synthese(sc, rs).find((x) => x.item.id === 'ext_victime')!;
+    expect(v.vus).toBe(3);
+    expect(v.declares).toBe(2);
+    // D n'a pas rempli de compte rendu : son « non déclaré » ne compte pas
+    expect(v.vusNonDeclares).toBe(1);
+    expect(v.declaresNonVus).toBe(1);
+  });
+
+  it('les éléments absents du scénario ne figurent pas dans la synthèse', () => {
+    const ids = synthese(sc, []).map((x) => x.item.id);
+    for (const it of [...sc.grille.exterieur, ...sc.grille.interieur].filter((i) => !i.poi.length)) expect(ids).not.toContain(it.id);
+  });
+
+  it('exporte un CSV Excel : une ligne par partie, champs avec « ; » ou guillemets protégés', () => {
+    const csv = versCsv(sc, [partie('Jean Dupont', ['poi_victime'], ['ext_victime'])]);
+    const lignes = csv.replace(/^\uFEFF/, '').split('\r\n');
+    expect(lignes).toHaveLength(2);
+    expect(lignes[1].startsWith('Jean Dupont;')).toBe(true);
+    expect(lignes[1]).toContain('"R+4; ""béton"""');
+  });
+
+  it("l'import ne duplique pas une partie déjà présente et refuse un fichier invalide", () => {
+    const a = partie('A', [], []);
+    const b = partie('B', [], []);
+    expect(fusionner([a], [a, b]).map((r) => r.stagiaire)).toEqual(['A', 'B']);
+    expect(() => fusionner([], { pas: 'une liste' })).toThrow();
+  });
+
+  it('la fréquentation des zones compte reconnues et traversées', () => {
+    const f = frequentationZones(sc, [partie('A', [], []), partie('B', [], [])]);
+    expect(f.ext_facade_A).toEqual({ reconnue: 0, traversee: 2 });
   });
 });

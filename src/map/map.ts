@@ -8,6 +8,10 @@ export interface MapOptions {
   debrief?: boolean;
   /** débrief : clic sur une icône de point d'intérêt */
   onPoiClick?: (poiId: string) => void;
+  /** niveau imposé, sans onglets (page formateur : un plan par niveau) */
+  niveau?: string;
+  /** sans animation du brouillard (nombreux plans sur une même page) */
+  statique?: boolean;
 }
 
 const OPACITE_BROUILLARD = { inconnue: 0.97, traversee: 0.4, reconnue: 0 } as const;
@@ -17,14 +21,14 @@ function pointsSvg(poly: [number, number][]): string {
   return poly.map((p) => p.join(',')).join(' ');
 }
 
-function defs() {
+export function defs(statique = false) {
   return s(
     'defs',
     {},
     (() => {
       const f = s('filter', { id: 'nuage', x: '-35%', y: '-35%', width: '170%', height: '170%', 'color-interpolation-filters': 'sRGB' });
       const turb = s('feTurbulence', { type: 'fractalNoise', baseFrequency: '0.014 0.02', numOctaves: 4, seed: 7, result: 'bruit' });
-      turb.append(s('animate', { attributeName: 'baseFrequency', values: '0.014 0.02;0.019 0.015;0.014 0.02', dur: '48s', repeatCount: 'indefinite' }));
+      if (!statique) turb.append(s('animate', { attributeName: 'baseFrequency', values: '0.014 0.02;0.019 0.015;0.014 0.02', dur: '48s', repeatCount: 'indefinite' }));
       f.append(
         turb,
         s('feDisplacementMap', { in: 'SourceGraphic', in2: 'bruit', scale: 34, xChannelSelector: 'R', yChannelSelector: 'G', result: 'forme' }),
@@ -47,7 +51,7 @@ export function creerCarte(parent: HTMLElement, store: Store, opts: MapOptions =
   const sc: Scenario = store.scenario;
   const idx = indexer(sc);
   const debrief = !!opts.debrief;
-  let niveau = sc.niveaux[0].id;
+  let niveau = opts.niveau ?? sc.niveaux[0].id;
   let niveauManuel = false;
   let selection = '';
   let derniereZone = '';
@@ -55,7 +59,7 @@ export function creerCarte(parent: HTMLElement, store: Store, opts: MapOptions =
   const racine = h('div', { class: 'carte' });
   const onglets = h('div', { class: 'carte-niveaux', role: 'tablist' });
   const cadre = h('div', { class: 'carte-cadre' });
-  racine.append(onglets, cadre);
+  racine.append(...(opts.niveau ? [] : [onglets]), cadre);
   parent.append(racine);
 
   let svg: SVGSVGElement;
@@ -73,7 +77,7 @@ export function creerCarte(parent: HTMLElement, store: Store, opts: MapOptions =
     contours = new Map();
     etiquettes = new Map();
     svg = s('svg', { viewBox: '15 22 360 262', class: 'carte-svg', role: 'img', 'aria-label': 'Plan tactique' });
-    svg.append(defs());
+    svg.append(defs(opts.statique));
     const calqueFond = s('g', { class: 'c-fond' });
     const calqueFog = s('g', { class: 'c-fog' });
     const calqueEtiq = s('g', { class: 'c-etiq' });

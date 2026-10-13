@@ -144,6 +144,8 @@ export interface Demande {
 
 export interface GameState {
   phase: Phase;
+  /** nom du stagiaire saisi au bon de départ (résultats formateur) */
+  stagiaire: string;
   position: { zone: string; vue: string };
   zones: Record<string, { etat: EtatZone }>;
   vuesVues: string[];

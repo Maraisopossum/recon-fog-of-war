@@ -14,12 +14,18 @@ import { creerJournal } from './ui/journal';
 import { ouvrirQuitter } from './ui/quitter';
 import { ouvrirDemande } from './ui/demande';
 import { ouvrirCompteRendu } from './ui/report';
+import { creerPageResultats } from './ui/resultats';
+import { ajouterResultat, creerResultat } from './game/resultats';
 
 const app = document.getElementById('app')!;
 const params = new URLSearchParams(location.search);
-const mode = (['single', 'chef', 'carte'] as const).find((m) => m === params.get('mode')) ?? 'single';
+const mode = (['single', 'chef', 'carte', 'resultats'] as const).find((m) => m === params.get('mode')) ?? 'single';
 
-try {
+if (mode === 'resultats') {
+  // Page formateur : comparatif et tableau de bord des parties enregistrées sur ce poste
+  app.className = 'mode-resultats';
+  creerPageResultats(app, validerOuErreur(mission as unknown as Scenario));
+} else try {
   const scenario = validerOuErreur(mission as unknown as Scenario);
   const store = createStore(scenario);
   app.className = `mode-${mode}`;
@@ -93,6 +99,13 @@ try {
     const t = choisirTransport(params);
     if (mode === 'chef') brancherChef(store, t);
     else brancherCarte(store, t);
+  }
+
+  // Fin de partie : enregistrement sur le poste pour la page formateur (?mode=resultats)
+  if (mode !== 'carte') {
+    store.subscribe((st, prev) => {
+      if (st.phase === 'debrief' && prev.phase === 'jeu') ajouterResultat(creerResultat(scenario, st));
+    });
   }
 
   // Exposé pour les tests manuels et les captures d'écran

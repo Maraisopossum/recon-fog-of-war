@@ -8,7 +8,17 @@ export function creerBriefing(parent: HTMLElement, store: Store) {
   const b = sc.briefing;
   const ligne = (etiquette: string, valeur: string) => h('div', { class: 'depart-ligne' }, h('span', { class: 'depart-etiq' }, etiquette), h('strong', {}, valeur));
 
-  const demarrer = () => store.dispatch({ type: 'start', variante: 'A' });
+  // Nom du stagiaire : obligatoire, il identifie la partie dans les résultats formateur (?mode=resultats)
+  const nom = h('input', { type: 'text', class: 'champ-nom', placeholder: 'Prénom et nom', autocomplete: 'off', maxlength: 60, 'aria-label': 'Nom du stagiaire' });
+  const alerte = h('p', { class: 'alerte-nom cache' }, 'Saisissez votre nom pour commencer.');
+  nom.addEventListener('input', () => alerte.classList.add('cache'));
+  const nomValide = () => {
+    if (nom.value.trim()) return true;
+    alerte.classList.remove('cache');
+    nom.focus();
+    return false;
+  };
+  const demarrer = () => store.dispatch({ type: 'start', variante: 'A', stagiaire: nom.value });
   const racine = h(
     'div',
     { class: 'ecran briefing' },
@@ -19,6 +29,8 @@ export function creerBriefing(parent: HTMLElement, store: Store) {
       h('h1', {}, 'Bon de départ'),
       h('div', { class: 'depart' }, ligne('Motif de départ', b.motif), ligne('Adresse', b.adresse), ligne('Information complémentaire', b.info)),
       h('p', { class: 'consigne' }, 'Vous arrivez devant la façade A, accès des secours.'),
+      h('label', { class: 'bloc-nom' }, h('span', {}, 'Stagiaire'), nom),
+      alerte,
       h(
         'label',
         { class: 'option-aide' },
@@ -27,15 +39,20 @@ export function creerBriefing(parent: HTMLElement, store: Store) {
       ),
       h(
         'button',
-        { class: 'btn primaire grand', onclick: () => (tutorielDejaVu() ? demarrer() : ouvrirTutoriel(parent, demarrer)) },
+        { class: 'btn primaire grand', onclick: () => nomValide() && (tutorielDejaVu() ? demarrer() : ouvrirTutoriel(parent, demarrer)) },
         'Commencer la reconnaissance',
       ),
-      tutorielDejaVu() ? h('button', { class: 'btn lien', onclick: () => ouvrirTutoriel(parent, demarrer) }, "Revoir le tutoriel avant de commencer") : null,
+      tutorielDejaVu() ? h('button', { class: 'btn lien', onclick: () => nomValide() && ouvrirTutoriel(parent, demarrer) }, "Revoir le tutoriel avant de commencer") : null,
     ),
   );
   parent.append(racine);
 
-  const maj = () => racine.classList.toggle('cache', store.get().phase !== 'briefing');
+  // Nouveau passage : le champ se vide pour le stagiaire suivant
+  const maj = () => {
+    const actif = store.get().phase === 'briefing';
+    if (actif && racine.classList.contains('cache')) nom.value = '';
+    racine.classList.toggle('cache', !actif);
+  };
   store.subscribe(maj);
   maj();
   return { racine };
