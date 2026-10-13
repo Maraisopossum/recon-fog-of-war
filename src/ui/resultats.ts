@@ -5,8 +5,13 @@ import { createStore } from '../game/store';
 import type { GrilleItem, Scenario } from '../game/types';
 import { creerCarte, defs } from '../map/map';
 import { chronoTexte, h, s } from './dom';
+import { CodeRefuse, codeFormateur, enLigneActif, lireEnLigne, memoriserCode, supprimerEnLigne } from '../game/enligne';
 
 type Onglet = 'comparatif' | 'tableau';
+
+/** jour de la partie, heure locale (AAAA-MM-JJ) : une séance = un jour */
+const jour = (iso: string) => new Date(iso).toLocaleDateString('fr-CA');
+const jourLong = (j: string) => new Date(`${j}T12:00:00`).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
 function telecharger(nom: string, contenu: string, type: string) {
   const url = URL.createObjectURL(new Blob([contenu], { type }));
@@ -43,6 +48,13 @@ const dateCourte = (iso: string) => {
 export function creerPageResultats(parent: HTMLElement, sc: Scenario) {
   let resultats: Resultat[] = [];
   let onglet: Onglet = 'comparatif';
+  /** parties lues dans la feuille Google Sheets, fusionnées avec celles du poste */
+  let enLigne: Resultat[] = [];
+  let etatLigne: 'sans-code' | 'chargement' | 'ok' | 'erreur' = 'sans-code';
+  let majLigne: Date | null = null;
+  /** séance affichée : un jour (AAAA-MM-JJ), ou « toutes » ; vide : la plus récente */
+  let seance = '';
+  let tous: Resultat[] = [];
   let projection = false;
   try {
     onglet = (sessionStorage.getItem('resultats-onglet') as Onglet) || 'comparatif';
@@ -84,6 +96,50 @@ export function creerPageResultats(parent: HTMLElement, sc: Scenario) {
     } catch { /* plein écran refusé : la projection reste utilisable */ }
   }
   const imprime = h('p', { class: 'imprime-seul res-imprime' });
+  const barreLigne = h('div', { class: 'res-ligne gestion' + (enLigneActif() ? '' : ' cache'), role: 'region', 'aria-label': 'Stockage en ligne' });
+
+  async function charger() {
+    if (!enLigneActif()) return;
+    const code = codeFormateur();
+    if (!code) { etatLigne = 'sans-code'; rendreLigne(); return; }
+    etatLigne = 'chargement';
+    rendreLigne();
+    try {
+      enLigne = await lireEnLigne(code);
+      etatLigne = 'ok';
+      majLigne = new Date();
+    } catch (e) {
+      if (e instanceof CodeRefuse) { memoriserCode(''); etatLigne = 'sans-code'; dire('Code formateur refusé.'); }
+      else etatLigne = 'erreur';
+    }
+    rendre();
+  }
+
+  function rendreLigne() {
+    if (!enLigneActif()) return;
+    if (etatLigne === 'sans-code') {
+      const champ = h('input', { type: 'password', class: 'champ-code', placeholder: 'Code formateur', autocomplete: 'off', 'aria-label': 'Code formateur' });
+      const valider = () => { const c = champ.value.trim(); if (!c) return; memoriserCode(c); void charger(); };
+      champ.addEventListener('keydown', (e) => { if ((e as KeyboardEvent).key === 'Enter') valider(); });
+      barreLigne.replaceChildren(
+        h('span', { class: 'res-ligne-etat' }, 'En ligne : saisissez le code formateur pour afficher les parties de tous les postes.'),
+        champ,
+        h('button', { class: 'btn', onclick: valider }, 'Afficher'),
+      );
+      return;
+    }
+    const heure = majLigne?.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) ?? '';
+    const texte = {
+      chargement: 'En ligne : lecture de la feuille…',
+      ok: `En ligne : ${enLigne.length} partie${enLigne.length > 1 ? 's' : ''} dans la feuille · à jour à ${heure}`,
+      erreur: 'En ligne : feuille injoignable. Seules les parties de ce poste sont affichées.',
+    }[etatLigne];
+    barreLigne.replaceChildren(
+      h('span', { class: 'res-ligne-etat ' + etatLigne }, texte),
+      h('button', { class: 'btn', onclick: () => void charger(), ...(etatLigne === 'chargement' ? { disabled: true } : {}) }, 'Actualiser'),
+      h('button', { class: 'btn', onclick: () => { memoriserCode(''); enLigne = []; etatLigne = 'sans-code'; rendre(); } }, 'Changer de code'),
+    );
+  }
 
   const racine = h(
     'div',
@@ -102,11 +158,13 @@ export function creerPageResultats(parent: HTMLElement, sc: Scenario) {
         h('button', { class: 'btn gestion', onclick: () => telecharger(`recon-resultats-${horodatage()}.csv`, versCsv(sc, resultats), 'text/csv;charset=utf-8') }, 'Exporter CSV (Excel)'),
         h('button', { class: 'btn gestion', onclick: () => telecharger(`recon-resultats-${horodatage()}.json`, JSON.stringify(resultats, null, 1), 'application/json') }, 'Exporter JSON'),
         h('button', { class: 'btn gestion', onclick: () => fichier.click() }, 'Importer JSON'),
-        boutonConfirme('Tout effacer', () => { resultats = []; sauverResultats(resultats); dire('Toutes les parties ont été effacées.'); rendre(); }, 'btn danger gestion'),
+        // en ligne, ce bouton ne vide que ce poste : la feuille reste l'archive
+        boutonConfirme(enLigneActif() ? 'Vider ce poste' : 'Tout effacer', () => { sauverResultats([]); dire(enLigneActif() ? 'Parties de ce poste effacées (la feuille en ligne est conservée).' : 'Toutes les parties ont été effacées.'); rendre(); }, 'btn danger gestion'),
         h('a', { class: 'btn gestion', href: location.pathname }, 'Ouvrir le jeu'),
         fichier,
       ),
     ),
+    barreLigne,
     imprime,
     onglets,
     corps,
@@ -123,16 +181,34 @@ export function creerPageResultats(parent: HTMLElement, sc: Scenario) {
           onclick: () => { onglet = id; try { sessionStorage.setItem('resultats-onglet', id); } catch { /* sans effet */ } rendre(); },
         }, nom),
       ),
-      h('span', { class: 'muted res-compte' }, `${resultats.length} partie${resultats.length > 1 ? 's' : ''} enregistrée${resultats.length > 1 ? 's' : ''} sur ce poste`),
+      choixSeance(),
     );
   }
 
+  function choixSeance() {
+    const jours = [...new Set(tous.map((r) => jour(r.date)))].sort().reverse();
+    const nb = `${resultats.length} partie${resultats.length > 1 ? 's' : ''}`;
+    if (jours.length < 2) return h('span', { class: 'muted res-compte' }, nb + (jours[0] ? ` · ${jourLong(jours[0])}` : ''));
+    const select = h(
+      'select',
+      { class: 'champ-seance', 'aria-label': 'Séance affichée', onchange: (e: Event) => { seance = (e.target as HTMLSelectElement).value; rendre(); } },
+      ...jours.map((j) => h('option', { value: j, ...(j === seance ? { selected: true } : {}) }, `${jourLong(j)} (${tous.filter((r) => jour(r.date) === j).length})`)),
+      h('option', { value: 'toutes', ...(seance === 'toutes' ? { selected: true } : {}) }, `Toutes les séances (${tous.length})`),
+    );
+    return h('label', { class: 'res-compte res-seance' }, h('span', { class: 'muted' }, 'Séance'), select);
+  }
+
   function rendre() {
-    resultats = chargerResultats().filter((r) => r.scenario === sc.id).sort((a, b) => a.date.localeCompare(b.date));
+    // parties du poste et de la feuille en ligne, sans doublon ; puis la séance choisie
+    tous = fusionner(chargerResultats(), enLigne).filter((r) => r.scenario === sc.id);
+    const jours = [...new Set(tous.map((r) => jour(r.date)))].sort().reverse();
+    if (seance !== 'toutes' && !jours.includes(seance)) seance = jours[0] ?? '';
+    resultats = seance === 'toutes' ? tous : tous.filter((r) => jour(r.date) === seance);
+    rendreLigne();
     rendreOnglets();
-    imprime.textContent = `${resultats.length} partie${resultats.length > 1 ? 's' : ''} · imprimé le ${new Date().toLocaleString('fr-FR', { dateStyle: 'long', timeStyle: 'short' })}`;
+    imprime.textContent = `${seance && seance !== 'toutes' ? jourLong(seance) + ' · ' : ''}${resultats.length} partie${resultats.length > 1 ? 's' : ''} · imprimé le ${new Date().toLocaleString('fr-FR', { dateStyle: 'long', timeStyle: 'short' })}`;
     if (!resultats.length) {
-      corps.replaceChildren(h('div', { class: 'deb-bloc' }, h('h2', {}, 'Aucune partie'), h('p', {}, "Les parties s'enregistrent ici automatiquement à la fin de chaque reconnaissance, avec le nom saisi au bon de départ. Elles restent sur ce poste et dans ce navigateur : pensez à exporter en fin de séance.")));
+      corps.replaceChildren(h('div', { class: 'deb-bloc' }, h('h2', {}, 'Aucune partie'), h('p', {}, "Les parties s'enregistrent ici automatiquement à la fin de chaque reconnaissance, avec le nom saisi au bon de départ. " + (enLigneActif() ? 'Elles sont aussi envoyées dans la feuille Google Sheets : saisissez le code formateur ci-dessus pour voir celles de tous les postes.' : 'Elles restent sur ce poste et dans ce navigateur : pensez à exporter en fin de séance.'))));
       return;
     }
     // Les deux vues sont construites : l'écran montre l'onglet actif, l'impression montre les deux
@@ -180,7 +256,16 @@ export function creerPageResultats(parent: HTMLElement, sc: Scenario) {
           h('span', { class: 'muted petit' }, `${dateCourte(r.date)} · durée ${chronoTexte(r.etat.chrono)}`),
           h('span', { class: 'muted petit' }, `couverture ${pct(c.global)}`),
           r.etat.rapport ? null : h('span', { class: 'etat-cr' }, 'fin de reco non faite'),
-          boutonConfirme('Supprimer', () => { sauverResultats(chargerResultats().filter((x) => x.id !== r.id)); dire(`Partie de ${r.stagiaire} supprimée.`); rendre(); }, 'btn mini gestion'),
+          boutonConfirme('Supprimer', async () => {
+            sauverResultats(chargerResultats().filter((x) => x.id !== r.id));
+            enLigne = enLigne.filter((x) => x.id !== r.id);
+            // affichage immédiat ; la feuille en ligne suit (quelques secondes)
+            rendre();
+            const code = codeFormateur();
+            const ok = enLigneActif() && code ? await supprimerEnLigne(r.id, code) : true;
+            dire(ok ? `Partie de ${r.stagiaire} supprimée.` : `Partie de ${r.stagiaire} supprimée de ce poste, mais pas de la feuille en ligne (réseau ?).`);
+            rendre();
+          }, 'btn mini gestion'),
         );
       }),
       h('th', { class: 'cmp-fin' }, 'Vu par'),
@@ -324,8 +409,11 @@ export function creerPageResultats(parent: HTMLElement, sc: Scenario) {
   }
 
   rendre();
+  void charger();
   // Une partie terminée dans un autre onglet du même navigateur apparaît sans recharger
   window.addEventListener('storage', () => rendre());
+  // Parties des autres postes : relecture de la feuille chaque minute, page visible
+  if (enLigneActif()) setInterval(() => { if (document.visibilityState === 'visible' && etatLigne === 'ok') void charger(); }, 60000);
   return { racine };
 }
 

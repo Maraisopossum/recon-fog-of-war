@@ -30,7 +30,7 @@ La comparaison ne porte pas sur une note mais sur la méthode de reconnaissance 
 
 ## Capabilities and Constraints
 
-- Données stockées dans le `localStorage` du navigateur du poste, sans serveur ni base de données. Elles se perdent si le cache est vidé : l'export en fin de séance est la sauvegarde.
+- Données stockées sur le poste (`localStorage`) **et** dans une feuille Google Sheets du formateur (Apps Script), lue avec un code formateur ; une partie jouée hors ligne repart automatiquement. Les noms complets des stagiaires sont stockés en ligne, choix confirmé par le formateur.
 - Publié sur GitHub Pages (dépôt public) ; aucune donnée de stagiaire n'est dans le dépôt.
 - Vocabulaire métier à conserver : reconnaissance 360°, reconnaissance intérieure, « Fin de reco » (étape finale du jeu, choisie à la place de « Rendre compte » pour faire moins examen), lecture du feu BV-FFCOS (Bâtiment, Vent, Fumées, Flammes, Chaleur, Ouvrants, Sons), façades A-B-C-D, zone reconnue / traversée / inconnue, nuage (brouillard) de guerre.
 - Le plan et le brouillard réutilisent le rendu du jeu (`src/map/map.ts`) : la page formateur doit rester lisible avec ce rendu.

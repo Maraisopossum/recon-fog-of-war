@@ -16,6 +16,7 @@ import { ouvrirDemande } from './ui/demande';
 import { ouvrirCompteRendu } from './ui/report';
 import { creerPageResultats } from './ui/resultats';
 import { ajouterResultat, creerResultat } from './game/resultats';
+import { enLigneActif, publier, viderFile } from './game/enligne';
 
 const app = document.getElementById('app')!;
 const params = new URLSearchParams(location.search);
@@ -105,12 +106,32 @@ if (mode === 'resultats') {
   if (mode !== 'carte') {
     store.subscribe((st, prev) => {
       if (st.phase !== 'debrief' || prev.phase !== 'jeu') return;
-      // Échec d'enregistrement (stockage plein ou bloqué) : le formateur doit le savoir avant le passage suivant
-      if (!ajouterResultat(creerResultat(scenario, st))) {
-        const alerte = h('p', { class: 'alerte-sauvegarde', role: 'alert' }, 'Cette partie n’a pas pu être enregistrée sur ce poste (stockage du navigateur indisponible ou plein). Elle n’apparaîtra pas dans les résultats formateur.');
-        document.querySelector('.debrief')?.prepend(alerte);
+      const r = creerResultat(scenario, st);
+      const local = ajouterResultat(r);
+      const debrief = document.querySelector('.debrief');
+      if (!enLigneActif()) {
+        // Échec d'enregistrement (stockage plein ou bloqué) : le formateur doit le savoir avant le passage suivant
+        if (!local) debrief?.prepend(h('p', { class: 'alerte-sauvegarde', role: 'alert' }, 'Cette partie n’a pas pu être enregistrée sur ce poste (stockage du navigateur indisponible ou plein). Elle n’apparaîtra pas dans les résultats formateur.'));
+        return;
       }
+      const etat = h('p', { class: 'etat-envoi', role: 'status' }, 'Envoi de la partie en ligne…');
+      debrief?.prepend(etat);
+      void publier(scenario, r).then((ok) => {
+        if (ok) {
+          etat.textContent = 'Partie enregistrée en ligne.';
+          etat.classList.add('ok');
+        } else if (local) {
+          etat.textContent = 'Pas de connexion : la partie est gardée sur ce poste et sera envoyée automatiquement dès le retour du réseau.';
+        } else {
+          etat.textContent = 'Cette partie n’a pu être enregistrée ni en ligne ni sur ce poste. Elle n’apparaîtra pas dans les résultats formateur.';
+          etat.classList.add('alerte-sauvegarde');
+          etat.setAttribute('role', 'alert');
+        }
+      });
     });
+    // Parties restées en attente d'envoi : au démarrage et au retour du réseau
+    void viderFile(scenario);
+    window.addEventListener('online', () => void viderFile(scenario));
   }
 
   // Exposé pour les tests manuels et les captures d'écran

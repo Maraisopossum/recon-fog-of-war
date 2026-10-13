@@ -29,7 +29,9 @@ Le nom du stagiaire est demandé au bon de départ. Chaque partie terminée est 
 - **Comparatif** : la fin de reco de chaque stagiaire en colonnes (relevé en jeu, coché en fin de reco), actions, lecture BV-FFCOS, et les plans de tous les niveaux empilés ;
 - **Tableau de bord** : éléments les moins relevés, vus mais pas remontés, cochés sans avoir été vus, et plan du groupe (nuage de guerre sur ce qui n'a pas été visité).
 
-Exports CSV (Excel) et JSON, import JSON, suppression d'une partie. Les données restent sur le poste : exporter en fin de séance.
+Exports CSV (Excel) et JSON, import JSON, suppression d'une partie, choix de la séance (un jour).
+
+**Stockage en ligne (Google Sheets)** : chaque partie est aussi envoyée à une application Web Apps Script (`tools/apps-script.gs`) attachée à une feuille Google Sheets ; son adresse `/exec` est dans `src/config.ts` (`SHEETS_URL`, vide = poste seul). Sans réseau, la partie reste en file sur le poste et repart automatiquement. La page formateur lit la feuille avec le **code formateur** (constante `CODE_FORMATEUR` du script, jamais dans ce dépôt public) et fusionne les parties de tous les postes. Installation : feuille > Extensions > Apps Script, coller le script avec le code, Déployer > Application Web (exécuter en tant que moi, accès tout le monde).
 
 ## Double écran (carte sur un autre écran)
 
