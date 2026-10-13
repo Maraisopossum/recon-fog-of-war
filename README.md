@@ -26,7 +26,7 @@ Le jeu fonctionne sans aucune image : un placeholder est affiché quand `public/
 
 Le nom du stagiaire est demandé au bon de départ. Chaque partie terminée est enregistrée dans le navigateur du poste (`localStorage`, aucun serveur). `?mode=resultats` affiche :
 
-- **Comparatif** : le compte rendu de chaque stagiaire en colonnes (relevé en jeu, coché au compte rendu), actions, lecture BV-FFCOS, et les plans de tous les niveaux empilés ;
+- **Comparatif** : la fin de reco de chaque stagiaire en colonnes (relevé en jeu, coché en fin de reco), actions, lecture BV-FFCOS, et les plans de tous les niveaux empilés ;
 - **Tableau de bord** : éléments les moins relevés, vus mais pas remontés, cochés sans avoir été vus, et plan du groupe (nuage de guerre sur ce qui n'a pas été visité).
 
 Exports CSV (Excel) et JSON, import JSON, suppression d'une partie. Les données restent sur le poste : exporter en fin de séance.
@@ -75,7 +75,7 @@ Les prompts sont dans `prompts/` : `style-guide.md` et `building-bible.md` sont 
 src/game       store, règles, score, validation
 src/first-person  vue chef (image, hotspots, panorama)
 src/map        plan SVG et brouillard
-src/ui         briefing, journal, compte rendu, débrief
+src/ui         briefing, journal, fin de reco, débrief
 src/sync       double écran (BroadcastChannel / WebSocket)
 scenarios      mission-01.json
 prompts        style, bâtiment, vues

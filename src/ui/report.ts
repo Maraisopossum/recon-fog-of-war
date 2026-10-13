@@ -11,7 +11,7 @@ function melange(items: GrilleItem[]): GrilleItem[] {
 type Etape = 'elements' | 'lecture' | 'confirmation';
 
 /**
- * « Rendre compte », en fin de reconnaissance :
+ * « Fin de reco », en fin de reconnaissance :
  *  1. cocher les éléments vus, séparément pour la reconnaissance 360° et la reconnaissance intérieure ;
  *  2. rédiger la lecture du feu BV-FFCOS (Bâtiment, Vent, Fumées, Flammes, Chaleur, Ouvrants, Sons) ;
  *  3. confirmer : la partie se termine, sans retour possible.
@@ -21,7 +21,7 @@ export function ouvrirCompteRendu(parent: HTMLElement, store: Store) {
   const coches = new Set<string>();
   const lecture: Record<string, string> = {};
   let etape: Etape = 'elements';
-  const fenetre = h('div', { class: 'zoom popup-poi', role: 'dialog', 'aria-label': 'Rendre compte' });
+  const fenetre = h('div', { class: 'zoom popup-poi', role: 'dialog', 'aria-label': 'Fin de reco' });
 
   const groupe = (titre: string, sous: string, items: GrilleItem[]) =>
     h(
@@ -50,7 +50,7 @@ export function ouvrirCompteRendu(parent: HTMLElement, store: Store) {
         h(
           'div',
           { class: 'zoom-carte rapport' },
-          h('h2', {}, 'Confirmer le compte rendu'),
+          h('h2', {}, 'Confirmer la fin de reco'),
           h('p', {}, `Vous avez coché ${coches.size} élément${coches.size > 1 ? 's' : ''} et rempli ${nbTextes} case${nbTextes > 1 ? 's' : ''} de lecture du feu. Cette action est définitive : la reconnaissance se termine et vous ne pourrez plus revenir en arrière.`),
           h(
             'div',
@@ -67,7 +67,7 @@ export function ouvrirCompteRendu(parent: HTMLElement, store: Store) {
         h(
           'div',
           { class: 'zoom-carte rapport' },
-          h('p', { class: 'etiquette' }, 'Rendre compte · 2/2'),
+          h('p', { class: 'etiquette' }, 'Fin de reco · 2/2'),
           h('h2', {}, 'Lecture du feu : BV-FFCOS'),
           h('p', { class: 'muted' }, 'Décrivez ce que vous avez observé, avec vos mots. Vous pouvez laisser une case vide.'),
           ...sc.lecture_feu.map((it) =>
@@ -83,7 +83,7 @@ export function ouvrirCompteRendu(parent: HTMLElement, store: Store) {
             'div',
             { class: 'actions' },
             h('button', { class: 'btn', onclick: () => { etape = 'elements'; rendre(); } }, 'Précédent'),
-            h('button', { class: 'btn primaire', onclick: () => { etape = 'confirmation'; rendre(); } }, 'Rendre compte'),
+            h('button', { class: 'btn primaire', onclick: () => { etape = 'confirmation'; rendre(); } }, 'Terminer'),
           ),
         ),
       );
@@ -93,7 +93,7 @@ export function ouvrirCompteRendu(parent: HTMLElement, store: Store) {
       h(
         'div',
         { class: 'zoom-carte rapport' },
-        h('p', { class: 'etiquette' }, 'Rendre compte · 1/2'),
+        h('p', { class: 'etiquette' }, 'Fin de reco · 1/2'),
         h('h2', {}, 'Éléments vus'),
         h('p', { class: 'muted' }, "Cochez les éléments que vous avez vus pendant la reconnaissance. Il n'y a pas de bonne ou de mauvaise réponse."),
         groupe('Reconnaissance 360° (extérieur)', 'Éléments vus en faisant le tour du bâtiment.', sc.grille.exterieur),

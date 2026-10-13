@@ -58,7 +58,7 @@ if (mode === 'resultats') {
     store.subscribe((st) => quitter.classList.toggle('cache', st.phase !== 'jeu'));
     quitter.classList.add('cache');
     boutons.append(quitter);
-    boutons.append(h('button', { class: 'btn primaire', id: 'btn-rendre', onclick: () => ouvrirCompteRendu(app, store) }, 'Rendre compte'));
+    boutons.append(h('button', { class: 'btn primaire', id: 'btn-rendre', onclick: () => ouvrirCompteRendu(app, store) }, 'Fin de reco'));
   }
   app.prepend(entete);
 
@@ -104,7 +104,12 @@ if (mode === 'resultats') {
   // Fin de partie : enregistrement sur le poste pour la page formateur (?mode=resultats)
   if (mode !== 'carte') {
     store.subscribe((st, prev) => {
-      if (st.phase === 'debrief' && prev.phase === 'jeu') ajouterResultat(creerResultat(scenario, st));
+      if (st.phase !== 'debrief' || prev.phase !== 'jeu') return;
+      // Échec d'enregistrement (stockage plein ou bloqué) : le formateur doit le savoir avant le passage suivant
+      if (!ajouterResultat(creerResultat(scenario, st))) {
+        const alerte = h('p', { class: 'alerte-sauvegarde', role: 'alert' }, 'Cette partie n’a pas pu être enregistrée sur ce poste (stockage du navigateur indisponible ou plein). Elle n’apparaîtra pas dans les résultats formateur.');
+        document.querySelector('.debrief')?.prepend(alerte);
+      }
     });
   }
 

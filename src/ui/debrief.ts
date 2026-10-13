@@ -43,7 +43,7 @@ export function creerDebrief(parent: HTMLElement, store: Store, peutRejouer: boo
         h(
           'table',
           { class: 'deb-table' },
-          h('thead', {}, h('tr', {}, h('th', {}, 'Élément'), h('th', {}, 'Dans le scénario'), h('th', {}, 'Relevé en jeu'), h('th', {}, st.rapport ? 'Coché au compte rendu' : 'Compte rendu'))),
+          h('thead', {}, h('tr', {}, h('th', {}, 'Élément'), h('th', {}, 'Dans le scénario'), h('th', {}, 'Relevé en jeu'), h('th', {}, st.rapport ? 'Coché en fin de reco' : 'Fin de reco'))),
           h(
             'tbody',
             {},
@@ -56,7 +56,7 @@ export function creerDebrief(parent: HTMLElement, store: Store, peutRejouer: boo
                 h('td', {}, it.libelle),
                 h('td', {}, oui(s.existe, 'Oui', 'Absent')),
                 h('td', {}, s.existe ? oui(s.releve, 'Oui', 'Non') : h('span', { class: 'muted' }, '—')),
-                h('td', {}, st.rapport ? oui(s.declare, 'Oui', 'Non') : h('span', { class: 'muted' }, 'Non rempli')),
+                h('td', {}, st.rapport ? oui(s.declare, 'Oui', 'Non') : h('span', { class: 'muted' }, 'Non faite')),
               );
             }),
           ),
@@ -68,7 +68,7 @@ export function creerDebrief(parent: HTMLElement, store: Store, peutRejouer: boo
       'div',
       { class: 'deb-bloc' },
       h('h2', {}, 'Lecture du feu : BV-FFCOS'),
-      st.rapport ? null : h('p', { class: 'muted' }, 'Compte rendu non rempli.'),
+      st.rapport ? null : h('p', { class: 'muted' }, 'Fin de reco non faite.'),
       ...sc.lecture_feu.map((it) => {
         const texte = st.rapport?.lecture[it.id]?.trim();
         return h(

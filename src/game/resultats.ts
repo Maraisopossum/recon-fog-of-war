@@ -113,7 +113,7 @@ const champ = (v: string | number) => {
 export function versCsv(sc: Scenario, rs: Resultat[]): string {
   const items = [...sc.grille.exterieur, ...sc.grille.interieur].filter((it) => it.poi.length > 0);
   const tete = [
-    'Stagiaire', 'Date', 'Durée (s)', 'Compte rendu', 'Couverture globale (%)',
+    'Stagiaire', 'Date', 'Durée (s)', 'Fin de reco', 'Couverture globale (%)',
     ...sc.niveaux.map((n) => `Couverture ${n.nom} (%)`),
     ...items.flatMap((it) => [`${it.libelle} : relevé`, `${it.libelle} : déclaré`]),
     ...sc.lecture_feu.map((l) => `Lecture ${l.lettre} ${l.titre}`),

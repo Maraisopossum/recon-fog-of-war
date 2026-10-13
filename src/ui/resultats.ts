@@ -34,13 +34,20 @@ function boutonConfirme(libelle: string, action: () => void, classe = 'btn') {
   return b;
 }
 
-const dateCourte = (iso: string) => new Date(iso).toLocaleString('fr-FR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+const dateCourte = (iso: string) => {
+  const d = new Date(iso);
+  return `${d.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })} à ${d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`;
+};
 
 /** Page formateur (?mode=resultats) : comparatif par stagiaire et tableau de bord du groupe. */
 export function creerPageResultats(parent: HTMLElement, sc: Scenario) {
   let resultats: Resultat[] = [];
   let onglet: Onglet = 'comparatif';
-  try { onglet = (sessionStorage.getItem('resultats-onglet') as Onglet) || 'comparatif'; } catch { /* stockage indisponible */ }
+  let projection = false;
+  try {
+    onglet = (sessionStorage.getItem('resultats-onglet') as Onglet) || 'comparatif';
+    projection = sessionStorage.getItem('resultats-projection') === '1';
+  } catch { /* stockage indisponible */ }
   const message = h('span', { class: 'res-message', role: 'status' });
   const corps = h('div', { class: 'res-corps' });
   const onglets = h('div', { class: 'res-onglets', role: 'tablist' });
@@ -63,35 +70,56 @@ export function creerPageResultats(parent: HTMLElement, sc: Scenario) {
   const dire = (t: string) => { message.textContent = t; setTimeout(() => { if (message.textContent === t) message.textContent = ''; }, 5000); };
   const horodatage = () => new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-');
 
+  // Projection en salle : thème clair, texte agrandi, outils de gestion masqués, plein écran si possible
+  const btnProjection = h('button', { class: 'btn', 'aria-pressed': 'false', onclick: () => basculerProjection(!projection) }, 'Projeter en salle');
+  function basculerProjection(actif: boolean, pleinEcran = true) {
+    projection = actif;
+    racine.classList.toggle('projection', actif);
+    btnProjection.setAttribute('aria-pressed', String(actif));
+    btnProjection.textContent = actif ? 'Quitter la projection' : 'Projeter en salle';
+    try { sessionStorage.setItem('resultats-projection', actif ? '1' : '0'); } catch { /* sans effet */ }
+    if (pleinEcran) try {
+      if (actif && !document.fullscreenElement) void document.documentElement.requestFullscreen?.().catch(() => {});
+      if (!actif && document.fullscreenElement) void document.exitFullscreen().catch(() => {});
+    } catch { /* plein écran refusé : la projection reste utilisable */ }
+  }
+  const imprime = h('p', { class: 'imprime-seul res-imprime' });
+
   const racine = h(
     'div',
     { class: 'resultats' },
     h(
       'header',
       { class: 'res-entete' },
-      h('div', {}, h('p', { class: 'etiquette' }, 'RECON · Résultats formateur'), h('h1', {}, sc.titre)),
+      h('div', { class: 'res-titre' }, h('span', { class: 'logo' }, 'RECON'), h('h1', {}, `Résultats · ${sc.titre}`)),
       h(
         'div',
         { class: 'res-actions' },
         message,
-        h('button', { class: 'btn', onclick: () => telecharger(`recon-resultats-${horodatage()}.csv`, versCsv(sc, resultats), 'text/csv;charset=utf-8') }, 'Exporter CSV (Excel)'),
-        h('button', { class: 'btn', onclick: () => telecharger(`recon-resultats-${horodatage()}.json`, JSON.stringify(resultats, null, 1), 'application/json') }, 'Exporter JSON'),
-        h('button', { class: 'btn', onclick: () => fichier.click() }, 'Importer JSON'),
-        boutonConfirme('Tout effacer', () => { resultats = []; sauverResultats(resultats); dire('Toutes les parties ont été effacées.'); rendre(); }, 'btn danger'),
-        h('a', { class: 'btn', href: location.pathname }, 'Ouvrir le jeu'),
+        btnProjection,
+        h('button', { class: 'btn', onclick: () => window.print() }, 'Imprimer'),
+        h('span', { class: 'res-sep gestion', 'aria-hidden': 'true' }),
+        h('button', { class: 'btn gestion', onclick: () => telecharger(`recon-resultats-${horodatage()}.csv`, versCsv(sc, resultats), 'text/csv;charset=utf-8') }, 'Exporter CSV (Excel)'),
+        h('button', { class: 'btn gestion', onclick: () => telecharger(`recon-resultats-${horodatage()}.json`, JSON.stringify(resultats, null, 1), 'application/json') }, 'Exporter JSON'),
+        h('button', { class: 'btn gestion', onclick: () => fichier.click() }, 'Importer JSON'),
+        boutonConfirme('Tout effacer', () => { resultats = []; sauverResultats(resultats); dire('Toutes les parties ont été effacées.'); rendre(); }, 'btn danger gestion'),
+        h('a', { class: 'btn gestion', href: location.pathname }, 'Ouvrir le jeu'),
         fichier,
       ),
     ),
+    imprime,
     onglets,
     corps,
   );
   parent.append(racine);
+  // Au rechargement, la projection est conservée ; le plein écran exige un clic et n'est donc pas relancé
+  if (projection) basculerProjection(true, false);
 
   function rendreOnglets() {
     onglets.replaceChildren(
       ...([['comparatif', 'Comparatif'], ['tableau', 'Tableau de bord']] as const).map(([id, nom]) =>
         h('button', {
-          class: 'onglet' + (onglet === id ? ' actif' : ''), role: 'tab', 'aria-selected': onglet === id,
+          class: 'onglet' + (onglet === id ? ' actif' : ''), role: 'tab', 'aria-selected': onglet === id, 'aria-controls': 'vue-' + id, id: 'onglet-' + id,
           onclick: () => { onglet = id; try { sessionStorage.setItem('resultats-onglet', id); } catch { /* sans effet */ } rendre(); },
         }, nom),
       ),
@@ -102,18 +130,22 @@ export function creerPageResultats(parent: HTMLElement, sc: Scenario) {
   function rendre() {
     resultats = chargerResultats().filter((r) => r.scenario === sc.id).sort((a, b) => a.date.localeCompare(b.date));
     rendreOnglets();
+    imprime.textContent = `${resultats.length} partie${resultats.length > 1 ? 's' : ''} · imprimé le ${new Date().toLocaleString('fr-FR', { dateStyle: 'long', timeStyle: 'short' })}`;
     if (!resultats.length) {
       corps.replaceChildren(h('div', { class: 'deb-bloc' }, h('h2', {}, 'Aucune partie'), h('p', {}, "Les parties s'enregistrent ici automatiquement à la fin de chaque reconnaissance, avec le nom saisi au bon de départ. Elles restent sur ce poste et dans ce navigateur : pensez à exporter en fin de séance.")));
       return;
     }
-    corps.replaceChildren(onglet === 'comparatif' ? comparatif() : tableauDeBord());
+    // Les deux vues sont construites : l'écran montre l'onglet actif, l'impression montre les deux
+    const vue = (id: Onglet, titre: string, contenu: HTMLElement) =>
+      h('section', { class: 'res-vue vue-' + id + (onglet === id ? ' actif' : ''), id: 'vue-' + id, role: 'tabpanel', 'aria-labelledby': 'onglet-' + id }, h('h2', { class: 'imprime-seul res-vue-titre' }, titre), contenu);
+    corps.replaceChildren(vue('tableau', 'Tableau de bord', tableauDeBord()), vue('comparatif', 'Comparatif par stagiaire', comparatif()));
   }
 
   // ───────── Comparatif : le compte rendu individuel, une colonne par stagiaire ─────────
   function comparatif() {
     const n = resultats.length;
     const etats = resultats.map((r) => r.etat);
-    const ligneTitre = (titre: string, sous?: string) => h('tr', { class: 'cmp-section' }, h('th', { colspan: n + 2, scope: 'colgroup' }, titre, sous ? h('span', { class: 'muted' }, ` · ${sous}`) : null));
+    const ligneTitre = (titre: string, sous?: string, classe = '') => h('tr', { class: 'cmp-section' + (classe ? ' ' + classe : '') }, h('th', { colspan: n + 2, scope: 'colgroup' }, titre, sous ? h('span', { class: 'muted' }, ` · ${sous}`) : null));
     const ligne = (libelle: Node | string, cellules: (Node | string)[], fin: Node | string = '') =>
       h('tr', {}, h('th', { scope: 'row' }, libelle), ...cellules.map((c) => h('td', {}, c)), h('td', { class: 'cmp-fin' }, fin));
 
@@ -124,7 +156,7 @@ export function creerPageResultats(parent: HTMLElement, sc: Scenario) {
       if (!existe) return declare ? h('span', { class: 'marque faux', title: 'Coché alors que cet élément n’existe pas' }, '✓ absent') : h('span', { class: 'muted' }, '·');
       // sans compte rendu, un élément vu n'est pas « oublié » : il est seulement relevé
       const cls = releve && declare ? 'ok' : releve ? (st.rapport ? 'vu' : 'releve') : declare ? 'faux' : 'non';
-      const titre = { ok: 'Relevé en jeu et coché au compte rendu', vu: 'Relevé en jeu, pas coché au compte rendu', releve: 'Relevé en jeu (pas de compte rendu)', faux: 'Coché sans avoir été relevé', non: 'Pas relevé' }[cls];
+      const titre = { ok: 'Relevé en jeu et coché en fin de reco', vu: 'Relevé en jeu, pas coché en fin de reco', releve: 'Relevé en jeu (fin de reco non faite)', faux: 'Coché sans avoir été relevé', non: 'Pas relevé' }[cls];
       return h('span', { class: 'marque ' + cls, title: titre }, (releve ? '●' : '○') + (declare ? ' ✓' : ''));
     };
     const blocGrille = (titre: string, sous: string, items: GrilleItem[]) => [
@@ -138,17 +170,17 @@ export function creerPageResultats(parent: HTMLElement, sc: Scenario) {
     const tete = h(
       'tr',
       {},
-      h('th', { class: 'cmp-coin' }, h('span', { class: 'legende' }, h('span', { class: 'marque ok' }, '● ✓'), ' vu et rendu compte · ', h('span', { class: 'marque vu' }, '●'), ' vu, pas rendu compte · ', h('span', { class: 'marque faux' }, '○ ✓'), ' coché sans l’avoir vu · ', h('span', { class: 'marque non' }, '○'), ' pas vu · ', h('span', { class: 'marque releve' }, '●'), ' vu, sans compte rendu')),
+      h('th', { class: 'cmp-coin' }, h('span', { class: 'legende' }, h('span', { class: 'marque ok' }, '● ✓'), ' vu et coché en fin de reco · ', h('span', { class: 'marque vu' }, '●'), ' vu, pas coché · ', h('span', { class: 'marque faux' }, '○ ✓'), ' coché sans l’avoir vu · ', h('span', { class: 'marque non' }, '○'), ' pas vu · ', h('span', { class: 'marque releve' }, '●'), ' vu, fin de reco non faite')),
       ...resultats.map((r) => {
         const c = couverture(sc, r.etat);
         return h(
           'th',
           { class: 'cmp-stagiaire', scope: 'col' },
           h('strong', {}, r.stagiaire),
-          h('span', { class: 'muted petit' }, `${dateCourte(r.date)} · ${chronoTexte(r.etat.chrono)}`),
+          h('span', { class: 'muted petit' }, `${dateCourte(r.date)} · durée ${chronoTexte(r.etat.chrono)}`),
           h('span', { class: 'muted petit' }, `couverture ${pct(c.global)}`),
-          r.etat.rapport ? null : h('span', { class: 'marque faux petit' }, 'sans compte rendu'),
-          boutonConfirme('Supprimer', () => { sauverResultats(chargerResultats().filter((x) => x.id !== r.id)); dire(`Partie de ${r.stagiaire} supprimée.`); rendre(); }, 'btn mini'),
+          r.etat.rapport ? null : h('span', { class: 'etat-cr' }, 'fin de reco non faite'),
+          boutonConfirme('Supprimer', () => { sauverResultats(chargerResultats().filter((x) => x.id !== r.id)); dire(`Partie de ${r.stagiaire} supprimée.`); rendre(); }, 'btn mini gestion'),
         );
       }),
       h('th', { class: 'cmp-fin' }, 'Vu par'),
@@ -158,7 +190,7 @@ export function creerPageResultats(parent: HTMLElement, sc: Scenario) {
     const liste = (items: string[]) => (items.length ? h('ul', { class: 'cmp-liste' }, ...items.map((t) => h('li', {}, t))) : h('span', { class: 'muted' }, '—'));
     const actions = [
       ligneTitre('Actions'),
-      ligne('Compte rendu', etats.map((st) => (st.rapport ? 'rempli' : h('span', { class: 'marque faux' }, 'non rempli')))),
+      ligne('Fin de reco', etats.map((st) => (st.rapport ? 'faite' : h('span', { class: 'marque faux' }, 'non faite')))),
       ligne('Coupures', etats.map((st) => liste(st.coupures.map((k) => `${chronoTexte(k.t)} ${k.cible === 'palier' ? 'gaine palière' : `${k.energie === 'gaz' ? 'gaz' : 'élec.'} ${k.cible === 'immeuble' ? 'immeuble' : `logt ${k.logement}`}`}`)))),
       ligne('Désenfumage cage', etats.map((st) => (st.desenfumage ? 'oui' : h('span', { class: 'muted' }, 'non'))), jauge(etats.filter((st) => st.desenfumage).length, n)),
       ligne('Gaine palière ouverte', etats.map((st) => (st.gaineOuverte ? 'oui' : h('span', { class: 'muted' }, 'non'))), jauge(etats.filter((st) => st.gaineOuverte).length, n)),
@@ -185,7 +217,7 @@ export function creerPageResultats(parent: HTMLElement, sc: Scenario) {
       return store;
     });
     const plans = [
-      ligneTitre('Plans', 'zones grisées : non reconnues · losange vert : relevé · rouge : manqué'),
+      ligneTitre('Plans', 'zones grisées : non reconnues · losange vert : relevé · rouge : manqué', 'plans'),
       ...sc.niveaux.map((niv) =>
         ligne(
           niv.nom,
@@ -225,13 +257,14 @@ export function creerPageResultats(parent: HTMLElement, sc: Scenario) {
     const moy = Math.round(durees.reduce((a, b) => a + b, 0) / n);
     const compte = (f: (k: (typeof etats)[number]['coupures'][number]) => boolean) => etats.filter((st) => st.coupures.some(f)).length;
 
-    const chiffre = (valeur: string, libelle: string) => h('div', { class: 'kpi' }, h('strong', {}, valeur), h('span', {}, libelle));
+    // Bilan de séance : une ligne de relevé, pas des cartes
+    const chiffre = (valeur: string, libelle: string) => h('div', { class: 'bilan-item' }, h('dt', {}, libelle), h('dd', {}, valeur));
     const kpis = h(
-      'div',
-      { class: 'kpis' },
+      'dl',
+      { class: 'bilan' },
       chiffre(String(n), n > 1 ? 'passages' : 'passage'),
       chiffre(chronoTexte(moy), `durée moyenne (${chronoTexte(Math.min(...durees))} à ${chronoTexte(Math.max(...durees))})`),
-      chiffre(`${avecCr}/${n}`, 'comptes rendus remplis'),
+      chiffre(`${avecCr}/${n}`, 'fins de reco faites'),
       chiffre(`${compte((k) => k.energie === 'gaz' && k.cible === 'immeuble')}/${n}`, 'gaz coupé (immeuble)'),
       chiffre(`${compte((k) => k.energie === 'elec' && k.cible === 'immeuble')}/${n}`, 'électricité coupée (immeuble)'),
       chiffre(`${etats.filter((st) => st.desenfumage).length}/${n}`, 'désenfumage de la cage'),
@@ -255,7 +288,7 @@ export function creerPageResultats(parent: HTMLElement, sc: Scenario) {
       total: n,
       note: `coché par ${x.declares}`,
     }));
-    const nonRemontes = syn.filter((x) => x.vusNonDeclares > 0).sort((a, b) => b.vusNonDeclares - a.vusNonDeclares).map((x) => ({ libelle: nom(x), v: x.vusNonDeclares, total: x.vusAvecCr, note: `sur ${x.vusAvecCr} qui l'ont vu et ont rempli le compte rendu` }));
+    const nonRemontes = syn.filter((x) => x.vusNonDeclares > 0).sort((a, b) => b.vusNonDeclares - a.vusNonDeclares).map((x) => ({ libelle: nom(x), v: x.vusNonDeclares, total: x.vusAvecCr, note: `sur ${x.vusAvecCr} qui l'ont vu et ont fait la fin de reco` }));
     const absents = [...sc.grille.exterieur, ...sc.grille.interieur].filter((it) => !it.poi.length);
     const faux = [
       ...syn.filter((x) => x.declaresNonVus > 0).map((x) => ({ libelle: nom(x), v: x.declaresNonVus, total: avecCr, note: 'non relevé en jeu' })),
@@ -267,7 +300,7 @@ export function creerPageResultats(parent: HTMLElement, sc: Scenario) {
       'div',
       { class: 'deb-bloc' },
       h('h2', {}, 'Zones reconnues par le groupe'),
-      h('p', { class: 'muted' }, 'Vert : part des stagiaires qui ont reconnu la zone. Nuage : zone où une partie du groupe n’est jamais entrée, opaque si personne n’y est allé. Chiffres : nombre de stagiaires qui ont reconnu la zone, puis ceux qui l’ont seulement traversée.'),
+      h('p', { class: 'muted' }, 'Vert : part des stagiaires qui ont reconnu la zone. Nuage : zone où une partie du groupe n’est jamais entrée, opaque si personne n’y est allé. Chiffres : stagiaires qui ont reconnu la zone ; « +n traversée » : ceux qui l’ont seulement traversée, sans la reconnaître.'),
       h('div', { class: 'chaleurs' }, ...sc.niveaux.map((niv) => h('figure', { class: 'chaleur' }, h('figcaption', {}, niv.nom), carteChaleur(sc, niv.id, freq, n)))),
     );
 
@@ -282,8 +315,8 @@ export function creerPageResultats(parent: HTMLElement, sc: Scenario) {
         h(
           'div',
           { class: 'tdb-col' },
-          barres('Vus mais pas remontés', 'Relevés en jeu, mais absents du compte rendu.', nonRemontes, 'Aucun écart : tout ce qui a été vu a été remonté.'),
-          barres('Cochés sans avoir été vus', 'Déclarés au compte rendu sans avoir été relevés, ou absents du scénario.', faux, 'Aucun.'),
+          barres('Vus mais pas remontés', 'Relevés en jeu, mais pas cochés en fin de reco.', nonRemontes, 'Aucun écart : tout ce qui a été vu a été remonté.'),
+          barres('Cochés sans avoir été vus', 'Cochés en fin de reco sans avoir été relevés, ou absents du scénario.', faux, 'Aucun.'),
         ),
       ),
       cartes,
@@ -322,7 +355,7 @@ function carteChaleur(sc: Scenario, niveau: string, freq: Record<string, { recon
       s('polygon', { points: pts(z.polygone), class: 'chaleur-contour' }, s('title', {}, `${z.nom} : reconnue par ${f.reconnue}/${n}, traversée par ${f.traversee}, jamais visitée par ${Math.round(jamais * n)}`)),
       s('text', { x: cx, y: cy - 2, class: 'zone-nom', 'text-anchor': 'middle' }, z.nom),
       s('text', { x: cx, y: cy + 9, class: 'chaleur-chiffre', 'text-anchor': 'middle' }, `${f.reconnue}/${n} reconnue${f.reconnue > 1 ? 's' : ''}`),
-      f.traversee ? s('text', { x: cx, y: cy + 18, class: 'chaleur-chiffre secondaire', 'text-anchor': 'middle' }, `${f.traversee} traversée${f.traversee > 1 ? 's' : ''} sans reconnaître`) : '',
+      f.traversee ? s('text', { x: cx, y: cy + 18, class: 'chaleur-chiffre secondaire', 'text-anchor': 'middle' }, `+${f.traversee} traversée${f.traversee > 1 ? 's' : ''}`) : '',
     );
   }
   svg.append(nuages, textes);

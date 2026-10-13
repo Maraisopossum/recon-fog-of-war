@@ -84,7 +84,7 @@ export interface Scenario {
   briefing: { motif: string; adresse: string; info: string; requerant: string; texte: string };
   /** logements desservis par le palier du sinistre et logement en feu (compteurs de la gaine) */
   logements: { liste: string[]; sinistre: string };
-  /** grille de méthode à cocher dans « Rendre compte », séparée en reconnaissance 360° et intérieure */
+  /** grille de méthode à cocher dans « Fin de reco », séparée en reconnaissance 360° et intérieure */
   grille: { exterieur: GrilleItem[]; interieur: GrilleItem[] };
   /** lecture du feu BV-FFCOS demandée à la fin de la reconnaissance, avec des zones de texte */
   lecture_feu: LectureItem[];

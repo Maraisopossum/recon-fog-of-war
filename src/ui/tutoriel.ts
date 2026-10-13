@@ -41,9 +41,9 @@ const DIAPOS: Diapo[] = [
     schema: () => h('div', { class: 'tuto-schema' }, ...['Ext.', 'Sous-sol', 'RDC', 'R+1', 'R+2'].map((n, i) => h('span', { class: 'puce-niveau' + (i === 2 ? ' actif' : '') }, n))),
   },
   {
-    titre: 'Action demandée, rendre compte, quitter',
-    texte: "« Action demandée » note à l'heure près ce que vous feriez demander (un sauvetage, par exemple) sans interrompre la reconnaissance. « Rendre compte » met fin à la partie : vous cochez ce que vous avez vu, sans retour possible. « Quitter » permet de reprendre, de terminer ou d'abandonner.",
-    schema: () => h('div', { class: 'tuto-schema' }, h('span', { class: 'btn tuto-btn' }, 'Action demandée'), h('span', { class: 'btn primaire tuto-btn' }, 'Rendre compte'), h('span', { class: 'btn tuto-btn' }, 'Quitter')),
+    titre: 'Action demandée, fin de reco, quitter',
+    texte: "« Action demandée » note à l'heure près ce que vous feriez demander (un sauvetage, par exemple) sans interrompre la reconnaissance. « Fin de reco » met fin à la partie : vous cochez ce que vous avez vu, sans retour possible. « Quitter » permet de reprendre, de terminer ou d'abandonner.",
+    schema: () => h('div', { class: 'tuto-schema' }, h('span', { class: 'btn tuto-btn' }, 'Action demandée'), h('span', { class: 'btn primaire tuto-btn' }, 'Fin de reco'), h('span', { class: 'btn tuto-btn' }, 'Quitter')),
   },
 ];
 
