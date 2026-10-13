@@ -36,7 +36,16 @@ export function ouvrirCompteRendu(parent: HTMLElement, store: Store) {
           h(
             'label',
             { class: 'case' + (coches.has(it.id) ? ' on' : '') },
-            h('input', { type: 'checkbox', ...(coches.has(it.id) ? { checked: true } : {}), onchange: (e: Event) => { (e.target as HTMLInputElement).checked ? coches.add(it.id) : coches.delete(it.id); rendre(); } }),
+            // pas de nouveau rendu : il recréerait la fenêtre et la ferait remonter en haut à chaque case cochée
+            h('input', {
+              type: 'checkbox',
+              ...(coches.has(it.id) ? { checked: true } : {}),
+              onchange: (e: Event) => {
+                const champ = e.target as HTMLInputElement;
+                champ.checked ? coches.add(it.id) : coches.delete(it.id);
+                champ.closest('label')?.classList.toggle('on', champ.checked);
+              },
+            }),
             it.libelle,
           ),
         ),
